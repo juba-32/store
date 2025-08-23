@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { Fade, Paper, Popper, Skeleton } from "@mui/material";
+import { Fade, Paper, Popper, Skeleton, Box } from "@mui/material";
 import SinglePro from "../../components/singlePro/SinglePro";
 import Navbar from "../../components/navbar/Navbar";
 import "../../styles/FetchData.css";
@@ -13,48 +13,61 @@ import Filter from "../filter/Filter";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { addToCart } from "../../redux/cartSlice";
 import { useDispatch } from "react-redux";
-import { Toast } from "primereact/toast";
+import Toast from "../toast/Toast";
+
 export default function UseFetchData({ url }) {
   const dispatch = useDispatch();
-  const toastCenter = useRef(null);
-  const showMessage = (ref, severity) => {
-    const label = "Successfully Added";
-    ref.current.show({ severity: severity, detail: label, life: 3000 });
-  };
   const m = useTheme();
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
   const [productid, setProductid] = useState(null);
-  const [tv, setTv] = useState([]);
+  const [data, setData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [sort, setSort] = useState("all");
+  const [loading, setLoading] = useState(true);
+
+  const [toastOpen, setToastOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastSeverity, setToastSeverity] = useState("info");
+
   useEffect(() => {
+    setLoading(true);
     axios.get(url).then((response) => {
-      setTv(response.data.products);
+      setData(response.data.products);
       setOriginalData(response.data.products);
+      setLoading(false);
     });
-  }, []);
+  }, [url]);
 
   const handleProductClick = (event, id) => {
-    setAnchorEl(event.target.value);
+    setAnchorEl(event.currentTarget);
     setProductid(id);
     setOpen(true);
   };
+
+  const handleAddToCart = (pro) => {
+    dispatch(addToCart(pro));
+    setToastMessage(`Successfully added to cart!`);
+    setToastSeverity("success");
+    setToastOpen(true);
+  };
+
+  const handleToastClose = (event, reason) => {
+    if (reason === "clickaway") return;
+    setToastOpen(false);
+  };
+
   const filterProducts = () => {
     let filteredData = [...originalData];
-    // Apply search filter
+
     if (searchQuery !== "") {
-      filteredData = filteredData.filter((pro) => {
-        return pro.title.toLowerCase().includes(searchQuery);
-      });
-    } else if (searchQuery) {
-      return (
-        <h1 style={{ color: "red", textAlign: "center" }}>No Items Found</h1>
+      filteredData = filteredData.filter((pro) =>
+        pro.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
-    // Apply sorting filter
     if (sort === "Cheap") {
       filteredData = filteredData.filter((pro) => pro.price < 100);
     } else if (sort === "Expensive") {
@@ -75,27 +88,14 @@ export default function UseFetchData({ url }) {
         <Swiper
           spaceBetween={30}
           centeredSlides={true}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
-          style={{
-            height: "40vh",
-          }}
+          autoplay={{ delay: 2500, disableOnInteraction: false }}
+          style={{ height: "40vh", position: "relative" }}
           speed={600}
           parallax={true}
-          pagination={{
-            clickable: true,
-          }}
           navigation={true}
           modules={[Parallax, Autoplay, Navigation]}
           className="mySwiper"
         >
-          <div
-            slot="container-start"
-            className="parallax-bg"
-            data-swiper-parallax="-23%"
-          ></div>
           <SwiperSlide
             style={{
               backgroundImage:
@@ -104,7 +104,7 @@ export default function UseFetchData({ url }) {
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
             }}
-          ></SwiperSlide>
+          />
           <SwiperSlide
             style={{
               backgroundImage:
@@ -113,7 +113,7 @@ export default function UseFetchData({ url }) {
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
             }}
-          ></SwiperSlide>
+          />
           <SwiperSlide
             style={{
               backgroundImage:
@@ -122,16 +122,11 @@ export default function UseFetchData({ url }) {
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
             }}
-          ></SwiperSlide>
+          />
         </Swiper>
       </div>
-      <Popper
-        sx={{ zIndex: 1200 }}
-        open={open}
-        anchorEl={anchorEl}
-        placement="center"
-        transition
-      >
+
+      <Popper sx={{ zIndex: 1200 }} open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <Paper sx={{ width: "80%", m: "auto" }}>
@@ -140,44 +135,62 @@ export default function UseFetchData({ url }) {
           </Fade>
         )}
       </Popper>
+
       <Navbar setSearchQuery={setSearchQuery} />
       <Filter setSort={setSort} />
+
       <div className="products">
-        {filterProducts().map((pro) => (
-          <div className="product-card" key={pro.id}>
-            <Toast className="x" ref={toastCenter} position="center" style={{color:"red"}} />
-            <img
-              className="product-image"
-              src={pro.image}
-              alt={pro.title}
-              onClick={(e) => handleProductClick(e, pro.id)}
-            />
-            <p className="product-description">{pro.description}</p>
-            <div className="addpro">
-              <span>${pro.price}</span>
-              <ShoppingCartIcon
-                sx={{
-                  color: m.palette.text.primary,
-                  cursor: "pointer",
-                  transition: "all 0.1s ease",
-                  "&:hover": {
-                    color: "lightgreen",
-                    transform: "scale(1.2)",
-                  },
-                  "&:active": {
-                    color: "green",
-                    transform: "scale(0.9)",
-                  },
-                }}
-                onClick={(e) => {
-                  dispatch(addToCart(pro));
-                  showMessage(toastCenter, "success");
-                }}
+        {loading ? (
+          Array.from(new Array(8)).map((_, index) => (
+            <Box key={index} className="product-card">
+              <Skeleton
+                variant="rectangular"
+                width={210}
+                height={140}
+                sx={{ borderRadius: 2, mb: 1 }}
               />
-            </div>
+              <Skeleton width="60%" height={20} />
+              <Skeleton width="40%" height={20} />
+            </Box>
+          ))
+        ) : filterProducts().length === 0 ? (
+          <div className="no-items-wrapper">
+            <h1>No Items Found</h1>
           </div>
-        ))}
+        ) : (
+          filterProducts().map((pro) => (
+            <div className="product-card" key={pro.id}>
+              <img
+                className="product-image"
+                src={pro.image}
+                alt={pro.title}
+                onClick={(e) => handleProductClick(e, pro.id)}
+              />
+              <p className="product-description">{pro.title}</p>
+              <div className="addpro">
+                <span>${pro.price}</span>
+                <ShoppingCartIcon
+                  sx={{
+                    color: m.palette.text.primary,
+                    cursor: "pointer",
+                    transition: "all 0.1s ease",
+                    "&:hover": { color: "lightgreen", transform: "scale(1.2)" },
+                    "&:active": { color: "green", transform: "scale(0.9)" },
+                  }}
+                  onClick={() => handleAddToCart(pro)}
+                />
+              </div>
+            </div>
+          ))
+        )}
       </div>
+
+      <Toast
+        open={toastOpen}
+        onClose={handleToastClose}
+        message={toastMessage}
+        severity={toastSeverity}
+      />
     </div>
   );
 }

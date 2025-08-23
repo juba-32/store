@@ -4,6 +4,7 @@ const initialState = JSON.parse(localStorage.getItem("cartState")) || {
   totalPrice: 0,
   qty: 0,
   selectedCategory: "",
+  searchQuery: "",
   darkMode: JSON.parse(localStorage.getItem("cartState"))?.darkMode ?? false,
 };
 const cartSlice = createSlice({

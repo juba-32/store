@@ -11,15 +11,13 @@ import Reg from "./components/register/Register";
 import { darkTheme, lightTheme } from "./components/theme/Theme";
 import { useSelector } from "react-redux";
 import { ThemeProvider, CssBaseline } from "@mui/material";
-import { useState } from "react";
 function App() {
-  const [searchQuery, setSearchQuery] = useState("");
   const darkMode = useSelector((state) => state.cart.darkMode);
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
       <div className="App">
-        <Navbar setSearchQuery={setSearchQuery} />
+        <Navbar  />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/tv" element={<Tv />} />

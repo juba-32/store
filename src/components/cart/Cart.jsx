@@ -9,8 +9,9 @@ import {
   removeFromCart,
   resetCart,
 } from "../../redux/cartSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export default function Cart() {
+  const navigate = useNavigate();
   const m = useTheme();
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart?.cart);
@@ -37,6 +38,8 @@ export default function Cart() {
             style={{
               color: "red",
               marginTop: "150px",
+              display: "flex",
+              justifyContent: "center",
               textTransform: "capitalize",
             }}
           >
@@ -111,46 +114,50 @@ export default function Cart() {
         )}
       </div>
 
-      <div
-        className="Order-Summary"
-        style={{
-          backgroundColor: m.palette.background.BG,
-          color: m.palette.text.primary,
-        }}
-      >
-        <h2>Order Summary</h2>
-        <hr />
-        <div>
-          <p>Price:</p>
-          <span>${total.toFixed(2)}</span>
-        </div>
-        <div>
-          <p>Delivery: </p>
-          <span style={{ color: "green" }}>Free</span>
-        </div>
-        <div>
-          <p>Discount: </p>
-          <span style={{ color: "red" }}>${discount.toFixed(2)}</span>
-        </div>
-        <hr />
-        <div>
-          <b>Subtotal: </b>
-          <span>${suptotal.toFixed(2)}</span>
-        </div>
-        <button>procced to pay</button>
-      </div>
-      <div className="cart-header-btns">
-        <Link to="/product">
-          <button>continue shopping</button>
-        </Link>
+      {cartItems.length > 0 && (
         <div
-          onClick={() => {
-            dispatch(resetCart());
+          className="Order-Summary"
+          style={{
+            backgroundColor: m.palette.background.BG,
+            color: m.palette.text.primary,
           }}
-          className="cart-delete-btn"
         >
-          delete all
+          <h2>Order Summary</h2>
+          <hr />
+          <div>
+            <p>Price:</p>
+            <span>${total.toFixed(2)}</span>
+          </div>
+          <div>
+            <p>Delivery: </p>
+            <span style={{ color: "green" }}>Free</span>
+          </div>
+          <div>
+            <p>Discount: </p>
+            <span style={{ color: "red" }}>${discount.toFixed(2)}</span>
+          </div>
+          <hr />
+          <div>
+            <b>Subtotal: </b>
+            <span>${suptotal.toFixed(2)}</span>
+          </div>
+          <button>procced to pay</button>
         </div>
+      )}
+
+      <div className="cart-header-btns">
+        <button onClick={() => navigate(-1)}>continue shopping</button>
+
+        {cartItems.length > 0 && (
+          <div
+            onClick={() => {
+              dispatch(resetCart());
+            }}
+            className="cart-delete-btn"
+          >
+            delete all
+          </div>
+        )}
       </div>
     </div>
   );
