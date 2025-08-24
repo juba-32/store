@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Fade, Paper, Popper, Skeleton, Box } from "@mui/material";
+import { Skeleton, Box, Modal } from "@mui/material";
 import SinglePro from "../../components/singlePro/SinglePro";
 import Navbar from "../../components/navbar/Navbar";
 import "../../styles/FetchData.css";
@@ -58,7 +58,10 @@ export default function UseFetchData({ url }) {
     if (reason === "clickaway") return;
     setToastOpen(false);
   };
-
+  const handleClose = () => {
+    setOpen(false);
+    setProductid(null);
+  };
   const filterProducts = () => {
     let filteredData = [...originalData];
 
@@ -125,23 +128,44 @@ export default function UseFetchData({ url }) {
           />
         </Swiper>
       </div>
-
-      <Popper sx={{ zIndex: 1200 }} open={open} anchorEl={anchorEl} transition>
-        {({ TransitionProps }) => (
-          <Fade {...TransitionProps} timeout={350}>
-            <Paper sx={{ width: "80%", m: "auto" }}>
-              {productid && <SinglePro productid={productid} />}
-            </Paper>
-          </Fade>
-        )}
-      </Popper>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="product-modal"
+        aria-describedby="product-details"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: { xs: "90%", sm: "70%", md: "50%" },
+            bgcolor: "background.paper",
+            borderRadius: 2,
+            boxShadow: 24,
+            p: 3,
+            maxHeight: "90vh",
+            overflowY: "auto",
+          }}
+        >
+          {productid && (
+            <SinglePro
+              open={open}
+              handleClose={handleClose}
+              handleAddToCart={handleAddToCart}
+              productid={productid}
+            />
+          )}
+        </Box>
+      </Modal>
 
       <Navbar setSearchQuery={setSearchQuery} />
       <Filter setSort={setSort} />
 
       <div className="products">
         {loading ? (
-          Array.from(new Array(8)).map((_, index) => (
+          Array.from(new Array(15)).map((_, index) => (
             <Box key={index} className="product-card">
               <Skeleton
                 variant="rectangular"

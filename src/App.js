@@ -11,9 +11,11 @@ import Reg from "./components/register/Register";
 import { darkTheme, lightTheme } from "./components/theme/Theme";
 import { useSelector } from "react-redux";
 import { ThemeProvider, CssBaseline } from "@mui/material";
+import SinglePro from "./components/singlePro/SinglePro";
 function App() {
   const darkMode = useSelector((state) => state.cart.darkMode);
   return (
+    
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
       <div className="App">
