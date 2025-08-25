@@ -5,12 +5,22 @@ import {
   RadioGroup,
 
 } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Filter({ setSort,  setSearchQuary }) {
-
+  const dispatch = useDispatch();
+  // const { selectedCategory, searchQuery } = useSelector((state) => state.cart);
   const handleSortChange = (e) => {
     setSort(e.target.value);
   };
+
+  //   const handleCategoryChange = (e) => {
+  //   dispatch(setCategory(e.target.value));
+  // };
+
+  // const handleSearchChange = (e) => {
+  //   dispatch(setSearchQuery(e.target.value));
+  // };
 
   return (
     <div>

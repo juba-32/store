@@ -1,5 +1,5 @@
 .section {
-  margin-top:  8.5vh;
+  margin-top: 8.5vh;
 }
 .products-header {
   width: auto;
@@ -79,11 +79,6 @@
   justify-content: space-between;
 }
 
-.x {
-  background: lightgreen;
-  align-items: center;
-}
-
 @media screen and (min-width: 900px) and (max-width: 1200px) {
   .products {
     grid-template-columns: repeat(3, 1fr);
@@ -109,6 +104,9 @@
   .product-image {
     width: 180px;
   }
+  .section{
+    padding-top: 64;
+  }
 }
 @media screen and (max-width: 850px) {
   .products {
@@ -126,8 +124,8 @@
     width: 260px;
   }
   .section {
-  margin-top:  27vh;
-}
+    margin-top: 23vh;
+  }
 }
 
 @media screen and (min-width: 300px) and (max-width: 550px) {
@@ -141,6 +139,6 @@
     width: 260px;
   }
   .section {
-  margin-top:  27vh;
-}
+    margin-top: 23vh;
+  }
 }

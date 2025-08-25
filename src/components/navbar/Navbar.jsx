@@ -30,11 +30,11 @@ import { useSelector } from "react-redux";
 import Theme from "../theme/Theme";
 import Search from "../search/Search";
 
-export default function Navbar({ setSearchQuery }) {
+export default function Navbar() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const qty = useSelector((state) => state.cart.qty);
-
+  
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorElAccount, setAnchorElAccount] = useState(null);
   const [anchorElLang, setAnchorElLang] = useState(null);
@@ -114,7 +114,7 @@ export default function Navbar({ setSearchQuery }) {
           </Box>
 
           {/* Desktop Search */}
-          {!isMobile && <Search setSearchQuery={setSearchQuery} />}
+          {!isMobile && <Search />}
 
           {/* Right Section */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -169,7 +169,7 @@ export default function Navbar({ setSearchQuery }) {
         {/* Mobile Search */}
         {isMobile && (
           <Box sx={{ px: 2, py: 1 }}>
-            <Search setSearchQuery={setSearchQuery} />
+            <Search />
           </Box>
         )}
       </AppBar>
@@ -213,7 +213,16 @@ export default function Navbar({ setSearchQuery }) {
         onClose={() => handleMenuClose(setAnchorElAccount)}
       >
         <MenuItem onClick={() => handleMenuClose(setAnchorElAccount)}>
-          <Link style={{color:theme.palette.text.primary, textDecoration:"none", textTransform:"capitalize"}} to={"/register"}>sign up</Link>
+          <Link
+            style={{
+              color: theme.palette.text.primary,
+              textDecoration: "none",
+              textTransform: "capitalize",
+            }}
+            to={"/register"}
+          >
+            sign up
+          </Link>
         </MenuItem>
       </Menu>
 

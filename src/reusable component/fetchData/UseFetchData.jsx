@@ -12,11 +12,12 @@ import { useTheme } from "@mui/material";
 import Filter from "../filter/Filter";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { addToCart } from "../../redux/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Toast from "../toast/Toast";
 
 export default function UseFetchData({ url }) {
   const dispatch = useDispatch();
+  const searchQuery = useSelector((state) => state.cart.searchQuery);
   const m = useTheme();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -24,10 +25,8 @@ export default function UseFetchData({ url }) {
   const [productid, setProductid] = useState(null);
   const [data, setData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
   const [sort, setSort] = useState("all");
   const [loading, setLoading] = useState(true);
-
   const [toastOpen, setToastOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastSeverity, setToastSeverity] = useState("info");
@@ -67,7 +66,7 @@ export default function UseFetchData({ url }) {
 
     if (searchQuery !== "") {
       filteredData = filteredData.filter((pro) =>
-        pro.title.toLowerCase().includes(searchQuery.toLowerCase())
+        pro?.title.toLowerCase().includes(searchQuery?.toLowerCase())
       );
     }
 
@@ -160,7 +159,7 @@ export default function UseFetchData({ url }) {
         </Box>
       </Modal>
 
-      <Navbar setSearchQuery={setSearchQuery} />
+      <Navbar />
       <Filter setSort={setSort} />
 
       <div className="products">
@@ -179,7 +178,7 @@ export default function UseFetchData({ url }) {
           ))
         ) : filterProducts().length === 0 ? (
           <div className="no-items-wrapper">
-            <h1>No Items Found</h1>
+            <h1>No items match your search</h1>
           </div>
         ) : (
           filterProducts().map((pro) => (

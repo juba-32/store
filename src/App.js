@@ -11,25 +11,26 @@ import Reg from "./components/register/Register";
 import { darkTheme, lightTheme } from "./components/theme/Theme";
 import { useSelector } from "react-redux";
 import { ThemeProvider, CssBaseline } from "@mui/material";
-import SinglePro from "./components/singlePro/SinglePro";
+import Footer from "./components/footer/Footer";
 function App() {
   const darkMode = useSelector((state) => state.cart.darkMode);
+  // const searchQuery = useSelector((state) => state.cart.searchQuery);
   return (
-    
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
       <div className="App">
-        <Navbar  />
+        <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home  />} />
           <Route path="/tv" element={<Tv />} />
           <Route path="/audio" element={<Audio />} />
-          <Route path="/mobile" element={<Mobile />} />
+          <Route path="/mobile" element={<Mobile/>} />
           <Route path="/gaming" element={<Gaming />} />
           <Route path="/Product" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/register" element={<Reg />} />
         </Routes>
+        <Footer />
       </div>
     </ThemeProvider>
   );
