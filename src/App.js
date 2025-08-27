@@ -12,9 +12,14 @@ import { darkTheme, lightTheme } from "./components/theme/Theme";
 import { useSelector } from "react-redux";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import Footer from "./components/footer/Footer";
+import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 function App() {
   const darkMode = useSelector((state) => state.cart.darkMode);
-  // const searchQuery = useSelector((state) => state.cart.searchQuery);
+  const { i18n } = useTranslation();
+  useEffect(() => {
+    document.body.dir = i18n.language === "ar" ? "rtl" : "ltr";
+  }, [i18n.language]);
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />

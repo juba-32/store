@@ -1,0 +1,66 @@
+{
+  "navbar": {
+    "Products": "المنتجات",
+    "TV": "تلفزيون",
+    "Audio": "صوتيات",
+    "Mobile": "موبايل",
+    "Gaming": "ألعاب"
+  },
+  "signup": {
+    "Welcome Back!": "!مرحبا بعودتك",
+    "log in": "تسجيل الدخول",
+    "sign up": " انشاء حساب",
+    "full name": "الاسم بالكامل",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirm Password": "تأكيد كلمة المرور",
+    "already have account": "هل لديك حساب بالفعل؟ تسجيل الدخول",
+    "Need an account": "تحتاج إلى حساب؟ انشاء حساب"
+  },
+
+  "search": {
+    "Search Products": "ابحث عن المنتجات"
+  },
+
+  "hero": {
+    "A history of glory": "تاريخ من المجد",
+    "explore": "اكتشف",
+    "Home Cinema": "سينما منزلية",
+    "Premium Headphones": "سماعات رأس مميزة",
+    "Next-Gen iPhone": "آيفون الجيل التالي",
+    "Crystal Clear Audio": "صوت كريستال واضح",
+    "shop now": "تسوق الان"
+  },
+
+  "cart": {
+    "Shopping cart": "عربه التسوق",
+    "items": "منتجات",
+    "your cart is empty": "لا توجد منتجات",
+    "continue shopping": "اكمال التسوق",
+    "delete all": "حذف الجميع",
+    "procced to pay": "تقدم للدفع",
+    "Subtotal": "المجموع",
+    "Discount": "الخصم",
+    "Delivery": "التوصيل",
+    "Price": "السعر",
+    "Order Summary": "ملخص الطلب",
+    "color": "اللون",
+    "Qty" : "الكميه",
+    "remove": "حذف"
+  },
+
+  "footer": {
+    "Quick Links": "روابط سريعة",
+    "Customer Support": "خدمة العملاء",
+    "About Us": "معلومات عنا",
+    "Privacy Policy": "سياسة الخصوصية",
+    "Terms & Conditions": "الشروط والأحكام",
+    "Product Returns": "إرجاع المنتجات"
+  },
+  "sort": {
+    "sale": "بيع",
+    "sheap":"رخيص",
+    "expensive": "غالي",
+    "all": "الكل"
+  }
+}

@@ -29,8 +29,10 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Theme from "../theme/Theme";
 import Search from "../search/Search";
+import { useTranslation } from "react-i18next";
 
 export default function Navbar() {
+  const { t, i18n } = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const qty = useSelector((state) => state.cart.qty);
@@ -52,11 +54,11 @@ export default function Navbar() {
   };
 
   const navItems = [
-    { label: "Products", path: "/product" },
-    { label: "TV", path: "/tv" },
-    { label: "Audio", path: "/audio" },
-    { label: "Mobile", path: "/mobile" },
-    { label: "Gaming", path: "/gaming" },
+    { label: t("navbar.Products"), path: "/product" },
+    { label: t("navbar.TV"), path: "/tv" },
+    { label: t("navbar.Audio"), path: "/audio" },
+    { label: t("navbar.Mobile"), path: "/mobile" },
+    { label: t("navbar.Gaming"), path: "/gaming" },
   ];
 
   return (
@@ -221,7 +223,7 @@ export default function Navbar() {
             }}
             to={"/register"}
           >
-            sign up
+            {t("signup.sign up")}
           </Link>
         </MenuItem>
       </Menu>
@@ -232,10 +234,10 @@ export default function Navbar() {
         open={Boolean(anchorElLang)}
         onClose={() => handleMenuClose(setAnchorElLang)}
       >
-        <MenuItem onClick={() => handleMenuClose(setAnchorElLang)}>
+        <MenuItem onClick={() => i18n.changeLanguage("en")}>
           English
         </MenuItem>
-        <MenuItem onClick={() => handleMenuClose(setAnchorElLang)}>
+        <MenuItem onClick={() => i18n.changeLanguage("ar")}>
           العربية
         </MenuItem>
       </Menu>

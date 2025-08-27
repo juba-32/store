@@ -14,19 +14,23 @@ import {
 } from "firebase/auth";
 import { auth } from "../../firebase/Config";
 import Input from "../../reusable component/input/Input";
+import { useTranslation } from "react-i18next";
 
 const Register = () => {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
   const [hasError, setHasError] = useState(false);
   const [firebaseError, setFirebaseError] = useState(false);
   const [mode, setMode] = useState("login");
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     fullname: "",
     email: "",
     password: "",
     createpassword: "",
     repeatpassword: "",
-  });
+  };
+  const [formData, setFormData] = useState(initialFormData);
 
   const toggleMode = () => {
     setMode(mode === "login" ? "signup" : "login");
@@ -52,13 +56,7 @@ const Register = () => {
     if (mode === "login") {
       signInWithEmailAndPassword(auth, formData.email, formData.password)
         .then(() => {
-          setFormData({
-            fullname: "",
-            email: "",
-            password: "",
-            createpassword: "",
-            repeatpassword: "",
-          });
+          setFormData(initialFormData);
           navigate("/");
         })
         .catch((error) => {
@@ -79,13 +77,7 @@ const Register = () => {
         formData.createpassword
       )
         .then(() => {
-          setFormData({
-            fullname: "",
-            email: "",
-            password: "",
-            createpassword: "",
-            repeatpassword: "",
-          });
+          setFormData(initialFormData);
           setMode("login");
         })
         .catch((error) => {
@@ -132,15 +124,15 @@ const Register = () => {
         }}
       >
         <Typography variant="h5" sx={{ mb: 2, color: "text.primary" }}>
-          {mode === "login" ? "Welcome Back!" : "Sign Up"}
+          {mode === "login" ? t("signup.Welcome Back!") : t("signup.sign up")}
         </Typography>
 
         <FormControlLabel
           control={<Switch checked={mode === "signup"} onChange={toggleMode} />}
           label={
             mode === "login"
-              ? "Need an account? Sign up"
-              : "Already have an account? Login"
+              ? t("signup.already have account")
+              : t("signup.Need an account")
           }
           sx={{
             display: "flex",
@@ -161,7 +153,7 @@ const Register = () => {
                 required
                 type="text"
                 id="email"
-                label="Email"
+                label={t("signup.email")}
                 value={formData.email}
                 onChange={handleChange}
               />
@@ -170,53 +162,53 @@ const Register = () => {
                 required
                 type="password"
                 id="password"
-                label="password"
+                label={t("signup.password")}
                 value={formData.password}
                 onChange={handleChange}
               />
             </>
           ) : (
             <>
-            <Input
+              <Input
                 fullWidth
                 required
                 id="fullname"
-                label="Full Name"
+                label={t("signup.full name")}
                 value={formData.fullname}
                 onChange={handleChange}
                 sx={{ mb: 2 }}
               />
 
-              <Input 
+              <Input
                 fullWidth
                 required
                 id="email"
-                label="Email"
+                label={t("signup.email")}
                 value={formData.email}
                 onChange={handleChange}
                 sx={{ mb: 2 }}
               />
 
-              <Input 
+              <Input
                 fullWidth
                 required
                 type="password"
                 id="createpassword"
-                label="Password"
+                label={t("signup.password")}
                 value={formData.createpassword}
                 onChange={handleChange}
                 sx={{ mb: 2 }}
               />
 
-              <Input 
+              <Input
                 fullWidth
                 required
                 type="password"
                 id="repeatpassword"
-                label="Repeat Password"
+                label={t("signup.confirm Password")}
                 value={formData.repeatpassword}
                 onChange={handleChange}
-              />            
+              />
             </>
           )}
 
@@ -227,7 +219,7 @@ const Register = () => {
             color="primary.contrastText"
             sx={{ mt: 3, py: 1.5, fontWeight: "bold" }}
           >
-            {mode === "login" ? "Log In" : "Sign Up"}
+            {mode === "login" ? t("signup.log in") : t("signup.sign up")}
           </Button>
 
           {hasError && (

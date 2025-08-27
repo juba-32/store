@@ -3,8 +3,11 @@ import { Box, InputBase, useTheme, useMediaQuery } from "@mui/material";
 import "../search/Search.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchQuery } from "../../redux/cartSlice";
+import { useTranslation } from "react-i18next";
 
 export default function Search() {
+    const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const searchQuery = useSelector((state) => state.cart.searchQuery);
   const handleSearchFilter = (e) => {
@@ -20,7 +23,7 @@ export default function Search() {
       </div>
       <InputBase
         className="search-input"
-        placeholder="Search Products"
+        placeholder={t("search.Search Products")}
         value={searchQuery}
         onChange={handleSearchFilter}
       />

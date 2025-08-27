@@ -9,8 +9,10 @@ import {
   removeFromCart,
   resetCart,
 } from "../../redux/cartSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 export default function Cart() {
+  const {t} = useTranslation();
   const navigate = useNavigate();
   const m = useTheme();
   const dispatch = useDispatch();
@@ -31,7 +33,7 @@ export default function Cart() {
     <div>
       <div className="cart-container">
         <h1>
-          Shopping cart <span>({qty} items)</span>
+          {t("cart.Shopping cart")} <span>({qty} {t("cart.items")})</span>
         </h1>
         {cartItems.length === 0 ? (
           <h1
@@ -43,7 +45,7 @@ export default function Cart() {
               textTransform: "capitalize",
             }}
           >
-            your cart is empty
+            {t("cart.your cart is empty")}
           </h1>
         ) : (
           cartItems?.map((pro) => (
@@ -61,13 +63,13 @@ export default function Cart() {
               <div className="cart-details">
                 <h5>{pro.title}</h5>
                 <p>
-                  <strong>color</strong> : {pro.color}
+                  <strong>{t("cart.color")}</strong> : {pro.color}
                 </p>
                 <p>
-                  <strong>price</strong> : {pro.price}
+                  <strong>{t("cart.Price")}</strong> : {pro.price}
                 </p>
                 <div className="qty">
-                  <b>Qty : </b>
+                  <b>{t("cart.Qty")} : </b>
                   <button
                     style={{
                       backgroundColor: m.palette.background.paper,
@@ -106,7 +108,7 @@ export default function Cart() {
                   }}
                   className="delete-btn"
                 >
-                  remove
+                  {t("cart.remove")}
                 </button>
               </div>
             </div>
@@ -122,31 +124,31 @@ export default function Cart() {
             color: m.palette.text.primary,
           }}
         >
-          <h2>Order Summary</h2>
+          <h2>{t("cart.Order Summary")}</h2>
           <hr />
           <div>
-            <p>Price:</p>
+            <p>{t("cart.Price")}:</p>
             <span>${total.toFixed(2)}</span>
           </div>
           <div>
-            <p>Delivery: </p>
+            <p>{t("cart.Delivery")}: </p>
             <span style={{ color: "green" }}>Free</span>
           </div>
           <div>
-            <p>Discount: </p>
+            <p>{t("cart.Discount")}: </p>
             <span style={{ color: "red" }}>${discount.toFixed(2)}</span>
           </div>
           <hr />
           <div>
-            <b>Subtotal: </b>
+            <b>{t("cart.Subtotal")}: </b>
             <span>${suptotal.toFixed(2)}</span>
           </div>
-          <button>procced to pay</button>
+          <button>{t("cart.procced to pay")}</button>
         </div>
       )}
 
       <div className="cart-header-btns">
-        <button onClick={() => navigate(-1)}>continue shopping</button>
+        <button onClick={() => navigate(-1)}> {t("cart.continue shopping")} </button>
 
         {cartItems.length > 0 && (
           <div
@@ -155,7 +157,7 @@ export default function Cart() {
             }}
             className="cart-delete-btn"
           >
-            delete all
+            {t("cart.delete all")}
           </div>
         )}
       </div>

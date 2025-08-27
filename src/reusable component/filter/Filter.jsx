@@ -5,36 +5,30 @@ import {
   RadioGroup,
 
 } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 export default function Filter({ setSort,  setSearchQuary }) {
-  const dispatch = useDispatch();
-  // const { selectedCategory, searchQuery } = useSelector((state) => state.cart);
+    const {t} = useTranslation();
+
   const handleSortChange = (e) => {
     setSort(e.target.value);
   };
 
-  //   const handleCategoryChange = (e) => {
-  //   dispatch(setCategory(e.target.value));
-  // };
 
-  // const handleSearchChange = (e) => {
-  //   dispatch(setSearchQuery(e.target.value));
-  // };
 
   return (
     <div>
       {/* Sort Filter */}
       <FormControl sx={{ ml: "20px" }}>
         <RadioGroup row onChange={handleSortChange}>
-          <FormControlLabel value="All" control={<Radio />} label="All" />
-          <FormControlLabel value="Cheap" control={<Radio />} label="Cheap" />
+          <FormControlLabel value="All" control={<Radio />} label={t("sort.all" )}/>
+          <FormControlLabel value="Cheap" control={<Radio />} label={t("sort.sheap")} />
           <FormControlLabel
             value="Expensive"
             control={<Radio />}
-            label="Expensive"
+            label={t("sort.expensive")}
           />
-          <FormControlLabel value="Sale" control={<Radio />} label="Sale" />
+          <FormControlLabel value="Sale" control={<Radio />} label={t("sort.sale")} />
         </RadioGroup>
       </FormControl>
 

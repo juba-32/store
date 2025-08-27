@@ -14,12 +14,11 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { addToCart } from "../../redux/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Toast from "../toast/Toast";
-
 export default function UseFetchData({ url }) {
+
   const dispatch = useDispatch();
   const searchQuery = useSelector((state) => state.cart.searchQuery);
   const m = useTheme();
-
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
   const [productid, setProductid] = useState(null);
@@ -88,6 +87,7 @@ export default function UseFetchData({ url }) {
         style={{ backgroundColor: m.palette.background.BG }}
       >
         <Swiper
+          dir="ltr"
           spaceBetween={30}
           centeredSlides={true}
           autoplay={{ delay: 2500, disableOnInteraction: false }}

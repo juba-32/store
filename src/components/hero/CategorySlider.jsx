@@ -8,6 +8,7 @@ export default function CategorySlider() {
   return (
     <div>
       <Swiper
+       dir="ltr"
         spaceBetween={30}
         centeredSlides={true}
         autoplay={{
@@ -36,7 +37,7 @@ export default function CategorySlider() {
           <SwiperSlide
           style={{
             backgroundImage:
-              "url(https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1694158321609-71pM0BQZLOL._SL1500_.jpg)",
+              "url(https://images.pexels.com/photos/1201996/pexels-photo-1201996.jpeg)",
             backgroundSize: "100% 100%",
             backgroundPosition: "center",
           }}
@@ -44,7 +45,7 @@ export default function CategorySlider() {
         <SwiperSlide
           style={{
             backgroundImage:
-              "url(https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1692458709910-51DkZC39goL._SL1000_.jpg)",
+              "url(https://images.pexels.com/photos/887751/pexels-photo-887751.jpeg)",
             backgroundSize: "100% 100%",
             backgroundPosition: "center",
             backgroundRepeat:"no-repeat"
@@ -53,7 +54,7 @@ export default function CategorySlider() {
         <SwiperSlide
           style={{
             backgroundImage:
-              "url(https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1691074519203-galaxy%20S22%205G.jpg)",
+              "url(https://images.pexels.com/photos/21067/pexels-photo.jpg)",
             backgroundSize: "100% 100%",
             backgroundPosition: "center",
           }}
@@ -61,7 +62,7 @@ export default function CategorySlider() {
         <SwiperSlide
           style={{
             backgroundImage:
-              "url(https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1694286670895-516qT+ItO5L._SL1500_.jpg)",
+              "url(https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg)",
             backgroundSize: "100% 100%",
             backgroundPosition: "center",
           }}

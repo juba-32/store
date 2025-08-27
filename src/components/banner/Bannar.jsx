@@ -1,31 +1,33 @@
 import { motion } from "framer-motion";
 import "./Bannar.css";
 import Button from "../../reusable component/button/Button";
-
-const bannerData = [
-  {
-    src: "https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1694154827301-81+JXgPUDLL._SL1500_.jpg",
-    caption: "Home Cinema",
-    link: "/tv",
-  },
-  {
-    src: "https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1691056348236-headphone3.jpg",
-    caption: "Premium Headphones",
-    link: "/audio",
-  },
-  {
-    src: "https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1691076020478-iPhone%2014%20pro.jpg",
-    caption: "Next-Gen iPhone",
-    link: "/mobile",
-  },
-  {
-    src: "https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1694241552001-61-jjE67uqL._SL1500_.jpg",
-    caption: "Crystal Clear Audio",
-    link: "/gaming",
-  },
-];
+import { useTranslation } from "react-i18next";
 
 export default function Bannar() {
+  const { t } = useTranslation();
+  const bannerData = [
+    {
+      src: "https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1694154827301-81+JXgPUDLL._SL1500_.jpg",
+      caption: t("hero.Home Cinema"),
+      link: "/tv",
+    },
+    {
+      src: "https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1691056348236-headphone3.jpg",
+      caption: t("hero.Premium Headphones"),
+      link: "/audio",
+    },
+    {
+      src: "https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1691076020478-iPhone%2014%20pro.jpg",
+      caption: t("hero.Next-Gen iPhone"),
+      link: "/mobile",
+    },
+    {
+      src: "https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1694241552001-61-jjE67uqL._SL1500_.jpg",
+      caption: t("hero.Crystal Clear Audio"),
+      link: "/gaming",
+    },
+  ];
+
   return (
     <div className="banner">
       {bannerData.map((item, i) => (

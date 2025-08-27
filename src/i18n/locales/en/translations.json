@@ -1,0 +1,68 @@
+{
+  "navbar": {
+    "Products": "Products",
+    "TV": "TV",
+    "Audio": "Audio",
+    "Mobile": "Mobile",
+    "Gaming": "Gaming"
+  },
+
+  "signup": {
+    "Welcome Back!": "Welcome Back!",
+    "log in": "Log in",
+    "sign up": "Sign Up",
+    "full name": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "confirm Password": "Confirm Password",
+    "already have account": "Already have an account? Login",
+    "Need an account": "Need an account? Sign up"
+  },
+
+  "search": {
+    "Search Products": "Search Products"
+  },
+
+  "hero": {
+    "A history of glory": "A history of glory",
+    "explore": "explore",
+    "Home Cinema": "Home Cinema",
+    "Premium Headphones": " Premium Headphones ",
+    "Next-Gen iPhone": "Next-Gen iPhone",
+    "Crystal Clear Audio": "Crystal Clear Audio",
+    "shop now": "shop now"
+  },
+
+  "cart": {
+    "Shopping cart": "Shopping cart",
+    "items": "items",
+    "your cart is empty": "your cart is empty",
+    "continue shopping": "continue shopping",
+    "delete all": "delete all",
+    "procced to pay": "procced to pay",
+    "Subtotal": "Subtotal",
+    "Discount": "Discount",
+    "Delivery": "Delivery",
+    "Price": "Price",
+    "Order Summary": "Order Summary",
+    "color": "color",
+    "Qty" : "Qty",
+    "remove": "remove"
+  },
+
+  "footer": {
+    "Quick Links": "Quick Links",
+    "Customer Support": "Customer Support",
+    "About Us": "About Us",
+    "Privacy Policy": "Privacy Policy",
+    "Terms & Conditions": "Terms & Conditions",
+    "Product Returns": "Product Returns"
+  },
+
+    "sort": {
+    "sale": "sale",
+    "sheap":"sheap",
+    "expensive": "expensive",
+    "all": "all"
+  }
+}

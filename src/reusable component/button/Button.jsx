@@ -1,7 +1,11 @@
 import "./Button.css";
 import Btn from "@mui/material/Button";
 import { Link as RouterLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 export default function Button({ link = "/" }) {
+  const { t } = useTranslation();
+
   return (
     <div>
       <Btn
@@ -28,7 +32,7 @@ export default function Button({ link = "/" }) {
           },
         }}
       >
-        shop now
+        {t("hero.shop now")}
       </Btn>
     </div>
   );

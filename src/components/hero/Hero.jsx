@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./Hero.css";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 export default function Hero() {
-  const texts = ["A.Bendary", "A history of glory"];
+    const { t } = useTranslation();
+
+  const texts = ["A.Bendary", t("hero.A history of glory")];
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -59,7 +62,7 @@ export default function Hero() {
           </motion.h1>
         </AnimatePresence>
 
-        <Link to={"/product"}>explore</Link>
+        <Link to={"/product"}>{t("hero.explore")}</Link>
       </div>
     </div>
   );
