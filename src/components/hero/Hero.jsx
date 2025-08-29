@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 export default function Hero() {
     const { t } = useTranslation();
 
-  const texts = ["A.Bendary", t("hero.A history of glory")];
+  const texts = [t("hero.A.Bendary"), t("hero.A history of glory")];
   const [index, setIndex] = useState(0);
 
   useEffect(() => {

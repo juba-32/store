@@ -7,22 +7,22 @@ export default function Bannar() {
   const { t } = useTranslation();
   const bannerData = [
     {
-      src: "https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1694154827301-81+JXgPUDLL._SL1500_.jpg",
+      src: "https://images.pexels.com/photos/1444416/pexels-photo-1444416.jpeg",
       caption: t("hero.Home Cinema"),
       link: "/tv",
     },
     {
-      src: "https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1691056348236-headphone3.jpg",
+      src: "https://images.pexels.com/photos/12920900/pexels-photo-12920900.jpeg",
       caption: t("hero.Premium Headphones"),
       link: "/audio",
     },
     {
-      src: "https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1691076020478-iPhone%2014%20pro.jpg",
+      src: "https://images.pexels.com/photos/699122/pexels-photo-699122.jpeg",
       caption: t("hero.Next-Gen iPhone"),
       link: "/mobile",
     },
     {
-      src: "https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1694241552001-61-jjE67uqL._SL1500_.jpg",
+      src: "https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg",
       caption: t("hero.Crystal Clear Audio"),
       link: "/gaming",
     },
