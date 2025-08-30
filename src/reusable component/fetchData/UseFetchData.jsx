@@ -15,7 +15,6 @@ import { addToCart } from "../../redux/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Toast from "../toast/Toast";
 export default function UseFetchData({ url }) {
-
   const dispatch = useDispatch();
   const searchQuery = useSelector((state) => state.cart.searchQuery);
   const m = useTheme();
@@ -63,7 +62,7 @@ export default function UseFetchData({ url }) {
   const filterProducts = () => {
     let filteredData = [...originalData];
 
-    if (searchQuery !== "") {
+    if (searchQuery && searchQuery.trim() !== "") {
       filteredData = filteredData.filter((pro) =>
         pro?.title.toLowerCase().includes(searchQuery?.toLowerCase())
       );
@@ -77,6 +76,9 @@ export default function UseFetchData({ url }) {
       filteredData = filteredData.filter((pro) => pro.discount > 0);
     }
 
+    console.log("Search Query:", searchQuery);
+    console.log("Original Data:", originalData);
+    console.log("Filtered Products:", filteredData);
     return filteredData;
   };
 
