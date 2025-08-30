@@ -36,7 +36,7 @@ export default function Navbar() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const qty = useSelector((state) => state.cart.qty);
-  
+
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorElAccount, setAnchorElAccount] = useState(null);
   const [anchorElLang, setAnchorElLang] = useState(null);
@@ -234,10 +234,20 @@ export default function Navbar() {
         open={Boolean(anchorElLang)}
         onClose={() => handleMenuClose(setAnchorElLang)}
       >
-        <MenuItem onClick={() => i18n.changeLanguage("en")}>
+        <MenuItem
+          onClick={() => {
+            i18n.changeLanguage("en");
+            handleMenuClose(setAnchorElLang);
+          }}
+        >
           English
         </MenuItem>
-        <MenuItem onClick={() => i18n.changeLanguage("ar")}>
+        <MenuItem
+          onClick={() => {
+            i18n.changeLanguage("ar");
+            handleMenuClose(setAnchorElLang);
+          }}
+        >
           العربية
         </MenuItem>
       </Menu>

@@ -21,7 +21,12 @@ const Footer = () => {
   return (
     <footer className={`footer ${darkMode ? "dark" : "light"}`}>
       <div className="footer-logo">
-        <img src={img} alt="logo" />
+        <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+              <img
+                src={img}
+                alt="logo"
+              />
+            </Link>
       </div>
 
       <div className="footer-sec">
@@ -38,7 +43,7 @@ const Footer = () => {
         <h3>{t("footer.Quick Links")}</h3>
         <ul>
           {quickLinks.map((link, index) => (
-            <li key={index}>
+            <li key={index} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
               <IoIosArrowForward />
               <Link to={link.path}>{link.label}</Link>
             </li>
