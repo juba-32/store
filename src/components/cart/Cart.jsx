@@ -19,6 +19,9 @@ export default function Cart() {
   const cartItems = useSelector((state) => state.cart?.cart);
   const qty = useSelector((state) => state.cart.qty);
 
+  console.log('jhjhj');
+  
+
   let total = 0;
   let discount = 0;
   let suptotal = 0;
