@@ -68,17 +68,17 @@ export default function UseFetchData({ url }) {
       );
     }
 
-    if (sort === "Cheap") {
-      filteredData = filteredData.filter((pro) => pro.price < 100);
-    } else if (sort === "Expensive") {
-      filteredData = filteredData.filter((pro) => pro.price >= 100);
-    } else if (sort === "Sale") {
-      filteredData = filteredData.filter((pro) => pro.discount > 0);
-    }
+    // if (sort === "Cheap") {
+    //   filteredData = filteredData.filter((pro) => pro.price < 100);
+    // } else if (sort === "Expensive") {
+    //   filteredData = filteredData.filter((pro) => pro.price >= 100);
+    // } else if (sort === "Sale") {
+    //   filteredData = filteredData.filter((pro) => pro.discount > 0);
+    // }
 
-    console.log("Search Query:", searchQuery);
-    console.log("Original Data:", originalData);
-    console.log("Filtered Products:", filteredData);
+    // console.log("Search Query:", searchQuery);
+    // console.log("Original Data:", originalData);
+    // console.log("Filtered Products:", filteredData);
     return filteredData;
   };
 
