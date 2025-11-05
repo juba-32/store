@@ -32,20 +32,20 @@ export default function UseFetchData({ url }) {
   useEffect(() => {
     setLoading(true);
     axios.get(url).then((response) => {
-      setData(response.data.products);
-      setOriginalData(response.data.products);
+      setData(response.data);
+      setOriginalData(response.data);
       setLoading(false);
     });
   }, [url]);
 
-  const handleProductClick = (event, id) => {
+  const handleProductClick = (event, _id) => {
     setAnchorEl(event.currentTarget);
-    setProductid(id);
+    setProductid(_id);
     setOpen(true);
   };
 
   const handleAddToCart = (pro) => {
-    dispatch(addToCart(pro));
+    dispatch(addToCart({...pro, id: pro._id}));
     setToastMessage(`Successfully added to cart!`);
     setToastSeverity("success");
     setToastOpen(true);
@@ -184,12 +184,12 @@ export default function UseFetchData({ url }) {
           </div>
         ) : (
           filterProducts().map((pro) => (
-            <div className="product-card" key={pro.id}>
+            <div className="product-card" key={pro._id}>
               <img
                 className="product-image"
                 src={pro.image}
                 alt={pro.title}
-                onClick={(e) => handleProductClick(e, pro.id)}
+                onClick={(e) => handleProductClick(e, pro._id)}
               />
               <p className="product-description">{pro.title}</p>
               <div className="addpro">

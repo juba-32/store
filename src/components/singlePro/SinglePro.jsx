@@ -26,9 +26,9 @@ export default function SinglePro({
     if (productid) {
       setLoading(true);
       axios
-        .get(`https://fakestoreapi.in/api/products/${productid}`)
+        .get(`https://amb.up.railway.app/products/${productid}`)
         .then((res) => {
-          setProduct(res.data.product);
+          setProduct(res.data);
         });
     }
     setLoading(false);

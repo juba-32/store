@@ -12,15 +12,12 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 export default function Cart() {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const m = useTheme();
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart?.cart);
   const qty = useSelector((state) => state.cart.qty);
-
-  console.log('jhjhj');
-  
 
   let total = 0;
   let discount = 0;
@@ -36,7 +33,10 @@ export default function Cart() {
     <div>
       <div className="cart-container">
         <h1>
-          {t("cart.Shopping cart")} <span>({qty} {t("cart.items")})</span>
+          {t("cart.Shopping cart")}
+          <span>
+            ({qty} {t("cart.items")})
+          </span>
         </h1>
         {cartItems.length === 0 ? (
           <h1
@@ -151,7 +151,10 @@ export default function Cart() {
       )}
 
       <div className="cart-header-btns">
-        <button onClick={() => navigate(-1)}> {t("cart.continue shopping")} </button>
+        <button onClick={() => navigate(-1)}>
+          {" "}
+          {t("cart.continue shopping")}{" "}
+        </button>
 
         {cartItems.length > 0 && (
           <div
