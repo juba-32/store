@@ -2,7 +2,7 @@ import "./Footer.css";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaFacebookF, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 import { TiSocialTwitter } from "react-icons/ti";
-import img from "../../assets/r.png";
+import img from "../../assets/logo.png";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";

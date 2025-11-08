@@ -2,51 +2,70 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Skeleton, Box, Modal } from "@mui/material";
 import SinglePro from "../../components/singlePro/SinglePro";
-import Navbar from "../../components/navbar/Navbar";
 import "../../styles/FetchData.css";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Parallax, Autoplay, Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 import { useTheme } from "@mui/material";
-import Filter from "../filter/Filter";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { addToCart } from "../../redux/cartSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Toast from "../toast/Toast";
+import Price from "../../components/filter/Price";
+import Category from "../../components/filter/Category";
+
 export default function UseFetchData({ url }) {
   const dispatch = useDispatch();
-  const searchQuery = useSelector((state) => state.cart.searchQuery);
-  const m = useTheme();
-  const [anchorEl, setAnchorEl] = useState(null);
+  const theme = useTheme();
+
   const [open, setOpen] = useState(false);
   const [productid, setProductid] = useState(null);
   const [data, setData] = useState([]);
-  const [originalData, setOriginalData] = useState([]);
-  const [sort, setSort] = useState("all");
   const [loading, setLoading] = useState(true);
+
+  const [categoryFilter, setCategoryFilter] = useState("");
+  // const [priceFilter, setPriceFilter] = useState([0, 1000]);
   const [toastOpen, setToastOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastSeverity, setToastSeverity] = useState("info");
 
-  useEffect(() => {
+useEffect(() => {
+  const fetchProducts = async () => {
     setLoading(true);
-    axios.get(url).then((response) => {
-      setData(response.data);
-      setOriginalData(response.data);
-      setLoading(false);
-    });
-  }, [url]);
+    try {
+      const fullUrl = new URL(url, window.location.origin);
 
-  const handleProductClick = (event, _id) => {
-    setAnchorEl(event.currentTarget);
+      if (categoryFilter )
+        fullUrl.searchParams.set("selectCategory", categoryFilter);
+      
+
+      console.log("Fetching products from:", fullUrl.toString());
+
+      const response = await axios.get(fullUrl.toString());
+      console.log("Response:", response.data);
+
+      setData(response.data);
+    } catch (err) {
+      console.error("Error fetching products:", err);
+      setData([]); // reset if error
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchProducts();
+}, [url, categoryFilter]);
+
+
+  const handleProductClick = (_id) => {
     setProductid(_id);
     setOpen(true);
   };
 
   const handleAddToCart = (pro) => {
-    dispatch(addToCart({...pro, id: pro._id}));
-    setToastMessage(`Successfully added to cart!`);
+    dispatch(addToCart({ ...pro, id: pro._id }));
+    setToastMessage("Successfully added to cart!");
     setToastSeverity("success");
     setToastOpen(true);
   };
@@ -55,51 +74,32 @@ export default function UseFetchData({ url }) {
     if (reason === "clickaway") return;
     setToastOpen(false);
   };
+
   const handleClose = () => {
     setOpen(false);
     setProductid(null);
   };
-  const filterProducts = () => {
-    let filteredData = [...originalData];
-
-    if (searchQuery && searchQuery.trim() !== "") {
-      filteredData = filteredData.filter((pro) =>
-        pro?.title.toLowerCase().includes(searchQuery?.toLowerCase())
-      );
-    }
-
-    // if (sort === "Cheap") {
-    //   filteredData = filteredData.filter((pro) => pro.price < 100);
-    // } else if (sort === "Expensive") {
-    //   filteredData = filteredData.filter((pro) => pro.price >= 100);
-    // } else if (sort === "Sale") {
-    //   filteredData = filteredData.filter((pro) => pro.discount > 0);
-    // }
-
-    // console.log("Search Query:", searchQuery);
-    // console.log("Original Data:", originalData);
-    // console.log("Filtered Products:", filteredData);
-    return filteredData;
-  };
 
   return (
     <div className="section">
+      {/* Swiper Banner */}
       <div
         className="products-header"
-        style={{ backgroundColor: m.palette.background.BG }}
+        style={{ backgroundColor: theme.palette.background.BG }}
       >
         <Swiper
           dir="ltr"
           spaceBetween={30}
-          centeredSlides={true}
+          centeredSlides
           autoplay={{ delay: 2500, disableOnInteraction: false }}
           style={{ height: "40vh", position: "relative" }}
           speed={600}
-          parallax={true}
-          navigation={true}
+          parallax
+          navigation
           modules={[Parallax, Autoplay, Navigation]}
           className="mySwiper"
         >
+          {/* Slides */}
           <SwiperSlide
             style={{
               backgroundImage:
@@ -129,12 +129,9 @@ export default function UseFetchData({ url }) {
           />
         </Swiper>
       </div>
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        aria-labelledby="product-modal"
-        aria-describedby="product-details"
-      >
+
+      {/* Product Modal */}
+      <Modal open={open} onClose={handleClose} aria-labelledby="product-modal">
         <Box
           sx={{
             position: "absolute",
@@ -161,12 +158,26 @@ export default function UseFetchData({ url }) {
         </Box>
       </Modal>
 
-      <Navbar />
-      <Filter setSort={setSort} />
+      {/* Filters */}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 4,
+          px: 3,
+          py: 1,
+          flexWrap: "wrap",
+          flexDirection: { xs: "column", sm: "row" },
+        }}
+      >
+        <Category setCategoryFilter={setCategoryFilter} />
+        {/* <Price priceFilter={priceFilter} setPriceFilter={setPriceFilter} /> */}
+      </Box>
 
+      {/* Products */}
       <div className="products">
         {loading ? (
-          Array.from(new Array(15)).map((_, index) => (
+          Array.from(new Array(12)).map((_, index) => (
             <Box key={index} className="product-card">
               <Skeleton
                 variant="rectangular"
@@ -178,25 +189,25 @@ export default function UseFetchData({ url }) {
               <Skeleton width="40%" height={20} />
             </Box>
           ))
-        ) : filterProducts().length === 0 ? (
+        ) : data.length === 0 ? (
           <div className="no-items-wrapper">
             <h1>No items match your search</h1>
           </div>
         ) : (
-          filterProducts().map((pro) => (
+          data.map((pro) => (
             <div className="product-card" key={pro._id}>
               <img
                 className="product-image"
                 src={pro.image}
                 alt={pro.title}
-                onClick={(e) => handleProductClick(e, pro._id)}
+                onClick={() => handleProductClick(pro._id)}
               />
               <p className="product-description">{pro.title}</p>
               <div className="addpro">
                 <span>${pro.price}</span>
                 <ShoppingCartIcon
                   sx={{
-                    color: m.palette.text.primary,
+                    color: theme.palette.text.primary,
                     cursor: "pointer",
                     transition: "all 0.1s ease",
                     "&:hover": { color: "lightgreen", transform: "scale(1.2)" },

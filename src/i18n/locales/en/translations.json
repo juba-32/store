@@ -23,9 +23,13 @@
     "Search Products": "Search Products"
   },
 
+  "sort": {
+    "price": "price"
+  },
+
   "hero": {
-    "A.Bendary": "A.Bendary",
-    "A history of glory": "A history of glory",
+    "Welcome to AM": "Welcome to AM",
+    "history of glory": " history of glory",
     "explore": "explore",
     "Home Cinema": "Home Cinema",
     "Premium Headphones": " Premium Headphones ",
@@ -47,7 +51,7 @@
     "Price": "Price",
     "Order Summary": "Order Summary",
     "color": "color",
-    "Qty" : "Qty",
+    "Qty": "Qty",
     "remove": "remove"
   },
 
@@ -58,12 +62,5 @@
     "Privacy Policy": "Privacy Policy",
     "Terms & Conditions": "Terms & Conditions",
     "Product Returns": "Product Returns"
-  },
-
-    "sort": {
-    "sale": "sale",
-    "sheap":"sheap",
-    "expensive": "expensive",
-    "all": "all"
   }
 }

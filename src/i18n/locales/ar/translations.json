@@ -22,9 +22,13 @@
     "Search Products": "ابحث عن المنتجات"
   },
 
+  "sort": {
+    "price": "السعر"
+  },
+
   "hero": {
-    "A.Bendary": "احمد بنداري",
-    "A history of glory": "تاريخ من المجد",
+    "Welcome to AM": " اهلا في AM",
+    "history of glory": "تاريخ من المجد",
     "explore": "اكتشف",
     "Home Cinema": "سينما منزلية",
     "Premium Headphones": "سماعات رأس مميزة",
@@ -46,7 +50,7 @@
     "Price": "السعر",
     "Order Summary": "ملخص الطلب",
     "color": "اللون",
-    "Qty" : "الكميه",
+    "Qty": "الكميه",
     "remove": "حذف"
   },
 
@@ -57,11 +61,5 @@
     "Privacy Policy": "سياسة الخصوصية",
     "Terms & Conditions": "الشروط والأحكام",
     "Product Returns": "إرجاع المنتجات"
-  },
-  "sort": {
-    "sale": "بيع",
-    "sheap":"رخيص",
-    "expensive": "غالي",
-    "all": "الكل"
   }
 }

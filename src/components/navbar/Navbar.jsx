@@ -24,7 +24,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LanguageIcon from "@mui/icons-material/Language";
-import Logo from "../../assets/r.png";
+import Logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Theme from "../theme/Theme";
@@ -55,10 +55,6 @@ export default function Navbar() {
 
   const navItems = [
     { label: t("navbar.Products"), path: "/product" },
-    { label: t("navbar.TV"), path: "/tv" },
-    { label: t("navbar.Audio"), path: "/audio" },
-    { label: t("navbar.Mobile"), path: "/mobile" },
-    { label: t("navbar.Gaming"), path: "/gaming" },
   ];
 
   return (
@@ -83,7 +79,7 @@ export default function Navbar() {
 
             <Link to="/">
               <img
-                style={{ width: "55px", height: "50px" }}
+                style={{ width: "50px", height: "50px", borderRadius:"50%" }}
                 src={Logo}
                 alt="logo"
               />
