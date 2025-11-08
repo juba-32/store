@@ -30,33 +30,26 @@ export default function UseFetchData({ url }) {
   const [toastMessage, setToastMessage] = useState("");
   const [toastSeverity, setToastSeverity] = useState("info");
 
-useEffect(() => {
-  const fetchProducts = async () => {
-    setLoading(true);
-    try {
-      const fullUrl = new URL(url, window.location.origin);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      try {
+        const fullUrl = new URL(url, window.location.origin);
+        if (categoryFilter)
+          fullUrl.searchParams.set("selectCategory", categoryFilter);
+        const response = await axios.get(fullUrl.toString());
+        console.log("Response:", response.data);
+        setData(response.data);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+        setData([]); // reset if error
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      if (categoryFilter )
-        fullUrl.searchParams.set("selectCategory", categoryFilter);
-      
-
-      console.log("Fetching products from:", fullUrl.toString());
-
-      const response = await axios.get(fullUrl.toString());
-      console.log("Response:", response.data);
-
-      setData(response.data);
-    } catch (err) {
-      console.error("Error fetching products:", err);
-      setData([]); // reset if error
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  fetchProducts();
-}, [url, categoryFilter]);
-
+    fetchProducts();
+  }, [url, categoryFilter]);
 
   const handleProductClick = (_id) => {
     setProductid(_id);
