@@ -1,39 +1,22 @@
-import React, { useState } from "react";
-import { Slider, Typography, Box } from "@mui/material";
-import { useTranslation } from "react-i18next";
+import { Box, Slider, Typography } from "@mui/material";
 
-export default function Price({ setSort }) {
-  const { t } = useTranslation();
-  const [price, setPrice] = useState([0, 1000]);
-
-  const handlePriceChange = (event, newValue) => {
-    setPrice(newValue);
-  };
-
-  const handlePriceCommit = (event, newValue) => {
-    setSort({ min: newValue[0], max: newValue[1] });
+export default function Price({ priceFilter, setPriceFilter }) {
+  const handleChange = (_, newValue) => {
+    setPriceFilter(newValue); 
+    console.log("💰 Price range selected:", newValue);
   };
 
   return (
-    <Box sx={{ width: 250, m:"0 20px" }}>
-      <Typography variant="subtitle1" sx={{ mb: 1, fontWeight: "bold" }}>
-        {t("sort.price")}
-      </Typography>
-
+    <Box sx={{ width: 320 }}>
+      <Typography gutterBottom>Price Range (${priceFilter[0]} - ${priceFilter[1]})</Typography>
       <Slider
-        value={price}
-        onChange={handlePriceChange}
-        onChangeCommitted={handlePriceCommit}
+        value={priceFilter}
+        onChange={handleChange}
         valueLabelDisplay="auto"
-        step={50}
         min={0}
         max={1000}
-        sx={{ color: "gray"}}
+        step={50}
       />
-
-      <Typography variant="body2" color="text.secondary">
-         ${price[0]} – ${price[1]}
-      </Typography>
     </Box>
   );
 }

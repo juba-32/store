@@ -13,6 +13,7 @@ import { addToCart } from "../../redux/cartSlice";
 import { useDispatch } from "react-redux";
 import Toast from "../toast/Toast";
 import Category from "../../components/filter/Category";
+import Price from "../../components/filter/Price";
 
 export default function UseFetchData({ url }) {
   const dispatch = useDispatch();
@@ -22,32 +23,43 @@ export default function UseFetchData({ url }) {
   const [productid, setProductid] = useState(null);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [priceFilter, setPriceFilter] = useState([0, 1000]);
   const [categoryFilter, setCategoryFilter] = useState("");
   const [toastOpen, setToastOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastSeverity, setToastSeverity] = useState("info");
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      try {
-        const fullUrl = new URL(url, window.location.origin);
-        if (categoryFilter)
-          fullUrl.searchParams.set("selectCategory", categoryFilter);
-        const response = await axios.get(fullUrl.toString());
-        console.log("Response:", response.data);
-        setData(response.data);
-      } catch (err) {
-        console.error("Error fetching products:", err);
-        setData([]); // reset if error
-      } finally {
-        setLoading(false);
-      }
-    };
+useEffect(() => {
+  const fetchProducts = async () => {
+    setLoading(true);
+    try {
+      // 🧠 Build query params dynamically
+      const params = new URLSearchParams();
 
-    fetchProducts();
-  }, [url, categoryFilter]);
+      if (categoryFilter) params.append("selectCategory", categoryFilter);
+      if (priceFilter?.length === 2) {
+        params.append("minPrice", priceFilter[0]);
+        params.append("maxPrice", priceFilter[1]);
+      }
+
+      const fullUrl = `${url}?${params.toString()}`;
+      console.log("📡 Fetching products from:", fullUrl);
+
+      const response = await axios.get(fullUrl);
+      console.log("✅ Products fetched:", response.data);
+
+      setData(response.data);
+    } catch (err) {
+      console.error("❌ Error fetching products:", err);
+      setData([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchProducts();
+}, [url, categoryFilter, priceFilter]);
+
 
   const handleProductClick = (_id) => {
     setProductid(_id);
@@ -162,7 +174,7 @@ export default function UseFetchData({ url }) {
         }}
       >
         <Category setCategoryFilter={setCategoryFilter} />
-        {/* <Price priceFilter={priceFilter} setPriceFilter={setPriceFilter} /> */}
+        <Price priceFilter={priceFilter} setPriceFilter={setPriceFilter} />
       </Box>
 
       {/* Products */}
