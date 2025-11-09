@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Skeleton, Box, Modal } from "@mui/material";
 import SinglePro from "../../components/singlePro/SinglePro";
+import Category from "../../components/filter/Category";
+import Price from "../../components/filter/Price";
 import "../../styles/FetchData.css";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,14 +12,13 @@ import "swiper/css/navigation";
 import { useTheme } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { addToCart } from "../../redux/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Toast from "../toast/Toast";
-import Category from "../../components/filter/Category";
-import Price from "../../components/filter/Price";
 
 export default function UseFetchData({ url }) {
   const dispatch = useDispatch();
   const theme = useTheme();
+  const searchQuery = useSelector((state) => state.cart.searchQuery);
 
   const [open, setOpen] = useState(false);
   const [productid, setProductid] = useState(null);
@@ -29,37 +30,36 @@ export default function UseFetchData({ url }) {
   const [toastMessage, setToastMessage] = useState("");
   const [toastSeverity, setToastSeverity] = useState("info");
 
-useEffect(() => {
-  const fetchProducts = async () => {
-    setLoading(true);
-    try {
-      // 🧠 Build query params dynamically
-      const params = new URLSearchParams();
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      try {
+        // 🧠 Build query params dynamically
+        const params = new URLSearchParams();
 
-      if (categoryFilter) params.append("selectCategory", categoryFilter);
-      if (priceFilter?.length === 2) {
-        params.append("minPrice", priceFilter[0]);
-        params.append("maxPrice", priceFilter[1]);
+        if (categoryFilter) params.append("selectCategory", categoryFilter);
+        if (priceFilter?.length === 2) {
+          params.append("minPrice", priceFilter[0]);
+          params.append("maxPrice", priceFilter[1]);
+        }
+        if (searchQuery) params.append("search", searchQuery);
+        const fullUrl = `${url}?${params.toString()}`;
+        console.log("📡 Fetching products from:", fullUrl);
+
+        const response = await axios.get(fullUrl);
+        console.log("✅ Products fetched:", response.data);
+
+        setData(response.data);
+      } catch (err) {
+        console.error("❌ Error fetching products:", err);
+        setData([]);
+      } finally {
+        setLoading(false);
       }
+    };
 
-      const fullUrl = `${url}?${params.toString()}`;
-      console.log("📡 Fetching products from:", fullUrl);
-
-      const response = await axios.get(fullUrl);
-      console.log("✅ Products fetched:", response.data);
-
-      setData(response.data);
-    } catch (err) {
-      console.error("❌ Error fetching products:", err);
-      setData([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  fetchProducts();
-}, [url, categoryFilter, priceFilter]);
-
+    fetchProducts();
+  }, [url, categoryFilter, priceFilter, searchQuery]);
 
   const handleProductClick = (_id) => {
     setProductid(_id);
