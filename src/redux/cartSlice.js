@@ -3,7 +3,6 @@ const initialState = JSON.parse(localStorage.getItem("cartState")) || {
   cart: [],
   totalPrice: 0,
   qty: 0,
-  selectedCategory: "",
   searchQuery: "",
   darkMode: JSON.parse(localStorage.getItem("cartState"))?.darkMode ?? false,
 };
@@ -66,12 +65,9 @@ const cartSlice = createSlice({
       localStorage.setItem("cartState", JSON.stringify(state));
     },
 
-    setCategory: (state, action) => {
-      state.selectedCategory = action.payload;
-    },
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
-    }
+    },
   },
 });
 
@@ -83,6 +79,6 @@ export const {
   resetCart,
   setCategory,
   setMode,
-  setSearchQuery
+  setSearchQuery,
 } = cartSlice.actions;
 export default cartSlice.reducer;

@@ -20,7 +20,7 @@ function App() {
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
       <div className="App">
-        <Navbar />
+        <Navbar backendUrl="https://amb.up.railway.app/products" />
         <Routes>
           <Route path="/" element={<Home  />} />
           <Route path="/Product" element={<Product />} />

@@ -25,13 +25,16 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LanguageIcon from "@mui/icons-material/Language";
 import Logo from "../../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Theme from "../theme/Theme";
-import Search from "../search/Search";
 import { useTranslation } from "react-i18next";
+import Search from "../search/Search";
+import { DropdownSearchInput } from "../filter/SearchDropdown";
 
-export default function Navbar() {
+export default function Navbar({ backendUrl }) {
+  const location = useLocation();
+  const isProductsPage = location.pathname.startsWith("/product");
   const { t, i18n } = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -53,9 +56,7 @@ export default function Navbar() {
     setter(null);
   };
 
-  const navItems = [
-    { label: t("navbar.Products"), path: "/product" },
-  ];
+  const navItems = [{ label: t("navbar.Products"), path: "/product" }];
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -79,7 +80,7 @@ export default function Navbar() {
 
             <Link to="/">
               <img
-                style={{ width: "50px", height: "50px", borderRadius:"50%" }}
+                style={{ width: "50px", height: "50px", borderRadius: "50%" }}
                 src={Logo}
                 alt="logo"
               />
@@ -112,7 +113,14 @@ export default function Navbar() {
           </Box>
 
           {/* Desktop Search */}
-          {!isMobile && <Search />}
+          {!isMobile && (
+            <Box sx={{ px: 2, py: 1 }}>
+            {isProductsPage ? (
+              <Search />
+            ) : (
+              <DropdownSearchInput backendUrl={backendUrl} />
+            )}
+          </Box>)}
 
           {/* Right Section */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -167,7 +175,11 @@ export default function Navbar() {
         {/* Mobile Search */}
         {isMobile && (
           <Box sx={{ px: 2, py: 1 }}>
-            <Search />
+            {isProductsPage ? (
+              <Search />
+            ) : (
+              <DropdownSearchInput backendUrl={backendUrl} />
+            )}
           </Box>
         )}
       </AppBar>
