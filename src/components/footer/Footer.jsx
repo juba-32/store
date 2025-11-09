@@ -52,10 +52,10 @@ const Footer = () => {
       </div>
 
       <div className="social-links">
-        <a href="#"><FaFacebookF /></a>
-        <a href="#"><TiSocialTwitter /></a>
-        <a href="#"><FaLinkedinIn /></a>
-        <a href="#"><FaYoutube /></a>
+        <a href="x"><FaFacebookF /></a>
+        <a href="s"><TiSocialTwitter /></a>
+        <a href="a"><FaLinkedinIn /></a>
+        <a href="z"><FaYoutube /></a>
       </div>
 
       <div className="copyright">
