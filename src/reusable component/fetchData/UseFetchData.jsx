@@ -12,7 +12,6 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { addToCart } from "../../redux/cartSlice";
 import { useDispatch } from "react-redux";
 import Toast from "../toast/Toast";
-import Price from "../../components/filter/Price";
 import Category from "../../components/filter/Category";
 
 export default function UseFetchData({ url }) {
@@ -25,7 +24,6 @@ export default function UseFetchData({ url }) {
   const [loading, setLoading] = useState(true);
 
   const [categoryFilter, setCategoryFilter] = useState("");
-  // const [priceFilter, setPriceFilter] = useState([0, 1000]);
   const [toastOpen, setToastOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastSeverity, setToastSeverity] = useState("info");
