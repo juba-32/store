@@ -16,7 +16,7 @@
 .banner-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Fills container without stretching */
+  object-fit: cover; 
   border-radius: 12px;
   transition: transform 0.5s ease;
 }
@@ -39,7 +39,6 @@
   font-size: 1rem;
 }
 
-/* Responsive text */
 @media (max-width: 1024px) {
   .banner-content h1 { font-size: 1.8rem; }
 }
