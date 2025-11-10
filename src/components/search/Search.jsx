@@ -1,6 +1,5 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, InputBase, useTheme, useMediaQuery } from "@mui/material";
-import "../search/Search.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchQuery } from "../../redux/cartSlice";
 import { useTranslation } from "react-i18next";
@@ -27,9 +26,8 @@ export default function Search() {
 
   const SearchInput = (
     <Box className="search-container">
-      <Box className="search-icon-wrapper">
-        <SearchIcon />
-      </Box>
+      <Box sx={{ display: "flex", alignItems: "center", px: 2, py: 0.5, bgcolor: "background.paper", borderRadius: 1}}>
+        <SearchIcon sx={{color:"gray"}}/>
       <InputBase
         className="search-input"
         placeholder={t("search.Search Products")}
@@ -40,6 +38,7 @@ export default function Search() {
           maxLength: 50, // 🧩 small safeguard
         }}
       />
+      </Box>
     </Box>
   );
 

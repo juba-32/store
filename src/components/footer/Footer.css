@@ -7,7 +7,6 @@
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* THEME VARIANTS */
 .footer.light {
   background: #f9f9f9;
   color: #222;
@@ -30,7 +29,7 @@
   border-radius: 50%;
 }
 
-.footer-sec h3 {
+.footer-sec h2 {
   font-size: 18px;
   margin-bottom: 15px;
   text-transform: capitalize;

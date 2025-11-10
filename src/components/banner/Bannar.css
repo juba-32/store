@@ -1,6 +1,6 @@
 .banner {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 10px;
   padding: 10px;
 }
@@ -8,7 +8,7 @@
 .banner-img {
   position: relative;
   width: 100%;
-  height: 600px; 
+  aspect-ratio: 16/9; /* Maintains proportional container */
   overflow: hidden;
   border-radius: 12px;
 }
@@ -16,6 +16,7 @@
 .banner-img img {
   width: 100%;
   height: 100%;
+  object-fit: cover; /* Fills container without stretching */
   border-radius: 12px;
   transition: transform 0.5s ease;
 }
@@ -38,36 +39,16 @@
   font-size: 1rem;
 }
 
+/* Responsive text */
 @media (max-width: 1024px) {
-  .banner-img {
-    height: 450px;
-  }
-  .banner-content h1 {
-    font-size: 1.8rem;
-  }
+  .banner-content h1 { font-size: 1.8rem; }
 }
 
 @media (max-width: 768px) {
-  .banner {
-    grid-template-columns: 1fr;
-  }
-  .banner-img {
-    height: 350px;
-  }
-  .banner-content h1 {
-    font-size: 1.5rem;
-  }
+  .banner-content h1 { font-size: 1.5rem; }
 }
 
 @media (max-width: 480px) {
-  .banner-img {
-    height: 250px;
-  }
-  .banner-content h1 {
-    font-size: 1.2rem;
-  }
-  .banner-content button {
-    font-size: 0.9rem;
-    padding: 6px 12px;
-  }
+  .banner-content h1 { font-size: 1.2rem; }
+  .banner-content button { font-size: 0.9rem; padding: 6px 12px; }
 }

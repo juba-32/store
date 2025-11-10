@@ -34,31 +34,31 @@ export default function Bannar() {
         <motion.div
           key={i}
           className="banner-img"
-          initial={{
-            opacity: 0,
-            y: 150, // slide in from bottom
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 1.2,
-            ease: "easeOut",
-            delay: i * 0.4, // one by one
-          }}
+          initial={{ opacity: 0, y: 150 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: "easeOut", delay: i * 0.4 }}
           viewport={{ once: true, amount: 0.3 }}
         >
-          <img src={item.src} alt={item.caption} />
+          <img
+            src={`${item.src}?auto=compress&cs=tinysrgb&h=450`}
+            srcSet={`
+              ${item.src}?auto=compress&cs=tinysrgb&h=250 480w,
+              ${item.src}?auto=compress&cs=tinysrgb&h=350 768w,
+              ${item.src}?auto=compress&cs=tinysrgb&h=450 1024w,
+              ${item.src}?auto=compress&cs=tinysrgb&h=600 1440w
+            `}
+            sizes="(max-width: 480px) 250px,
+                   (max-width: 768px) 350px,
+                   (max-width: 1024px) 450px,
+                   600px"
+            alt={item.caption}
+            loading="lazy"
+          />
           <motion.div
             className="banner-content"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: i * 0.4 + 0.2, // sync with image
-              duration: 1,
-              ease: "easeOut",
-            }}
+            transition={{ delay: i * 0.4 + 0.2, duration: 1, ease: "easeOut" }}
             viewport={{ once: true }}
           >
             <h1>{item.caption}</h1>

@@ -48,9 +48,9 @@ export function DropdownSearchInput({ backendUrl }) {
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
-      <Box sx={{ position: "relative", width: { xs: "100%", sm: 300 } }}>
+      <Box sx={{ position: "relative", width: { xs: "100%", sm: 600 } }}>
         <Box sx={{ display: "flex", alignItems: "center", px: 2, py: 0.5, bgcolor: "background.paper", borderRadius: 1 }}>
-          <SearchIcon />
+          <SearchIcon sx={{color:"gray"}}/>
           <InputBase
             fullWidth
             placeholder="Search products..."

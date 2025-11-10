@@ -30,7 +30,7 @@ const Footer = () => {
       </div>
 
       <div className="footer-sec">
-        <h3>{t("footer.Customer Support")}</h3>
+        <h2>{t("footer.Customer Support")}</h2>
         <ul>
           <li><IoIosArrowForward /><p>{t("footer.About Us")}</p></li>
           <li><IoIosArrowForward /><p>{t("footer.Privacy Policy")}</p></li>
@@ -40,7 +40,7 @@ const Footer = () => {
       </div>
 
       <div className="footer-sec">
-        <h3>{t("footer.Quick Links")}</h3>
+        <h2>{t("footer.Quick Links")}</h2>
         <ul>
           {quickLinks.map((link, index) => (
             <li key={index} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
@@ -52,10 +52,10 @@ const Footer = () => {
       </div>
 
       <div className="social-links">
-        <a href="x"><FaFacebookF /></a>
-        <a href="s"><TiSocialTwitter /></a>
-        <a href="a"><FaLinkedinIn /></a>
-        <a href="z"><FaYoutube /></a>
+        <a href="facebook"><FaFacebookF /></a>
+        <a href="twitter"><TiSocialTwitter /></a>
+        <a href="linkedinin"><FaLinkedinIn /></a>
+        <a href="youtube"><FaYoutube /></a>
       </div>
 
       <div className="copyright">
