@@ -24,8 +24,8 @@ export default function Hero() {
 
   const letterVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: .5 } },
-    exit: { opacity: 0, y: -20, transition: { duration: .5} },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+    exit: { opacity: 0, y: -20, transition: { duration: 0.5 } },
   };
 
   return (
@@ -33,7 +33,10 @@ export default function Hero() {
       className="hero-section"
       style={{
         backgroundImage:
-          "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url('https://images.pexels.com/photos/7621355/pexels-photo-7621355.jpeg",
+          "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url('https://images.pexels.com/photos/7621355/pexels-photo-7621355.jpeg?auto=compress&cs=tinysrgb&w=1200')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       <div className="hero-content">
