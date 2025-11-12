@@ -10,6 +10,7 @@ import { ThemeProvider, CssBaseline } from "@mui/material";
 import Footer from "./components/footer/Footer";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 function App() {
   const darkMode = useSelector((state) => state.cart.darkMode);
   const { i18n } = useTranslation();
@@ -21,6 +22,7 @@ function App() {
       <CssBaseline />
       <div className="App">
         <Navbar backendUrl="https://amb.up.railway.app/products" />
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home  />} />
           <Route path="/Product" element={<Product />} />

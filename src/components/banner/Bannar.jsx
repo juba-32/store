@@ -9,7 +9,7 @@ export default function Bannar() {
     {
       src: "https://images.pexels.com/photos/1444416/pexels-photo-1444416.jpeg",
       caption: t("hero.Home Cinema"),
-      link: "/tv",
+      link: "/product?categoryFilter=audio",
     },
     {
       src: "https://images.pexels.com/photos/12920900/pexels-photo-12920900.jpeg",
@@ -56,9 +56,9 @@ export default function Bannar() {
           />
           <motion.div
             className="banner-content"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.4 + 0.2, duration: 1, ease: "easeOut" }}
+            transition={{ delay: i * 0.2 + 0.2, duration: 1, ease: "easeOut" }}
             viewport={{ once: true }}
           >
             <h1>{item.caption}</h1>

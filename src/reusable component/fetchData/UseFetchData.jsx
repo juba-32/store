@@ -34,9 +34,7 @@ export default function UseFetchData({ url }) {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        // 🧠 Build query params dynamically
         const params = new URLSearchParams();
-
         if (categoryFilter) params.append("selectCategory", categoryFilter);
         if (priceFilter?.length === 2) {
           params.append("minPrice", priceFilter[0]);
@@ -44,14 +42,11 @@ export default function UseFetchData({ url }) {
         }
         if (searchQuery) params.append("search", searchQuery);
         const fullUrl = `${url}?${params.toString()}`;
-        console.log("📡 Fetching products from:", fullUrl);
-
+        console.log("Fetching products from:", fullUrl);
         const response = await axios.get(fullUrl);
-        console.log("✅ Products fetched:", response.data);
-
         setData(response.data);
       } catch (err) {
-        console.error("❌ Error fetching products:", err);
+        console.error("Error fetching products:", err);
         setData([]);
       } finally {
         setLoading(false);

@@ -12,7 +12,6 @@ export default function Category({ setCategoryFilter }) {
     const value = event.target.value;
     setCategory(value);         
     setCategoryFilter(value);    
-    console.log("Category selected:", value);
   }
   return (
     <Box sx={{ minWidth: 320, width: "320px" }}>
@@ -25,6 +24,7 @@ export default function Category({ setCategoryFilter }) {
           label="Category"
           onChange={handleChange}
         >
+          <MenuItem value={""}>All</MenuItem>
           <MenuItem value={"tv"}>TV</MenuItem>
           <MenuItem value={"mobile"}>Mobile</MenuItem>
           <MenuItem value={"audio"}>Audio</MenuItem>
