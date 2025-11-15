@@ -2,27 +2,30 @@ import { motion } from "framer-motion";
 import "./Bannar.css";
 import Button from "../../reusable component/button/Button";
 import { useTranslation } from "react-i18next";
-
+import tv from '../../assets/slide-tv.jpeg'
+import audio from '../../assets/slide-audio.jpeg'
+import gaming from '../../assets/slide-games.jpeg'
+import mobile from '../../assets/slide-mobile.jpeg'
 export default function Bannar() {
   const { t } = useTranslation();
   const bannerData = [
     {
-      src: "https://images.pexels.com/photos/1444416/pexels-photo-1444416.jpeg",
+      src: tv,
       caption: t("hero.Home Cinema"),
       link: "/product?categoryFilter=audio",
     },
     {
-      src: "https://images.pexels.com/photos/12920900/pexels-photo-12920900.jpeg",
+      src: audio,
       caption: t("hero.Premium Headphones"),
       link: "/audio",
     },
     {
-      src: "https://images.pexels.com/photos/699122/pexels-photo-699122.jpeg",
+      src: mobile,
       caption: t("hero.Next-Gen iPhone"),
       link: "/mobile",
     },
     {
-      src: "https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg",
+      src: gaming,
       caption: t("hero.Crystal Clear Audio"),
       link: "/gaming",
     },
@@ -40,20 +43,22 @@ export default function Bannar() {
           viewport={{ once: true, amount: 0.3 }}
         >
           <img
-            src={`${item.src}?auto=compress&cs=tinysrgb&h=450`}
+            src={`${item.src}?auto=compress&cs=tinysrgb&fm=webp&w=1440`}
             srcSet={`
-              ${item.src}?auto=compress&cs=tinysrgb&h=250 480w,
-              ${item.src}?auto=compress&cs=tinysrgb&h=350 768w,
-              ${item.src}?auto=compress&cs=tinysrgb&h=450 1024w,
-              ${item.src}?auto=compress&cs=tinysrgb&h=600 1440w
-            `}
-            sizes="(max-width: 480px) 250px,
-                   (max-width: 768px) 350px,
-                   (max-width: 1024px) 450px,
-                   600px"
+    ${item.src}?auto=compress&cs=tinysrgb&fm=webp&w=480 480w,
+    ${item.src}?auto=compress&cs=tinysrgb&fm=webp&w=768 768w,
+    ${item.src}?auto=compress&cs=tinysrgb&fm=webp&w=1024 1024w,
+    ${item.src}?auto=compress&cs=tinysrgb&fm=webp&w=1440 1440w,
+    ${item.src}?auto=compress&cs=tinysrgb&fm=webp&w=1920 1920w
+  `}
+            sizes="(max-width: 480px) 480px,
+         (max-width: 768px) 768px,
+         (max-width: 1024px) 1024px,
+         100vw"
             alt={item.caption}
             loading="lazy"
           />
+
           <motion.div
             className="banner-content"
             initial={{ opacity: 0, y: 10 }}

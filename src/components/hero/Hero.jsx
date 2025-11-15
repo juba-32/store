@@ -3,6 +3,7 @@ import "./Hero.css";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import img from "../../assets/storeBG.webp";
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -33,7 +34,7 @@ export default function Hero() {
       className="hero-section"
       style={{
         backgroundImage:
-          "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url('https://images.pexels.com/photos/7621355/pexels-photo-7621355.jpeg?auto=compress&cs=tinysrgb&w=1200')",
+          `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url(${img})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

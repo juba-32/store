@@ -24,7 +24,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LanguageIcon from "@mui/icons-material/Language";
-import Logo from "../../assets/logo.png";
+import Logo from "../../assets/logo.webp";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Theme from "../theme/Theme";
