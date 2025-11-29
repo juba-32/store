@@ -2,12 +2,15 @@ import { motion } from "framer-motion";
 import "./Bannar.css";
 import Button from "../../reusable component/button/Button";
 import { useTranslation } from "react-i18next";
+
 import tv from "../../assets/slide-tv-1024.webp";
 import audio from "../../assets/slide-audio-1024.webp";
 import gaming from "../../assets/slide-games-1024.webp";
 import mobile from "../../assets/mobile.webp";
+
 export default function Bannar() {
   const { t } = useTranslation();
+
   const bannerData = [
     {
       src: tv,
@@ -37,33 +40,36 @@ export default function Bannar() {
         <motion.div
           key={i}
           className="banner-img"
-          initial={{ opacity: 0, y: 150 }}
+          initial={{ opacity: 0, y: 80 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: "easeOut", delay: i * 0.4 }}
-          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.9, ease: "easeOut", delay: i * 0.3 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           <img
-            src={`${item.src}?auto=compress&cs=tinysrgb&fm=webp&w=1440`}
+            src={item.src}
             srcSet={`
-    ${item.src}?auto=compress&cs=tinysrgb&fm=webp&w=480 480w,
-    ${item.src}?auto=compress&cs=tinysrgb&fm=webp&w=768 768w,
-    ${item.src}?auto=compress&cs=tinysrgb&fm=webp&w=1024 1024w,
-    ${item.src}?auto=compress&cs=tinysrgb&fm=webp&w=1440 1440w,
-    ${item.src}?auto=compress&cs=tinysrgb&fm=webp&w=1920 1920w
-  `}
+              ${item.src} 480w,
+              ${item.src} 768w,
+              ${item.src} 1024w,
+              ${item.src} 1440w
+            `}
             sizes="(max-width: 480px) 480px,
-         (max-width: 768px) 768px,
-         (max-width: 1024px) 1024px,
-         100vw"
+                   (max-width: 768px) 768px,
+                   (max-width: 1024px) 1024px,
+                   100vw"
             alt={item.caption}
             loading="lazy"
+            decoding="async"
+            fetchpriority="low"
+            width="1600"
+            height="900"
           />
 
           <motion.div
             className="banner-content"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.2 + 0.2, duration: 1, ease: "easeOut" }}
+            transition={{ delay: i * 0.2 + 0.1, duration: 0.8 }}
             viewport={{ once: true }}
           >
             <h1>{item.caption}</h1>
