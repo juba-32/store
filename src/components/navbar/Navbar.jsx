@@ -24,7 +24,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LanguageIcon from "@mui/icons-material/Language";
-import Logo from "../../assets/logo.webp";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Theme from "../theme/Theme";
@@ -77,13 +76,18 @@ export default function Navbar({ backendUrl }) {
                 {drawerOpen ? <CloseIcon /> : <MenuIcon />}
               </IconButton>
             )}
-
-            <Link to="/">
+            <Link
+              to="/"
+              style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration:"none", color: theme.palette.text.primary }}
+            >
               <img
                 style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-                src={Logo}
-                alt="logo"
+                src="/images/logo.webp"
+                alt="nelly store"
               />
+              <h1 style={{ fontSize: "20px" }}>
+                <span style={{ color: "#ff3c5f" }}>N</span>elly Store
+              </h1>
             </Link>
 
             {!isMobile && (
@@ -115,12 +119,13 @@ export default function Navbar({ backendUrl }) {
           {/* Desktop Search */}
           {!isMobile && (
             <Box sx={{ px: 2, py: 1 }}>
-            {isProductsPage ? (
-              <Search />
-            ) : (
-              <DropdownSearchInput backendUrl={backendUrl} />
-            )}
-          </Box>)}
+              {isProductsPage ? (
+                <Search />
+              ) : (
+                <DropdownSearchInput backendUrl={backendUrl} />
+              )}
+            </Box>
+          )}
 
           {/* Right Section */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>

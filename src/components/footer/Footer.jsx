@@ -2,7 +2,6 @@ import "./Footer.css";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaFacebookF, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 import { TiSocialTwitter } from "react-icons/ti";
-import img from "../../assets/logo.webp";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -23,7 +22,7 @@ const Footer = () => {
       <div className="footer-logo">
         <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
               <img
-                src={img}
+                src="/images/logo.webp"
                 alt="logo"
               />
             </Link>
