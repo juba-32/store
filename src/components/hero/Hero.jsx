@@ -3,12 +3,12 @@ import "./Hero.css";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import img from "../../assets/storeBG.webp";
+import heroBG from "../../assets/storeBG.webp";
 
 export default function Hero() {
   const { t } = useTranslation();
 
-  const texts = [t("hero.Welcome to AM"), t("hero. history of glory")];
+  const texts = [t("hero.Welcome to AM"), t("hero.history of glory")];
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function Hero() {
       className="hero-section"
       style={{
         backgroundImage:
-          `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url(${img})`,
+          `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url(${heroBG})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

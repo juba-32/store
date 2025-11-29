@@ -1,49 +1,37 @@
-import React from "react";
+import React, { useMemo } from "react";
 import "swiper/css";
+import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Parallax, Autoplay, Navigation } from "swiper/modules";
-import "swiper/css/navigation";
-import gaming from "../../assets/gaming.jpg"
-import audio from "../../assets/audio.jpeg"
-import tv from "../../assets/tv.jpeg"
-import mobile from "../../assets/mobile.jpeg"
-const slides = [
-  {
-    url: tv,
-    title: "Home Cinema",
-    description: "Best audio and visual experience",
-  },
-  {
-    url: audio,
-    title: "Premium Headphones",
-    description: "Crystal clear sound quality",
-  },
-  {
-    url: mobile,
-    title: "Next-Gen Mobile",
-    description: "Powerful and sleek design",
-  },
-  {
-    url: gaming,
-    title: "Gaming Gear",
-    description: "Level up your game",
-  },
+import gaming from "../../assets/gaming.webp";
+import audio from "../../assets/audio.webp";
+import tv from "../../assets/tv.webp";
+import mobile from "../../assets/mobile.webp";
+
+const slidesData = [
+  { url: tv, title: "Home Cinema", description: "Best audio and visual experience" },
+  { url: audio, title: "Premium Headphones", description: "Crystal clear sound quality" },
+  { url: mobile, title: "Next-Gen Mobile", description: "Powerful and sleek design" },
+  { url: gaming, title: "Gaming Gear", description: "Level up your game" },
 ];
 
+// Helper for responsive optimized images
 const getOptimizedUrl = (url, width = 1024) =>
   `${url}?auto=compress&cs=tinysrgb&fm=webp&w=${width}`;
 
 export default function CategorySlider() {
+  const slides = useMemo(() => slidesData, []);
+
   return (
     <Swiper
       dir="ltr"
+      modules={[Parallax, Autoplay, Navigation]}
       spaceBetween={30}
       centeredSlides={true}
       autoplay={{ delay: 3500, disableOnInteraction: false }}
       speed={600}
       parallax={true}
-      navigation={true}
-      modules={[Parallax, Autoplay, Navigation]}
+      navigation
       className="mySwiper"
       style={{
         width: "100%",
@@ -83,7 +71,8 @@ export default function CategorySlider() {
             style={{
               width: "100%",
               height: "100%",
-              objectFit: "cover", // keeps the full image visible without zoom
+              objectFit: "cover",
+              transition: "transform 0.8s ease",
             }}
           />
 
@@ -93,17 +82,15 @@ export default function CategorySlider() {
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              color: "white",
+              color: "#fff",
               textAlign: "center",
-              textShadow: "0 0 10px rgba(0,0,0,0.7)",
+              textShadow: "0 0 12px rgba(0,0,0,0.75)",
               zIndex: 2,
               padding: "0 1rem",
             }}
           >
-            <h2 style={{ margin: 0, fontSize: "2rem" }}>{slide.title}</h2>
-            <p style={{ margin: "0.5rem 0 0 0", fontSize: "1rem" }}>
-              {slide.description}
-            </p>
+            <h2 style={{ margin: 0, fontSize: "2rem", fontWeight: "700" }}>{slide.title}</h2>
+            <p style={{ margin: "0.5rem 0 0 0", fontSize: "1rem" }}>{slide.description}</p>
           </div>
         </SwiperSlide>
       ))}

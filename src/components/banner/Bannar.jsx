@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import "./Bannar.css";
 import Button from "../../reusable component/button/Button";
 import { useTranslation } from "react-i18next";
-import tv from '../../assets/slide-tv.jpeg'
-import audio from '../../assets/slide-audio.jpeg'
-import gaming from '../../assets/slide-games.jpeg'
-import mobile from '../../assets/slide-mobile.jpeg'
+import tv from "../../assets/slide-tv-1024.webp";
+import audio from "../../assets/slide-audio-1024.webp";
+import gaming from "../../assets/slide-games-1024.webp";
+import mobile from "../../assets/mobile.webp";
 export default function Bannar() {
   const { t } = useTranslation();
   const bannerData = [
