@@ -19,7 +19,7 @@ export default function Bannar() {
       link: "/audio",
     },
     {
-      src: "/images/slide-mobile.webp",
+      src: "/images/slide-mobile.avif",
       caption: t("hero.Next-Gen iPhone"),
       link: "/mobile",
     },
