@@ -22,7 +22,7 @@ const Footer = () => {
       <div className="footer-logo">
         <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
               <img
-                src="/images/logo.webp"
+                src="/images/logo.avif"
                 alt="logo"
               />
             </Link>

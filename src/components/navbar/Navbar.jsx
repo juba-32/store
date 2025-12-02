@@ -64,7 +64,7 @@ export default function Navbar({ backendUrl }) {
           >
             <img
               style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-              src="/images/logo.webp"
+              src="/images/logo.avif"
               alt="nelly store"
             />
             {!isMobile && (
