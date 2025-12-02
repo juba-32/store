@@ -20,21 +20,37 @@ const Footer = () => {
   return (
     <footer className={`footer ${darkMode ? "dark" : "light"}`}>
       <div className="footer-logo">
-        <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-              <img
-                src="/images/logo.avif"
-                alt="logo"
-              />
-            </Link>
+        <Link
+          to="/"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          <img
+            style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+            src="/images/logo.avif"
+            alt="logo"
+          />
+        </Link>
       </div>
 
       <div className="footer-sec">
         <h2>{t("footer.Customer Support")}</h2>
         <ul>
-          <li><IoIosArrowForward /><p>{t("footer.About Us")}</p></li>
-          <li><IoIosArrowForward /><p>{t("footer.Privacy Policy")}</p></li>
-          <li><IoIosArrowForward /><p>{t("footer.Terms & Conditions")}</p></li>
-          <li><IoIosArrowForward /><p>{t("footer.Product Returns")}</p></li>
+          <li>
+            <IoIosArrowForward />
+            <p>{t("footer.About Us")}</p>
+          </li>
+          <li>
+            <IoIosArrowForward />
+            <p>{t("footer.Privacy Policy")}</p>
+          </li>
+          <li>
+            <IoIosArrowForward />
+            <p>{t("footer.Terms & Conditions")}</p>
+          </li>
+          <li>
+            <IoIosArrowForward />
+            <p>{t("footer.Product Returns")}</p>
+          </li>
         </ul>
       </div>
 
@@ -42,7 +58,10 @@ const Footer = () => {
         <h2>{t("footer.Quick Links")}</h2>
         <ul>
           {quickLinks.map((link, index) => (
-            <li key={index} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+            <li
+              key={index}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
               <IoIosArrowForward />
               <Link to={link.path}>{link.label}</Link>
             </li>
@@ -51,10 +70,18 @@ const Footer = () => {
       </div>
 
       <div className="social-links">
-        <a href="facebook"><FaFacebookF /></a>
-        <a href="twitter"><TiSocialTwitter /></a>
-        <a href="linkedinin"><FaLinkedinIn /></a>
-        <a href="youtube"><FaYoutube /></a>
+        <a href="facebook">
+          <FaFacebookF />
+        </a>
+        <a href="twitter">
+          <TiSocialTwitter />
+        </a>
+        <a href="linkedinin">
+          <FaLinkedinIn />
+        </a>
+        <a href="youtube">
+          <FaYoutube />
+        </a>
       </div>
 
       <div className="copyright">
