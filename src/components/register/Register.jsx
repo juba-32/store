@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Paper,
@@ -8,95 +8,108 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { auth } from "../../firebase/Config";
 import Input from "../../reusable component/input/Input";
 import { useTranslation } from "react-i18next";
 
 const Register = () => {
   const { t } = useTranslation();
-
   const navigate = useNavigate();
-  const [hasError, setHasError] = useState(false);
-  const [firebaseError, setFirebaseError] = useState(false);
+
+  // Firebase auth lazy-loaded
+  const [auth, setAuth] = useState(null);
+  useEffect(() => {
+    import("../../firebase/Config").then((module) => setAuth(module.auth));
+  }, []);
+
   const [mode, setMode] = useState("login");
-  const initialFormData = {
+  const [formData, setFormData] = useState({
     fullname: "",
     email: "",
     password: "",
     createpassword: "",
     repeatpassword: "",
-  };
-  const [formData, setFormData] = useState(initialFormData);
+  });
 
-  const toggleMode = () => {
-    setMode(mode === "login" ? "signup" : "login");
-  };
+  const [hasError, setHasError] = useState(false);
+  const [firebaseError, setFirebaseError] = useState("");
+
+  // Auto-hide errors after 5 seconds
+  useEffect(() => {
+    if (hasError) {
+      const timer = setTimeout(() => setHasError(false), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [hasError]);
+
+  const toggleMode = () => setMode(mode === "login" ? "signup" : "login");
 
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const isFormValid = () => {
+    if (!formData.email || !formData.password) return false;
+    if (mode === "signup" && formData.createpassword !== formData.repeatpassword) return false;
+    return true;
+  };
 
-    if (
-      mode === "signup" &&
-      formData.createpassword !== formData.repeatpassword
-    ) {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!auth) return; // wait for Firebase to load
+
+    if (mode === "signup" && formData.createpassword !== formData.repeatpassword) {
       setHasError(true);
-      setFirebaseError("Passwords do not match");
+      setFirebaseError(t("signup.passwords do not match"));
       return;
     }
 
-    if (mode === "login") {
-      signInWithEmailAndPassword(auth, formData.email, formData.password)
-        .then(() => {
-          setFormData(initialFormData);
-          navigate("/");
-        })
-        .catch((error) => {
-          setHasError(true);
-          switch (error.code) {
-            case "auth/invalid-credential":
-              setFirebaseError("Invalid Email or Password");
-              break;
-            default:
-              setFirebaseError("Login failed");
-              break;
-          }
+    try {
+      if (mode === "login") {
+        await import("firebase/auth").then(({ signInWithEmailAndPassword }) =>
+          signInWithEmailAndPassword(auth, formData.email, formData.password)
+        );
+        setFormData({
+          fullname: "",
+          email: "",
+          password: "",
+          createpassword: "",
+          repeatpassword: "",
         });
-    } else {
-      createUserWithEmailAndPassword(
-        auth,
-        formData.email,
-        formData.createpassword
-      )
-        .then(() => {
-          setFormData(initialFormData);
-          setMode("login");
-        })
-        .catch((error) => {
-          setHasError(true);
-          switch (error.code) {
-            case "auth/email-already-in-use":
-              setFirebaseError("Email already in use");
-              break;
-            case "auth/invalid-email":
-              setFirebaseError("Invalid email");
-              break;
-            case "auth/weak-password":
-              setFirebaseError("Password is too weak");
-              break;
-            default:
-              setFirebaseError("Signup failed");
-              break;
-          }
+        navigate("/");
+      } else {
+        await import("firebase/auth").then(({ createUserWithEmailAndPassword }) =>
+          createUserWithEmailAndPassword(auth, formData.email, formData.createpassword)
+        );
+        setFormData({
+          fullname: "",
+          email: "",
+          password: "",
+          createpassword: "",
+          repeatpassword: "",
         });
+        setMode("login");
+      }
+    } catch (error) {
+      setHasError(true);
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          setFirebaseError(t("signup.email already in use"));
+          break;
+        case "auth/invalid-email":
+          setFirebaseError(t("signup.invalid email"));
+          break;
+        case "auth/weak-password":
+          setFirebaseError(t("signup.password too weak"));
+          break;
+        case "auth/wrong-password":
+        case "auth/user-not-found":
+          setFirebaseError(t("signup.invalid credentials"));
+          break;
+        default:
+          setFirebaseError(t("signup.action failed"));
+          break;
+      }
     }
   };
 
@@ -129,109 +142,55 @@ const Register = () => {
 
         <FormControlLabel
           control={<Switch checked={mode === "signup"} onChange={toggleMode} />}
-          label={
-            mode === "login"
-              ? t("signup.already have account")
-              : t("signup.Need an account")
-          }
+          label={mode === "login" ? t("signup.already have account") : t("signup.Need an account")}
           sx={{
             display: "flex",
             justifyContent: "center",
             mb: 3,
-            "& .MuiFormControlLabel-label": {
-              fontSize: "0.85rem",
-              color: "text.secondary",
-            },
+            "& .MuiFormControlLabel-label": { fontSize: "0.85rem", color: "text.secondary" },
           }}
         />
 
         <Box component="form" onSubmit={handleSubmit}>
-          {mode === "login" ? (
+          {mode === "signup" && (
             <>
-              <Input
-                fullWidth
-                required
-                type="text"
-                id="email"
-                label={t("signup.email")}
-                value={formData.email}
-                onChange={handleChange}
-              />
-              <Input
-                fullWidth
-                required
-                type="password"
-                id="password"
-                label={t("signup.password")}
-                value={formData.password}
-                onChange={handleChange}
-              />
-            </>
-          ) : (
-            <>
-              <Input
-                fullWidth
-                required
-                id="fullname"
-                label={t("signup.full name")}
-                value={formData.fullname}
-                onChange={handleChange}
-                sx={{ mb: 2 }}
-              />
-
-              <Input
-                fullWidth
-                required
-                id="email"
-                label={t("signup.email")}
-                value={formData.email}
-                onChange={handleChange}
-                sx={{ mb: 2 }}
-              />
-
-              <Input
-                fullWidth
-                required
-                type="password"
-                id="createpassword"
-                label={t("signup.password")}
-                value={formData.createpassword}
-                onChange={handleChange}
-                sx={{ mb: 2 }}
-              />
-
-              <Input
-                fullWidth
-                required
-                type="password"
-                id="repeatpassword"
-                label={t("signup.confirm Password")}
-                value={formData.repeatpassword}
-                onChange={handleChange}
-              />
+              <Input fullWidth required id="fullname" label={t("signup.full name")} value={formData.fullname} onChange={handleChange} sx={{ mb: 2 }} />
+              <Input fullWidth required id="createpassword" type="password" label={t("signup.password")} value={formData.createpassword} onChange={handleChange} sx={{ mb: 2 }} />
+              <Input fullWidth required id="repeatpassword" type="password" label={t("signup.confirm Password")} value={formData.repeatpassword} onChange={handleChange} sx={{ mb: 2 }} />
             </>
           )}
 
-          <Button
-            type="submit"
+          <Input
             fullWidth
-            variant="contained"
-            color="primary.contrastText"
-            sx={{ mt: 3, py: 1.5, fontWeight: "bold" }}
-          >
+            required
+            type="text"
+            id="email"
+            label={t("signup.email")}
+            value={formData.email}
+            onChange={handleChange}
+            sx={{ mb: 2 }}
+          />
+          {mode === "login" && (
+            <Input
+              fullWidth
+              required
+              type="password"
+              id="password"
+              label={t("signup.password")}
+              value={formData.password}
+              onChange={handleChange}
+              sx={{ mb: 2 }}
+            />
+          )}
+
+          <Button type="submit" fullWidth variant="contained" color="primary.contrastText" sx={{ mt: 3, py: 1.5, fontWeight: "bold" }} disabled={!isFormValid() || !auth}>
             {mode === "login" ? t("signup.log in") : t("signup.sign up")}
           </Button>
 
           {hasError && (
             <Typography
               variant="body2"
-              sx={{
-                mt: 2,
-                p: 1,
-                borderRadius: 1,
-                bgcolor: "error.light",
-                color: "error.contrastText",
-              }}
+              sx={{ mt: 2, p: 1, borderRadius: 1, bgcolor: "error.light", color: "error.contrastText" }}
             >
               {firebaseError}
             </Typography>
