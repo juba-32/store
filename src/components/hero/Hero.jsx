@@ -33,7 +33,7 @@ export default function Hero() {
       className="hero-section"
       style={{
         backgroundImage:
-          `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url(${"/images/storeBG.webp"})`,
+          `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url(${"/images/storeBG.avif"})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
