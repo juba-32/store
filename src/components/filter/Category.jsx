@@ -4,17 +4,15 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useState } from 'react';
-
 export default function Category({ setCategoryFilter }) {
   const [category, setCategory] = useState('');
-
   const handleChange = (event) => {
     const value = event.target.value;
     setCategory(value);         
     setCategoryFilter(value);    
   }
   return (
-    <Box sx={{ minWidth: 320, width: "320px" }}>
+    <Box sx={{ minWidth: 300, width: "300px",mt:"20px" }}>
       <FormControl fullWidth>
         <InputLabel id="category-select-label">Category</InputLabel>
         <Select

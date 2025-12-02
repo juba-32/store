@@ -6,7 +6,7 @@ export default function Price({ priceFilter, setPriceFilter }) {
   };
 
   return (
-    <Box sx={{ width: 320 }}>
+    <Box sx={{ width: 300, mt:"20px" }}>
       <Typography gutterBottom>Price  (${priceFilter[0]} - ${priceFilter[1]})</Typography>
       <Slider sx={{color:"gray"}}
         value={priceFilter}

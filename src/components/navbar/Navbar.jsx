@@ -18,12 +18,15 @@ import Account from "../account/Account";
 import Language from "../language/Language";
 import NavCart from "../navCart/NavCart";
 import MyDrawer from "../drawer/Drawer";
+
 export default function Navbar({ backendUrl }) {
   const location = useLocation();
   const isProductsPage = location.pathname.startsWith("/product");
+
   const { t } = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const [anchorElAccount, setAnchorElAccount] = useState(null);
   const [anchorElLang, setAnchorElLang] = useState(null);
 
@@ -32,6 +35,7 @@ export default function Navbar({ backendUrl }) {
     { label: t("navbar.About"), path: "/about" },
     { label: t("navbar.Contact"), path: "/contact" },
   ];
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -39,37 +43,48 @@ export default function Navbar({ backendUrl }) {
         sx={{ backgroundColor: theme.palette.background.BG }}
       >
         <Toolbar
-          sx={{ display: "flex", justifyContent: "space-between", px: 2 }}
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            px: 2,
+            gap: 2,
+          }}
         >
-          <Box
-            sx={{
+          {/* left logo */}
+          <Link
+            to="/"
+            style={{
               display: "flex",
               alignItems: "center",
-              gap: isMobile ? 2 : 15,
+              gap: "10px",
+              textDecoration: "none",
+              color: theme.palette.text.primary,
             }}
           >
-            {isMobile ? <MyDrawer/> : ""}
-            <Link
-              to="/"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                textDecoration: "none",
-                color: theme.palette.text.primary,
-              }}
-            >
-              <img
-                style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-                src="/images/logo.webp"
-                alt="nelly store"
-              />
+            <img
+              style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+              src="/images/logo.webp"
+              alt="nelly store"
+            />
+            {!isMobile && (
               <h1 style={{ fontSize: "20px" }}>
                 <span style={{ color: "#ff3c5f" }}>N</span>elly
               </h1>
-            </Link>
+            )}
+          </Link>
 
-            {!isMobile && (
+          {/* Nav Items + Search (desktop) */}
+          {!isMobile && (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 2,
+                flexGrow: 1,
+                justifyContent: "center",
+              }}
+            >
               <Stack spacing={2} direction="row">
                 {navItems.map(({ label, path }, i) => (
                   <Button
@@ -80,9 +95,7 @@ export default function Navbar({ backendUrl }) {
                       textTransform: "capitalize",
                       fontSize: ".9rem",
                       fontWeight: "bold",
-                      fontFamily: "sans-serif",
                       color: theme.palette.text.primary,
-                      transition: "all 0.3s ease-in-out",
                       "&:hover": {
                         transform: "scale(1.1)",
                         backgroundColor: alpha(theme.palette.success.main, 0.1),
@@ -93,35 +106,49 @@ export default function Navbar({ backendUrl }) {
                   </Button>
                 ))}
               </Stack>
-            )}
-          </Box>
-          {/* Desktop Search */}
-          {!isMobile && (
-            <Box sx={{ px: 2, py: 1 }}>
-              {isProductsPage ? (
-                <Search />
-              ) : (
-                <DropdownSearchInput backendUrl={backendUrl} />
-              )}
+
+              {/* large screen ___ search inline with navItems */}
+              <Box sx={{ minWidth: "220px" }}>
+                {isProductsPage ? (
+                  <Search />
+                ) : (
+                  <DropdownSearchInput backendUrl={backendUrl} />
+                )}
+              </Box>
             </Box>
           )}
-          {/* Right Section */}
+
+          {/* right icons */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Account
-              anchorElAccount={anchorElAccount}
-              setAnchorElAccount={setAnchorElAccount}
-            />
-            <Language
-              anchorElLang={anchorElLang}
-              setAnchorElLang={setAnchorElLang}
-            />
-            <Theme />
-            <NavCart />
+            {!isMobile && (
+              <>
+                <Account
+                  anchorElAccount={anchorElAccount}
+                  setAnchorElAccount={setAnchorElAccount}
+                />
+                <Language
+                  anchorElLang={anchorElLang}
+                  setAnchorElLang={setAnchorElLang}
+                />
+                <Theme />
+                <NavCart />
+              </>
+            )}
+
+            {isMobile && (
+              <MyDrawer
+                anchorElLang={anchorElLang}
+                anchorElAccount={anchorElAccount}
+                setAnchorElLang={setAnchorElLang}
+                setAnchorElAccount={setAnchorElAccount}
+              />
+            )}
           </Box>
         </Toolbar>
-        {/* Mobile Search */}
+
+        {/* mobile search at the bottom of the navbae */}
         {isMobile && (
-          <Box sx={{ px: 2, py: 1 }}>
+          <Box sx={{ px: 2, pb: 1 }}>
             {isProductsPage ? (
               <Search />
             ) : (

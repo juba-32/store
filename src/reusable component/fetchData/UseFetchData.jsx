@@ -5,10 +5,6 @@ import SinglePro from "../../components/singlePro/SinglePro";
 import Category from "../../components/filter/Category";
 import Price from "../../components/filter/Price";
 import "../../styles/FetchData.css";
-import "swiper/css";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Parallax, Autoplay, Navigation } from "swiper/modules";
-import "swiper/css/navigation";
 import { useTheme } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { addToCart } from "../../redux/cartSlice";
@@ -80,54 +76,6 @@ export default function UseFetchData({ url }) {
 
   return (
     <div className="section">
-      {/* Swiper Banner */}
-      <div
-        className="products-header"
-        style={{ backgroundColor: theme.palette.background.BG }}
-      >
-        <Swiper
-          dir="ltr"
-          spaceBetween={30}
-          centeredSlides
-          autoplay={{ delay: 2500, disableOnInteraction: false }}
-          style={{ height: "40vh", position: "relative" }}
-          speed={600}
-          parallax
-          navigation
-          modules={[Parallax, Autoplay, Navigation]}
-          className="mySwiper"
-        >
-          {/* Slides */}
-          <SwiperSlide
-            style={{
-              backgroundImage:
-                "url(https://dfcdn.defacto.com.tr/Mobile/en_desktop2x_0618d0f1-0990-4b9d-8eeb-eb7b52fc5fe4_e5585d26-33f8-41bd-aca2-28f6753cb80f_DI_383.jpg)",
-              backgroundSize: "contain",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}
-          />
-          <SwiperSlide
-            style={{
-              backgroundImage:
-                "url(https://dfcdn.defacto.com.tr/Mobile/en_desktop2x_b868c554-ed8e-4936-94bd-91cdd2ce761a_74c7aeb7-2db5-451d-b712-83ed0ddcd343_DI_383.jpg)",
-              backgroundSize: "contain",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}
-          />
-          <SwiperSlide
-            style={{
-              backgroundImage:
-                "url(https://dfcdn.defacto.com.tr/Mobile/desktop2x_155daf6b-1429-49a6-89df-c37add888f57_4cffb5fe-6bff-4af0-8986-3ee1fadc5ff5_DI_383.jpg)",
-              backgroundSize: "contain",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}
-          />
-        </Swiper>
-      </div>
-
       {/* Product Modal */}
       <Modal open={open} onClose={handleClose} aria-labelledby="product-modal">
         <Box

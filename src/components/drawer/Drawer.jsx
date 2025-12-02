@@ -14,8 +14,17 @@ import { useTranslation } from "react-i18next";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
+import Account from "../account/Account";
+import Language from "../language/Language";
+import Theme from "../theme/Theme";
+import NavCart from "../navCart/NavCart";
 
-export default function MyDrawer() {
+export default function MyDrawer({
+  anchorElLang,
+  anchorElAccount,
+  setAnchorElLang,
+  setAnchorElAccount,
+}) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -48,7 +57,13 @@ export default function MyDrawer() {
               <CloseIcon />
             </IconButton>
           </Box>
-          <List>
+          <List
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+            }}
+          >
             {navItems.map(({ label, path }, i) => (
               <ListItem key={i} disablePadding onClick={handleDrawerToggle}>
                 <ListItemButton component={Link} to={path}>
@@ -56,6 +71,19 @@ export default function MyDrawer() {
                 </ListItemButton>
               </ListItem>
             ))}
+
+            <Box sx={{ display: "flex", gap: "10px" }}>
+              <Account
+                anchorElAccount={anchorElAccount}
+                setAnchorElAccount={setAnchorElAccount}
+              />
+              <Language
+                anchorElLang={anchorElLang}
+                setAnchorElLang={setAnchorElLang}
+              />
+              <Theme />
+              <NavCart />
+            </Box>
           </List>
         </Box>
       </Drawer>

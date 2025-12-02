@@ -3,7 +3,6 @@ import { Box, InputBase, Paper, List, ListItem, ListItemAvatar, Avatar, ListItem
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 export function DropdownSearchInput({ backendUrl }) {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
@@ -11,7 +10,6 @@ export function DropdownSearchInput({ backendUrl }) {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
-
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedQuery(query.trim()), 300);
     return () => clearTimeout(timer);
@@ -23,7 +21,6 @@ export function DropdownSearchInput({ backendUrl }) {
       setOpenDropdown(false);
       return;
     }
-
     const fetchProducts = async () => {
       setLoading(true);
       try {
@@ -48,7 +45,7 @@ export function DropdownSearchInput({ backendUrl }) {
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
-      <Box sx={{ position: "relative", width: { xs: "100%", sm: 600 } }}>
+      <Box sx={{ position: "relative", width: { xs: "100%", sm: "100%", md: "100%", lg: 300 } }}>
         <Box sx={{ display: "flex", alignItems: "center", px: 2, py: 0.5, bgcolor: "background.paper", borderRadius: 1 }}>
           <SearchIcon sx={{color:"gray"}}/>
           <InputBase
@@ -60,7 +57,6 @@ export function DropdownSearchInput({ backendUrl }) {
           />
           {loading && <CircularProgress size={20} sx={{ ml: 1 }} />}
         </Box>
-
         {openDropdown && results.length > 0 && (
           <Paper sx={{ position: "absolute", top: "100%", left: 0, right: 0, mt: 1, zIndex: 10, maxHeight: 300, overflowY: "auto", boxShadow: 3 }}>
             <List>
