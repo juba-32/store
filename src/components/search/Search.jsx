@@ -1,5 +1,5 @@
 import SearchIcon from "@mui/icons-material/Search";
-import { Box, InputBase, useTheme, useMediaQuery } from "@mui/material";
+import { Box, InputBase} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchQuery } from "../../redux/cartSlice";
 import { useTranslation } from "react-i18next";
@@ -8,9 +8,6 @@ import { useEffect, useState } from "react";
 export default function Search() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
   const globalSearch = useSelector((state) => state.cart.searchQuery);
   const [localQuery, setLocalQuery] = useState(globalSearch);
 
@@ -32,9 +29,6 @@ export default function Search() {
           px: 2,
           py: 0.5,
           bgcolor: "background.paper",
-          width: "300px !important", // 🔥 يجبر العرض
-          maxWidth: "300px !important", // 🔥 يمنع أي تمدد
-          minWidth: "300px !important",
         }}
       >
         <SearchIcon sx={{ color: "gray" }} />

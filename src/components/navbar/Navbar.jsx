@@ -17,7 +17,7 @@ import { DropdownSearchInput } from "../filter/SearchDropdown";
 import Account from "../account/Account";
 import Language from "../language/Language";
 import NavCart from "../navCart/NavCart";
-import Drawer from "../drawer/Drawer";
+import MyDrawer from "../drawer/Drawer";
 export default function Navbar({ backendUrl }) {
   const location = useLocation();
   const isProductsPage = location.pathname.startsWith("/product");
@@ -48,9 +48,7 @@ export default function Navbar({ backendUrl }) {
               gap: isMobile ? 2 : 15,
             }}
           >
-            <h1>sss</h1>
-            <Drawer />
-
+            {isMobile ? <MyDrawer/> : ""}
             <Link
               to="/"
               style={{
@@ -99,7 +97,7 @@ export default function Navbar({ backendUrl }) {
           </Box>
           {/* Desktop Search */}
           {!isMobile && (
-            <Box sx={{ px: 2, py: 1, width: "auto", flexShrink: 0 }}>
+            <Box sx={{ px: 2, py: 1 }}>
               {isProductsPage ? (
                 <Search />
               ) : (

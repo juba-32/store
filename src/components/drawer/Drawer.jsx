@@ -1,5 +1,6 @@
 import {
   Box,
+  Drawer,
   IconButton,
   List,
   ListItem,
@@ -10,11 +11,11 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
- import MenuIcon from "@mui/icons-material/Close";
- import CloseIcon from "@mui/icons-material/Close";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 
-export default function Drawer() {
+export default function MyDrawer() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [drawerOpen, setDrawerOpen] = useState(false);
