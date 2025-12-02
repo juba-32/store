@@ -14,36 +14,53 @@ export default function Search() {
   const globalSearch = useSelector((state) => state.cart.searchQuery);
   const [localQuery, setLocalQuery] = useState(globalSearch);
 
-  // 🧠 Debounce input to prevent API spam
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(setSearchQuery(localQuery.trim().toLowerCase()));
-    }, 500); // waits 500ms after user stops typing
+    }, 500);
     return () => clearTimeout(timer);
   }, [localQuery, dispatch]);
 
   const handleChange = (e) => setLocalQuery(e.target.value);
 
   const SearchInput = (
-    <Box className="search-container">
-      <Box sx={{ display: "flex", alignItems: "center", px: 2, py: 0.5, bgcolor: "background.paper", borderRadius: 1}}>
-        <SearchIcon sx={{color:"gray"}}/>
-      <InputBase
-        className="search-input"
-        placeholder={t("search.Search Products")}
-        value={localQuery}
-        onChange={handleChange}
-        inputProps={{
-          "aria-label": t("search.Search Products"),
-          maxLength: 50, // 🧩 small safeguard
+    <Box>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          px: 2,
+          py: 0.5,
+          bgcolor: "background.paper",
+          width: "300px !important", // 🔥 يجبر العرض
+          maxWidth: "300px !important", // 🔥 يمنع أي تمدد
+          minWidth: "300px !important",
         }}
-      />
+      >
+        <SearchIcon sx={{ color: "gray" }} />
+        <InputBase
+          sx={{ flex: 1 }}
+          placeholder={t("search.Search Products")}
+          value={localQuery}
+          onChange={handleChange}
+          inputProps={{
+            "aria-label": t("search.Search Products"),
+            maxLength: 50,
+          }}
+        />
       </Box>
     </Box>
   );
 
   return (
-    <Box sx={{ display: "flex", justifyContent: isMobile ? "center" : "flex-start", py: isMobile ? 1 : 0 }}>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        py: 1,
+        width:"100%"
+      }}
+    >
       {SearchInput}
     </Box>
   );

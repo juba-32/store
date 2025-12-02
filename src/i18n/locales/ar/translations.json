@@ -1,10 +1,8 @@
 {
   "navbar": {
     "Products": "المنتجات",
-    "TV": "تلفزيون",
-    "Audio": "صوتيات",
-    "Mobile": "موبايل",
-    "Gaming": "ألعاب"
+    "About": "معلومات عنا",
+    "Contact": " تواصل معنا"
   },
   "signup": {
     "Welcome Back!": "!مرحبا بعودتك",

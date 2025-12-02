@@ -8,7 +8,7 @@ import {
   increment,
   removeFromCart,
   resetCart,
-} from "../../redux/cartSlice";
+} from "../redux/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 export default function Cart() {

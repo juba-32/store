@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
-import Cart from "./components/cart/Cart";
+import Cart from "./cart/Cart";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Reg from "./components/register/Register";

@@ -1,0 +1,72 @@
+import {
+  Box,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+ import MenuIcon from "@mui/icons-material/Close";
+ import CloseIcon from "@mui/icons-material/Close";
+import { Link } from "react-router-dom";
+
+export default function Drawer() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const handleDrawerToggle = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+  const { t } = useTranslation();
+  const navItems = [
+    { label: t("navbar.Products"), path: "/product" },
+    { label: t("navbar.About"), path: "/about" },
+    { label: t("navbar.Contact"), path: "/contact" },
+  ];
+  return (
+    <div>
+      <Drawer
+        anchor="left"
+        open={drawerOpen}
+        onClose={handleDrawerToggle}
+        PaperProps={{
+          sx: {
+            width: 250,
+          },
+        }}
+      >
+        <Box>
+          <Box
+            sx={{ display: "flex", justifyContent: "flex-end", px: 1, pt: 1 }}
+          >
+            <IconButton onClick={handleDrawerToggle}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+          <List>
+            {navItems.map(({ label, path }, i) => (
+              <ListItem key={i} disablePadding onClick={handleDrawerToggle}>
+                <ListItemButton component={Link} to={path}>
+                  <ListItemText primary={label} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      </Drawer>
+      {isMobile && (
+        <IconButton
+          onClick={handleDrawerToggle}
+          sx={{ color: theme.palette.text.primary }}
+          aria-label={drawerOpen ? "Close menu" : "Open menu"}
+        >
+          {drawerOpen ? <CloseIcon /> : <MenuIcon />}
+        </IconButton>
+      )}
+    </div>
+  );
+}

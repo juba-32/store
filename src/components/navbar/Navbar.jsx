@@ -1,62 +1,37 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { alpha } from "@mui/material/styles";
 import {
   AppBar,
   Box,
   Toolbar,
-  IconButton,
   Stack,
   Button,
-  Badge,
-  Tooltip,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Menu,
-  MenuItem,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import LanguageIcon from "@mui/icons-material/Language";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
 import Theme from "../theme/Theme";
 import { useTranslation } from "react-i18next";
 import Search from "../search/Search";
 import { DropdownSearchInput } from "../filter/SearchDropdown";
-
+import Account from "../account/Account";
+import Language from "../language/Language";
+import NavCart from "../navCart/NavCart";
+import Drawer from "../drawer/Drawer";
 export default function Navbar({ backendUrl }) {
   const location = useLocation();
   const isProductsPage = location.pathname.startsWith("/product");
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const qty = useSelector((state) => state.cart.qty);
-
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorElAccount, setAnchorElAccount] = useState(null);
   const [anchorElLang, setAnchorElLang] = useState(null);
 
-  const handleDrawerToggle = () => {
-    setDrawerOpen(!drawerOpen);
-  };
-
-  const handleMenuOpen = (event, setter) => {
-    setter(event.currentTarget);
-  };
-
-  const handleMenuClose = (setter) => {
-    setter(null);
-  };
-
-  const navItems = [{ label: t("navbar.Products"), path: "/product" }];
-
+  const navItems = [
+    { label: t("navbar.Products"), path: "/product" },
+    { label: t("navbar.About"), path: "/about" },
+    { label: t("navbar.Contact"), path: "/contact" },
+  ];
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -66,19 +41,25 @@ export default function Navbar({ backendUrl }) {
         <Toolbar
           sx={{ display: "flex", justifyContent: "space-between", px: 2 }}
         >
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            {isMobile && (
-              <IconButton
-                onClick={handleDrawerToggle}
-                sx={{ color: theme.palette.text.primary }}
-                aria-label={drawerOpen ? "Close menu" : "Open menu"}
-              >
-                {drawerOpen ? <CloseIcon /> : <MenuIcon />}
-              </IconButton>
-            )}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: isMobile ? 2 : 15,
+            }}
+          >
+            <h1>sss</h1>
+            <Drawer />
+
             <Link
               to="/"
-              style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration:"none", color: theme.palette.text.primary }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                textDecoration: "none",
+                color: theme.palette.text.primary,
+              }}
             >
               <img
                 style={{ width: "50px", height: "50px", borderRadius: "50%" }}
@@ -86,7 +67,7 @@ export default function Navbar({ backendUrl }) {
                 alt="nelly store"
               />
               <h1 style={{ fontSize: "20px" }}>
-                <span style={{ color: "#ff3c5f" }}>N</span>elly Store
+                <span style={{ color: "#ff3c5f" }}>N</span>elly
               </h1>
             </Link>
 
@@ -101,6 +82,7 @@ export default function Navbar({ backendUrl }) {
                       textTransform: "capitalize",
                       fontSize: ".9rem",
                       fontWeight: "bold",
+                      fontFamily: "sans-serif",
                       color: theme.palette.text.primary,
                       transition: "all 0.3s ease-in-out",
                       "&:hover": {
@@ -115,10 +97,9 @@ export default function Navbar({ backendUrl }) {
               </Stack>
             )}
           </Box>
-
           {/* Desktop Search */}
           {!isMobile && (
-            <Box sx={{ px: 2, py: 1 }}>
+            <Box sx={{ px: 2, py: 1, width: "auto", flexShrink: 0 }}>
               {isProductsPage ? (
                 <Search />
               ) : (
@@ -126,57 +107,20 @@ export default function Navbar({ backendUrl }) {
               )}
             </Box>
           )}
-
           {/* Right Section */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Tooltip title="Account">
-              <IconButton
-                aria-label="account"
-                onClick={(e) => handleMenuOpen(e, setAnchorElAccount)}
-                sx={{ color: theme.palette.text.primary }}
-              >
-                <AccountCircle sx={{ fontSize: "1.3rem" }} />
-              </IconButton>
-            </Tooltip>
-
-            <Tooltip title="Language">
-              <IconButton
-                aria-label="language"
-                onClick={(e) => handleMenuOpen(e, setAnchorElLang)}
-                sx={{ color: theme.palette.text.primary }}
-              >
-                <LanguageIcon sx={{ fontSize: "1.3rem" }} />
-              </IconButton>
-            </Tooltip>
-
+            <Account
+              anchorElAccount={anchorElAccount}
+              setAnchorElAccount={setAnchorElAccount}
+            />
+            <Language
+              anchorElLang={anchorElLang}
+              setAnchorElLang={setAnchorElLang}
+            />
             <Theme />
-
-            <Tooltip title="Cart">
-              <Link to="/cart">
-                <IconButton
-                  aria-label="cart"
-                  sx={{ color: theme.palette.text.primary }}
-                >
-                  <Badge
-                    badgeContent={qty}
-                    color="error"
-                    sx={{
-                      "& .MuiBadge-badge": {
-                        fontSize: "10px",
-                        height: "16px",
-                        minWidth: "16px",
-                        padding: "0 4px",
-                      },
-                    }}
-                  >
-                    <ShoppingCartIcon sx={{ fontSize: "1.3rem" }} />
-                  </Badge>
-                </IconButton>
-              </Link>
-            </Tooltip>
+            <NavCart />
           </Box>
         </Toolbar>
-
         {/* Mobile Search */}
         {isMobile && (
           <Box sx={{ px: 2, py: 1 }}>
@@ -188,82 +132,6 @@ export default function Navbar({ backendUrl }) {
           </Box>
         )}
       </AppBar>
-
-      {/* Mobile Drawer Menu */}
-      <Drawer
-        anchor="left"
-        open={drawerOpen}
-        onClose={handleDrawerToggle}
-        PaperProps={{
-          sx: {
-            width: 250,
-          },
-        }}
-      >
-        <Box>
-          <Box
-            sx={{ display: "flex", justifyContent: "flex-end", px: 1, pt: 1 }}
-          >
-            <IconButton onClick={handleDrawerToggle}>
-              <CloseIcon />
-            </IconButton>
-          </Box>
-
-          <List>
-            {navItems.map(({ label, path }, i) => (
-              <ListItem key={i} disablePadding onClick={handleDrawerToggle}>
-                <ListItemButton component={Link} to={path}>
-                  <ListItemText primary={label} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-      </Drawer>
-
-      {/* Account Dropdown */}
-      <Menu
-        anchorEl={anchorElAccount}
-        open={Boolean(anchorElAccount)}
-        onClose={() => handleMenuClose(setAnchorElAccount)}
-      >
-        <MenuItem onClick={() => handleMenuClose(setAnchorElAccount)}>
-          <Link
-            style={{
-              color: theme.palette.text.primary,
-              textDecoration: "none",
-              textTransform: "capitalize",
-            }}
-            to={"/register"}
-          >
-            {t("signup.sign up")}
-          </Link>
-        </MenuItem>
-      </Menu>
-
-      {/* Language Dropdown */}
-      <Menu
-        anchorEl={anchorElLang}
-        open={Boolean(anchorElLang)}
-        onClose={() => handleMenuClose(setAnchorElLang)}
-      >
-        <MenuItem
-          onClick={() => {
-            i18n.changeLanguage("en");
-            handleMenuClose(setAnchorElLang);
-          }}
-        >
-          English
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            i18n.changeLanguage("ar");
-            handleMenuClose(setAnchorElLang);
-          }}
-        >
-          العربية
-        </MenuItem>
-      </Menu>
     </Box>
   );
 }
