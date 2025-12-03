@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import Navbar from "./components/navbar/Navbar";
 import Cart from "./cart/Cart";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
@@ -7,10 +6,11 @@ import Reg from "./components/register/Register";
 import { darkTheme, lightTheme } from "./components/theme/Theme";
 import { useSelector } from "react-redux";
 import { ThemeProvider, CssBaseline } from "@mui/material";
-import Footer from "./components/footer/Footer";
+import Footer from "./layout/footer/Footer";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import Navbar from "./layout/navbar/Navbar";
 function App() {
   const darkMode = useSelector((state) => state.cart.darkMode);
   const { i18n } = useTranslation();
