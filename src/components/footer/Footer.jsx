@@ -70,16 +70,16 @@ const Footer = () => {
       </div>
 
       <div className="social-links">
-        <a href="facebook">
+        <a href="facebook" aria-label="Facebook">
           <FaFacebookF />
         </a>
-        <a href="twitter">
+        <a href="twitter" aria-label="Twitter">
           <TiSocialTwitter />
         </a>
-        <a href="linkedinin">
+        <a href="linkedinin" aria-label="LinkedIn">
           <FaLinkedinIn />
         </a>
-        <a href="youtube">
+        <a href="youtube" aria-label="YouTube">
           <FaYoutube />
         </a>
       </div>
