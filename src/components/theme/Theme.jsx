@@ -65,41 +65,39 @@ export default function Theme() {
   const m = useTheme();
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.cart?.darkMode);
-   return (
-     <div>
-       <FormGroup>
-         <FormControlLabel
-           control={
-             <Switch
-               sx={{
+  return (
+    <div>
+      <FormGroup>
+        <FormControlLabel
+          label=""
+          control={
+            <Switch
+              sx={{
                 "& .MuiSwitch-thumb": {
-                    fontSize:"1rem",
-                    width:"16px",
-                    height:"16px",
-                    marginTop:"2px",
-                 },
-                 "& .MuiSwitch-switchBase.Mui-checked": {
-                     color: m.palette.text.primary, 
-                    
-                 },
-                 "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
-                   backgroundColor: m.palette.text.primary, 
-                 },
-                 "& .MuiSwitch-switchBase": {
-                   color: m.palette.text.primary,
-                   
-                 },
-                 "& .MuiSwitch-track": {
-                   backgroundColor: m.palette.text.primary, 
-                 },
-                 
-               }}
-               checked={theme || false}
-               onChange={() => dispatch(setMode())}
-             />
-           }
-         />
-       </FormGroup>
-     </div>
-   );
+                  fontSize: "1rem",
+                  width: "16px",
+                  height: "16px",
+                  marginTop: "2px",
+                },
+                "& .MuiSwitch-switchBase.Mui-checked": {
+                  color: m.palette.text.primary,
+                },
+                "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+                  backgroundColor: m.palette.text.primary,
+                },
+                "& .MuiSwitch-switchBase": {
+                  color: m.palette.text.primary,
+                },
+                "& .MuiSwitch-track": {
+                  backgroundColor: m.palette.text.primary,
+                },
+              }}
+              checked={theme || false}
+              onChange={() => dispatch(setMode())}
+            />
+          }
+        />
+      </FormGroup>
+    </div>
+  );
 }
