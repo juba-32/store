@@ -11,10 +11,10 @@ const Footer = () => {
   const { t } = useTranslation();
 
   const quickLinks = [
-    { label: t("navbar.TV"), path: "/tv" },
-    { label: t("navbar.Audio"), path: "/audio" },
-    { label: t("navbar.Mobile"), path: "/mobile" },
-    { label: t("navbar.Gaming"), path: "/gaming" },
+    { label: t("navbar.Home"), path: "/" },
+    { label: t("navbar.Products"), path: "/product" },
+    { label: t("navbar.About"), path: "/about" },
+    { label: t("navbar.Contact"), path: "/contact" },
   ];
 
   return (
