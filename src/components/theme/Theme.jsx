@@ -72,7 +72,7 @@ export default function Theme() {
           label=""
           control={
             <Switch
-              input={{
+              inputProps={{
                 "aria-label": "Toggle dark mode",
               }}
               sx={{
