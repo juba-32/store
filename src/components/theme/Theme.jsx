@@ -72,6 +72,9 @@ export default function Theme() {
           label=""
           control={
             <Switch
+              inputProps={{
+                "aria-label": "Toggle dark mode",
+              }}
               sx={{
                 "& .MuiSwitch-thumb": {
                   fontSize: "1rem",
