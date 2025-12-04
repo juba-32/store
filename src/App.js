@@ -11,6 +11,8 @@ import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import Navbar from "./layout/navbar/Navbar";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 function App() {
   const darkMode = useSelector((state) => state.cart.darkMode);
   const { i18n } = useTranslation();
@@ -28,6 +30,8 @@ function App() {
           <Route path="/Product" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/register" element={<Reg />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />
       </div>

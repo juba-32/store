@@ -3,9 +3,12 @@ import "./Hero.css";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 export default function Hero() {
   const { t } = useTranslation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const texts = [t("hero.Welcome to AM"), t("hero.history of glory")];
   const [index, setIndex] = useState(0);
@@ -32,11 +35,11 @@ export default function Hero() {
     <div
       className="hero-section"
       style={{
-        backgroundImage:
-          `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url(${"/images/storeBG.avif"})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url(${"/images/storeBG.avif"})`,
+        backgroundSize: isMobile ? "contain" : "cover",
+        backgroundPosition: isMobile ? "bottom" : "center",
         backgroundRepeat: "no-repeat",
+        height: isMobile ? "60vh" : "100vh"
       }}
     >
       <div className="hero-content">
