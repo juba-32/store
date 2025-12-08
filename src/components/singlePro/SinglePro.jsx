@@ -26,7 +26,7 @@ export default function SinglePro({
     if (productid) {
       setLoading(true);
       axios
-        .get(`https://amb.up.railway.app/products/${productid}`)
+        .get(`https://node-api-projects.vercel.app/products/${productid}`)
         .then((res) => {
           setProduct(res.data);
         });
