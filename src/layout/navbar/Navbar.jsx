@@ -58,6 +58,8 @@ export default function Navbar({ backendUrl }) {
               display: "flex",
               alignItems: "center",
               gap: "10px",
+              minHeight: "48px",
+              minWidth: "48px",
               textDecoration: "none",
               color: theme.palette.text.primary,
             }}
