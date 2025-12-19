@@ -24,13 +24,27 @@ export default function AboutPage() {
       represents diversity, modern living, and a curated range of premium
       products. Sustainability isn’t a trend for us — it’s a commitment to
       you, and to the world we share.`,
+      img: "/images/value.avif",
+    },
+    {
+      title: "Our culture",
+      text: `We’re more than just electronics. We’re about people, community, and creating experiences that feel reliable and welcoming. Driven by passion and dedication, our team delivers technology that connects, inspires, and enhances everyday life.`,
       img: "/images/culture.avif",
+    },
+    {
+      title: "Our ambition",
+      text: `We set new standards in everything we do—from choosing our technology partners to the moment our product reaches your hands. We hold ourselves to the highest standards, so you can expect the best in quality, performance, and design. Step by step, we’re building a leading premium electronics brand.`,
+      img: "/images/ambition.avif",
     },
   ];
 
   const imgVariants = {
     hidden: { opacity: 0, x: -50 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
   };
 
   const textVariants = {
@@ -43,34 +57,45 @@ export default function AboutPage() {
   };
 
   return (
-    <div>
-      {sections.map((section, i) => (
-        <motion.div
-          className="aboutUs"
-          key={i}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          {i % 2 === 0 ? (
-            <>
-              <motion.img src={section.img} alt={section.title} variants={imgVariants} />
-              <motion.div className="aboutUs-text" variants={textVariants}>
-                <h1>{section.title}</h1>
-                <p>{section.text}</p>
-              </motion.div>
-            </>
-          ) : (
-            <>
-              <motion.div className="aboutUs-text" variants={textVariants}>
-                <h1>{section.title}</h1>
-                <p>{section.text}</p>
-              </motion.div>
-              <motion.img src={section.img} alt={section.title} variants={imgVariants} />
-            </>
-          )}
-        </motion.div>
-      ))}
-    </div>
+    <>
+      <div>
+        {sections.map((section, i) => (
+          <motion.div
+            className="aboutUs"
+            key={i}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            {i % 2 === 0 ? (
+              <>
+                <motion.img
+                  src={section.img}
+                  alt={section.title}
+                  variants={imgVariants}
+                />
+                <motion.div className="aboutUs-text" variants={textVariants}>
+                  <h1>{section.title}</h1>
+                  <p>{section.text}</p>
+                </motion.div>
+              </>
+            ) : (
+              <>
+                <motion.div className="aboutUs-text" variants={textVariants}>
+                  <h1>{section.title}</h1>
+                  <p>{section.text}</p>
+                </motion.div>
+                <motion.img
+                  src={section.img}
+                  alt={section.title}
+                  variants={imgVariants}
+                />
+              </>
+            )}
+          </motion.div>
+        ))}
+      </div>
+      
+    </>
   );
 }
