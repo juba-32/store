@@ -75,6 +75,11 @@
   color: var(--text);
 }
 
+.navbar-right-icons h3{
+  padding: 5px 10px;
+  text-transform: capitalize;
+}
+
 .navbar-mobile-search {
   padding: 0 16px 8px;
 }

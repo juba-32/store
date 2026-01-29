@@ -13,6 +13,7 @@ import Navbar from "./layout/navbar/Navbar";
 import Products from "./pages/products/Products";
 import About from "./pages/about/About";
 import Contact from "./pages/contact/Contact";
+import Checkout from "./pages/Checkout";
 function App() {
   const darkMode = useSelector((state) => state.cart.darkMode);
   const { i18n } = useTranslation();
@@ -32,6 +33,7 @@ function App() {
           <Route path="/register" element={<Reg />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
         <Footer />
       </div>

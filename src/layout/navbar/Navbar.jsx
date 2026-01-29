@@ -1,6 +1,14 @@
 import "./Navbar.css";
 import { useState } from "react";
-import { AppBar, Box, Toolbar, Stack, Button, useTheme, useMediaQuery } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Stack,
+  Button,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Search from "../../components/search/Search";
@@ -10,6 +18,7 @@ import Language from "../../components/language/Language";
 import NavCart from "../../components/navCart/NavCart";
 import MyDrawer from "../drawer/Drawer";
 import Theme from "../../components/theme/Theme";
+import { getUser } from "../../utils/Helper";
 
 export default function Navbar({ backendUrl }) {
   const location = useLocation();
@@ -21,6 +30,7 @@ export default function Navbar({ backendUrl }) {
 
   const [anchorElAccount, setAnchorElAccount] = useState(null);
   const [anchorElLang, setAnchorElLang] = useState(null);
+  const user = getUser();
 
   const navItems = [
     { label: t("navbar.Products"), path: "/products" },
@@ -39,9 +49,12 @@ export default function Navbar({ backendUrl }) {
       <Box className="navbar-wrapper">
         <AppBar position="fixed" className="navbar-appbar">
           <Toolbar className="navbar-toolbar">
-            {/* Logo */}
             <Link to="/" className="navbar-logo-link">
-              <img src="/images/logo.avif" alt="nelly store" className="navbar-logo-img" />
+              <img
+                src="/images/logo.avif"
+                alt="nelly store"
+                className="navbar-logo-img"
+              />
               {!isMobile && (
                 <h1 className="navbar-logo-text">
                   <span className="navbar-logo-highlight">N</span>elly
@@ -49,29 +62,43 @@ export default function Navbar({ backendUrl }) {
               )}
             </Link>
 
-            {/* Desktop nav + search */}
             {!isMobile && (
               <Box className="navbar-nav-search">
                 <Stack spacing={2} direction="row">
                   {navItems.map(({ label, path }, i) => (
-                    <Button key={i} component={Link} to={path} className="navbar-nav-button">
+                    <Button
+                      key={i}
+                      component={Link}
+                      to={path}
+                      className="navbar-nav-button"
+                    >
                       {label}
                     </Button>
                   ))}
                 </Stack>
 
                 <Box className="navbar-search-box">
-                  {isProductsPage ? <Search /> : <DropdownSearchInput backendUrl={backendUrl} />}
+                  {isProductsPage ? (
+                    <Search />
+                  ) : (
+                    <DropdownSearchInput backendUrl={backendUrl} />
+                  )}
                 </Box>
               </Box>
             )}
 
-            {/* Right icons */}
             <Box className="navbar-right-icons">
               {!isMobile && (
                 <>
-                  <Account anchorElAccount={anchorElAccount} setAnchorElAccount={setAnchorElAccount} />
-                  <Language anchorElLang={anchorElLang} setAnchorElLang={setAnchorElLang} />
+                  <h3>{user ? user.fullname : ""}</h3>
+                  <Account
+                    anchorElAccount={anchorElAccount}
+                    setAnchorElAccount={setAnchorElAccount}
+                  />
+                  <Language
+                    anchorElLang={anchorElLang}
+                    setAnchorElLang={setAnchorElLang}
+                  />
                   <Theme />
                   <NavCart />
                 </>
@@ -91,7 +118,11 @@ export default function Navbar({ backendUrl }) {
           {/* Mobile search */}
           {isMobile && (
             <Box className="navbar-mobile-search">
-              {isProductsPage ? <Search /> : <DropdownSearchInput backendUrl={backendUrl} />}
+              {isProductsPage ? (
+                <Search />
+              ) : (
+                <DropdownSearchInput backendUrl={backendUrl} />
+              )}
             </Box>
           )}
         </AppBar>

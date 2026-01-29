@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import Input from "../input/Input";
 import { signupUser, loginUser } from "../../api/auth";
-import { saveToken } from "../../utils/Helper";
+import { saveToken, saveUser } from "../../utils/Helper";
 
 import "./Register.css";
 
@@ -34,7 +34,7 @@ export default function Register() {
     setError("");
   };
 
-  // Handle Inputs
+  // handle form inputs
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -65,6 +65,7 @@ export default function Register() {
         });
 
         saveToken(data.token);
+        saveUser(data.user)
         navigate("/");
       }
 
@@ -77,7 +78,7 @@ export default function Register() {
         });
 
         saveToken(data.token);
-        navigate("/");
+        navigate("/register");
       }
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");

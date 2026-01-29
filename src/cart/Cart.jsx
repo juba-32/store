@@ -11,6 +11,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@mui/material";
+import { getUser } from "../utils/Helper";
+const user = getUser();
 
 export default function Cart() {
   const { t } = useTranslation();
@@ -43,7 +45,6 @@ export default function Cart() {
         "--border": theme.palette.divider,
       }}
     >
-      {/* CART CONTAINER */}
       <div className="cart-container">
         <h1>
           {t("cart.Shopping cart")}
@@ -52,18 +53,15 @@ export default function Cart() {
           </span>
         </h1>
 
-        {/* EMPTY CART */}
         {cartItems.length === 0 ? (
           <h1 className="empty-cart">{t("cart.your cart is empty")}</h1>
         ) : (
           cartItems.map((pro) => (
             <div className="cart-product" key={pro.id}>
-              {/* PRODUCT IMAGE */}
               <div className="cart-img">
                 <img src={pro.image} alt={pro.title} />
               </div>
 
-              {/* PRODUCT DETAILS */}
               <div className="cart-details">
                 <h5>{pro.title}</h5>
 
@@ -75,7 +73,6 @@ export default function Cart() {
                   <strong>{t("cart.Price")}</strong> : ${pro.price}
                 </p>
 
-                {/* QUANTITY */}
                 <div className="qty">
                   <b>{t("cart.Qty")} :</b>
 
@@ -98,7 +95,6 @@ export default function Cart() {
                   </button>
                 </div>
 
-                {/* REMOVE PRODUCT */}
                 <button
                   className="delete-btn"
                   onClick={() => dispatch(removeFromCart(pro.id))}
@@ -129,9 +125,7 @@ export default function Cart() {
 
           <div>
             <p>{t("cart.Discount")}:</p>
-            <span className="discount-text">
-              -${discount.toFixed(2)}
-            </span>
+            <span className="discount-text">-${discount.toFixed(2)}</span>
           </div>
 
           <hr />
@@ -141,11 +135,16 @@ export default function Cart() {
             <span>${subtotal.toFixed(2)}</span>
           </div>
 
-          <button>{t("cart.procced to pay")}</button>
+          <button
+            onClick={() => {
+              user ? navigate("/checkout") : navigate("/register");
+            }}
+          >
+            {t("cart.procced to pay")}
+          </button>
         </div>
       )}
 
-      {/* FOOTER BUTTONS */}
       <div className="cart-header-btns">
         <button onClick={() => navigate(-1)}>
           {t("cart.continue shopping")}
