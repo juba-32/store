@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Cart from "./cart/Cart";
 import Home from "./pages/Home";
-import Product from "./pages/Product";
 import Reg from "./components/register/Register";
 import { darkTheme, lightTheme } from "./components/theme/Theme";
 import { useSelector } from "react-redux";
@@ -11,8 +10,9 @@ import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import Navbar from "./layout/navbar/Navbar";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
+import Products from "./pages/products/Products";
+import About from "./pages/about/About";
+import Contact from "./pages/contact/Contact";
 function App() {
   const darkMode = useSelector((state) => state.cart.darkMode);
   const { i18n } = useTranslation();
@@ -27,7 +27,7 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home  />} />
-          <Route path="/Product" element={<Product />} />
+          <Route path="/Products" element={<Products url = {"https://node-api-projects.vercel.app/products"} />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/register" element={<Reg />} />
           <Route path="/about" element={<About />} />

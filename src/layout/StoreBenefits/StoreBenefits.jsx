@@ -1,6 +1,6 @@
-import "./Advantages.css";
+import "./StoreBenefits.css";
 import { FaHandHoldingHeart } from "react-icons/fa";
-export default function Advantages() {
+export default function StoreBenefits() {
   return (
     <div className="advantages">
       <h2> <FaHandHoldingHeart /> Your advantages with nelly</h2>

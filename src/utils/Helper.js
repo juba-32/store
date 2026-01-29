@@ -1,9 +1,38 @@
 export const handleMenuOpen = (event, setter) => {
-    setter(event.currentTarget);
-  };
+  setter(event.currentTarget);
+};
 
-  export const handleMenuClose = (setter) => {
-    setter(null);
-  };
+export const handleMenuClose = (setter) => {
+  setter(null);
+};
 
-  
+export const queryParams = ({ categoryFilter, priceFilter, searchQuery }) => {
+  const params = new URLSearchParams();
+
+  if (categoryFilter) {
+    params.append("selectCategory", categoryFilter);
+  }
+
+  if (priceFilter?.length === 2) {
+    params.append("minPrice", priceFilter[0]);
+    params.append("maxPrice", priceFilter[1]);
+  }
+
+  if (searchQuery) {
+    params.append("search", searchQuery);
+  }
+
+  return params.toString();
+};
+
+export const saveToken = (token) => {
+  localStorage.setItem("token", token);
+};
+
+export const getToken = () => {
+  return localStorage.getItem("token");
+};
+
+export const logoutUser = () => {
+  localStorage.removeItem("token");
+};

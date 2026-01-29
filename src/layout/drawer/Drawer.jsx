@@ -14,10 +14,10 @@ import { useTranslation } from "react-i18next";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
-import Account from "../account/Account";
-import Language from "../language/Language";
-import Theme from "../theme/Theme";
-import NavCart from "../navCart/NavCart";
+import Account from "../../components/account/Account";
+import Language from "../../components/language/Language";
+import Theme from "../../components/theme/Theme";
+import NavCart from "../../components/navCart/NavCart";
 
 export default function MyDrawer({
   anchorElLang,
@@ -33,7 +33,7 @@ export default function MyDrawer({
   };
   const { t } = useTranslation();
   const navItems = [
-    { label: t("navbar.Products"), path: "/product" },
+    { label: t("navbar.Products"), path: "/products" },
     { label: t("navbar.About"), path: "/about" },
     { label: t("navbar.Contact"), path: "/contact" },
   ];

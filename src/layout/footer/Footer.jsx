@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+
 const Footer = () => {
   const darkMode = useSelector((state) => state.cart.darkMode);
   const { t } = useTranslation();
@@ -83,7 +84,6 @@ const Footer = () => {
           <FaYoutube />
         </a>
       </div>
-
       <div className="copyright">
         <p>
           © <b>Ahmed Bendary</b> | All Rights Reserved

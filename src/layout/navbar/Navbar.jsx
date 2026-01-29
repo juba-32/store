@@ -1,14 +1,6 @@
+import "./Navbar.css";
 import { useState } from "react";
-import { alpha } from "@mui/material/styles";
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Stack,
-  Button,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
+import { AppBar, Box, Toolbar, Stack, Button, useTheme, useMediaQuery } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Search from "../../components/search/Search";
@@ -16,7 +8,7 @@ import { DropdownSearchInput } from "../../components/filter/SearchDropdown";
 import Account from "../../components/account/Account";
 import Language from "../../components/language/Language";
 import NavCart from "../../components/navCart/NavCart";
-import MyDrawer from "../../components/drawer/Drawer";
+import MyDrawer from "../drawer/Drawer";
 import Theme from "../../components/theme/Theme";
 
 export default function Navbar({ backendUrl }) {
@@ -31,134 +23,79 @@ export default function Navbar({ backendUrl }) {
   const [anchorElLang, setAnchorElLang] = useState(null);
 
   const navItems = [
-    { label: t("navbar.Products"), path: "/product" },
+    { label: t("navbar.Products"), path: "/products" },
     { label: t("navbar.About"), path: "/about" },
     { label: t("navbar.Contact"), path: "/contact" },
   ];
 
+  // Pass theme colors via CSS variables
+  const navColors = {
+    "--bg": theme.palette.background.BG,
+    "--text": theme.palette.text.primary,
+  };
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position="fixed"
-        sx={{ backgroundColor: theme.palette.background.BG }}
-      >
-        <Toolbar
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            px: 2,
-            gap: 2,
-          }}
-        >
-          {/* left logo */}
-          <Link
-            to="/"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              minHeight: "48px",
-              minWidth: "48px",
-              textDecoration: "none",
-              color: theme.palette.text.primary,
-            }}
-          >
-            <img
-              style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-              src="/images/logo.avif"
-              alt="nelly store"
-            />
+    <div className="nav" style={navColors}>
+      <Box className="navbar-wrapper">
+        <AppBar position="fixed" className="navbar-appbar">
+          <Toolbar className="navbar-toolbar">
+            {/* Logo */}
+            <Link to="/" className="navbar-logo-link">
+              <img src="/images/logo.avif" alt="nelly store" className="navbar-logo-img" />
+              {!isMobile && (
+                <h1 className="navbar-logo-text">
+                  <span className="navbar-logo-highlight">N</span>elly
+                </h1>
+              )}
+            </Link>
+
+            {/* Desktop nav + search */}
             {!isMobile && (
-              <h1 style={{ fontSize: "20px" }}>
-                <span style={{ color: "#ff3c5f" }}>N</span>elly
-              </h1>
-            )}
-          </Link>
+              <Box className="navbar-nav-search">
+                <Stack spacing={2} direction="row">
+                  {navItems.map(({ label, path }, i) => (
+                    <Button key={i} component={Link} to={path} className="navbar-nav-button">
+                      {label}
+                    </Button>
+                  ))}
+                </Stack>
 
-          {/* Nav Items + Search (desktop) */}
-          {!isMobile && (
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 2,
-                flexGrow: 1,
-                justifyContent: "center",
-              }}
-            >
-              <Stack spacing={2} direction="row">
-                {navItems.map(({ label, path }, i) => (
-                  <Button
-                    key={i}
-                    component={Link}
-                    to={path}
-                    sx={{
-                      textTransform: "capitalize",
-                      fontSize: ".9rem",
-                      fontWeight: "bold",
-                      color: theme.palette.text.primary,
-                      "&:hover": {
-                        transform: "scale(1.1)",
-                        backgroundColor: alpha(theme.palette.success.main, 0.1),
-                      },
-                    }}
-                  >
-                    {label}
-                  </Button>
-                ))}
-              </Stack>
-
-              {/* large screen ___ search inline with navItems */}
-              <Box sx={{ minWidth: "220px" }}>
-                {isProductsPage ? (
-                  <Search />
-                ) : (
-                  <DropdownSearchInput backendUrl={backendUrl} />
-                )}
+                <Box className="navbar-search-box">
+                  {isProductsPage ? <Search /> : <DropdownSearchInput backendUrl={backendUrl} />}
+                </Box>
               </Box>
-            </Box>
-          )}
+            )}
 
-          {/* right icons */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            {!isMobile && (
-              <>
-                <Account
+            {/* Right icons */}
+            <Box className="navbar-right-icons">
+              {!isMobile && (
+                <>
+                  <Account anchorElAccount={anchorElAccount} setAnchorElAccount={setAnchorElAccount} />
+                  <Language anchorElLang={anchorElLang} setAnchorElLang={setAnchorElLang} />
+                  <Theme />
+                  <NavCart />
+                </>
+              )}
+
+              {isMobile && (
+                <MyDrawer
+                  anchorElLang={anchorElLang}
                   anchorElAccount={anchorElAccount}
+                  setAnchorElLang={setAnchorElLang}
                   setAnchorElAccount={setAnchorElAccount}
                 />
-                <Language
-                  anchorElLang={anchorElLang}
-                  setAnchorElLang={setAnchorElLang}
-                />
-                <Theme />
-                <NavCart />
-              </>
-            )}
+              )}
+            </Box>
+          </Toolbar>
 
-            {isMobile && (
-              <MyDrawer
-                anchorElLang={anchorElLang}
-                anchorElAccount={anchorElAccount}
-                setAnchorElLang={setAnchorElLang}
-                setAnchorElAccount={setAnchorElAccount}
-              />
-            )}
-          </Box>
-        </Toolbar>
-
-        {/* mobile search at the bottom of the navbae */}
-        {isMobile && (
-          <Box sx={{ px: 2, pb: 1 }}>
-            {isProductsPage ? (
-              <Search />
-            ) : (
-              <DropdownSearchInput backendUrl={backendUrl} />
-            )}
-          </Box>
-        )}
-      </AppBar>
-    </Box>
+          {/* Mobile search */}
+          {isMobile && (
+            <Box className="navbar-mobile-search">
+              {isProductsPage ? <Search /> : <DropdownSearchInput backendUrl={backendUrl} />}
+            </Box>
+          )}
+        </AppBar>
+      </Box>
+    </div>
   );
 }

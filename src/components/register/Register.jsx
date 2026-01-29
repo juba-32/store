@@ -1,245 +1,180 @@
 import { useState } from "react";
-import {
-  Box,
-  Paper,
-  Typography,
-  Button,
-  Switch,
-  FormControlLabel,
-} from "@mui/material";
+import { Button, Switch, FormControlLabel, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { auth } from "../../firebase/Config";
-import Input from "../../reusable component/input/Input";
 import { useTranslation } from "react-i18next";
 
-const Register = () => {
-  const { t } = useTranslation();
+import Input from "../input/Input";
+import { signupUser, loginUser } from "../../api/auth";
+import { saveToken } from "../../utils/Helper";
 
+import "./Register.css";
+
+export default function Register() {
+  const { t } = useTranslation();
+  const theme = useTheme();
   const navigate = useNavigate();
-  const [hasError, setHasError] = useState(false);
-  const [firebaseError, setFirebaseError] = useState(false);
+
   const [mode, setMode] = useState("login");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const initialFormData = {
     fullname: "",
     email: "",
     password: "",
-    createpassword: "",
-    repeatpassword: "",
+    confirmPassword: "",
   };
+
   const [formData, setFormData] = useState(initialFormData);
 
+  // Toggle Login/Signup
   const toggleMode = () => {
-    setMode(mode === "login" ? "signup" : "login");
+    setMode((prev) => (prev === "login" ? "signup" : "login"));
+    setFormData(initialFormData);
+    setError("");
   };
 
+  // Handle Inputs
   const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({ ...prev, [id]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.id]: e.target.value,
+    }));
   };
 
-  const handleSubmit = (e) => {
+  // Submit Form
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
-    if (
-      mode === "signup" &&
-      formData.createpassword !== formData.repeatpassword
-    ) {
-      setHasError(true);
-      setFirebaseError("Passwords do not match");
-      return;
+    // Signup Validation
+    if (mode === "signup") {
+      if (formData.password !== formData.confirmPassword) {
+        return setError("Passwords do not match");
+      }
     }
 
-    if (mode === "login") {
-      signInWithEmailAndPassword(auth, formData.email, formData.password)
-        .then(() => {
-          setFormData(initialFormData);
-          navigate("/");
-        })
-        .catch((error) => {
-          setHasError(true);
-          switch (error.code) {
-            case "auth/invalid-credential":
-              setFirebaseError("Invalid Email or Password");
-              break;
-            default:
-              setFirebaseError("Login failed");
-              break;
-          }
+    try {
+      setLoading(true);
+
+      // LOGIN
+      if (mode === "login") {
+        const data = await loginUser({
+          email: formData.email,
+          password: formData.password,
         });
-    } else {
-      createUserWithEmailAndPassword(
-        auth,
-        formData.email,
-        formData.createpassword
-      )
-        .then(() => {
-          setFormData(initialFormData);
-          setMode("login");
-        })
-        .catch((error) => {
-          setHasError(true);
-          switch (error.code) {
-            case "auth/email-already-in-use":
-              setFirebaseError("Email already in use");
-              break;
-            case "auth/invalid-email":
-              setFirebaseError("Invalid email");
-              break;
-            case "auth/weak-password":
-              setFirebaseError("Password is too weak");
-              break;
-            default:
-              setFirebaseError("Signup failed");
-              break;
-          }
+
+        saveToken(data.token);
+        navigate("/");
+      }
+
+      // SIGNUP
+      else {
+        const data = await signupUser({
+          fullname: formData.fullname,
+          email: formData.email,
+          password: formData.password,
         });
+
+        saveToken(data.token);
+        navigate("/");
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        bgcolor: "background.default",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        transition: "all 0.5s ease",
-        p: 2,
+    <div
+      className="register-page"
+      style={{
+        "--bg": theme.palette.background.default,
+        "--text": theme.palette.text.primary,
+        "--muted": theme.palette.text.secondary,
+        "--error": theme.palette.error.main,
       }}
     >
-      <Paper
-        elevation={6}
-        sx={{
-          p: 4,
-          width: 350,
-          bgcolor: "background.paper",
-          textAlign: "center",
-          borderRadius: 2,
-          boxShadow: 6,
-        }}
-      >
-        <Typography variant="h5" sx={{ mb: 2, color: "text.primary" }}>
-          {mode === "login" ? t("signup.Welcome Back!") : t("signup.sign up")}
-        </Typography>
+      <div className="register-card">
+        <h2 className="register-title">
+          {mode === "login"
+            ? t("signup.Welcome Back!")
+            : t("signup.sign up")}
+        </h2>
 
+        {/* Switch */}
         <FormControlLabel
           control={<Switch checked={mode === "signup"} onChange={toggleMode} />}
           label={
             mode === "login"
-              ? t("signup.already have account")
-              : t("signup.Need an account")
+              ? t("signup.Need an account")
+              : t("signup.already have account")
           }
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            mb: 3,
-            "& .MuiFormControlLabel-label": {
-              fontSize: "0.85rem",
-              color: "text.secondary",
-            },
-          }}
+          className="register-switch"
         />
 
-        <Box component="form" onSubmit={handleSubmit}>
-          {mode === "login" ? (
-            <>
-              <Input
-                fullWidth
-                required
-                type="text"
-                id="email"
-                label={t("signup.email")}
-                value={formData.email}
-                onChange={handleChange}
-              />
-              <Input
-                fullWidth
-                required
-                type="password"
-                id="password"
-                label={t("signup.password")}
-                value={formData.password}
-                onChange={handleChange}
-              />
-            </>
-          ) : (
-            <>
-              <Input
-                fullWidth
-                required
-                id="fullname"
-                label={t("signup.full name")}
-                value={formData.fullname}
-                onChange={handleChange}
-                sx={{ mb: 2 }}
-              />
-
-              <Input
-                fullWidth
-                required
-                id="email"
-                label={t("signup.email")}
-                value={formData.email}
-                onChange={handleChange}
-                sx={{ mb: 2 }}
-              />
-
-              <Input
-                fullWidth
-                required
-                type="password"
-                id="createpassword"
-                label={t("signup.password")}
-                value={formData.createpassword}
-                onChange={handleChange}
-                sx={{ mb: 2 }}
-              />
-
-              <Input
-                fullWidth
-                required
-                type="password"
-                id="repeatpassword"
-                label={t("signup.confirm Password")}
-                value={formData.repeatpassword}
-                onChange={handleChange}
-              />
-            </>
+        {/* Form */}
+        <form className="register-form" onSubmit={handleSubmit}>
+          {/* Full Name */}
+          {mode === "signup" && (
+            <Input
+              fullWidth
+              required
+              id="fullname"
+              label={t("signup.full name")}
+              value={formData.fullname}
+              onChange={handleChange}
+            />
           )}
 
-          <Button
-            type="submit"
+          {/* Email */}
+          <Input
             fullWidth
-            variant="contained"
-            color="primary.contrastText"
-            sx={{ mt: 3, py: 1.5, fontWeight: "bold" }}
-          >
-            {mode === "login" ? t("signup.log in") : t("signup.sign up")}
+            required
+            id="email"
+            label={t("signup.email")}
+            value={formData.email}
+            onChange={handleChange}
+          />
+
+          {/* Password */}
+          <Input
+            fullWidth
+            required
+            type="password"
+            id="password"
+            label={t("signup.password")}
+            value={formData.password}
+            onChange={handleChange}
+          />
+
+          {/* Confirm Password */}
+          {mode === "signup" && (
+            <Input
+              fullWidth
+              required
+              type="password"
+              id="confirmPassword"
+              label={t("signup.confirm Password")}
+              value={formData.confirmPassword}
+              onChange={handleChange}
+            />
+          )}
+
+          {/* Submit */}
+          <Button type="submit" fullWidth variant="contained" disabled={loading}>
+            {loading
+              ? "Please wait..."
+              : mode === "login"
+              ? t("signup.log in")
+              : t("signup.sign up")}
           </Button>
 
-          {hasError && (
-            <Typography
-              variant="body2"
-              sx={{
-                mt: 2,
-                p: 1,
-                borderRadius: 1,
-                bgcolor: "error.light",
-                color: "error.contrastText",
-              }}
-            >
-              {firebaseError}
-            </Typography>
-          )}
-        </Box>
-      </Paper>
-    </Box>
+          {/* Error */}
+          {error && <p className="register-error">{error}</p>}
+        </form>
+      </div>
+    </div>
   );
-};
-
-export default Register;
+}

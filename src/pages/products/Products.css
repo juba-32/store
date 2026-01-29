@@ -1,0 +1,148 @@
+.products-page {
+  margin-top: 9vh;
+  padding: 20px;
+}
+
+.products-filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+.product-modal-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.4);
+}
+
+@media screen and (max-width: 900px) {
+  .product-modal-box {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .product-modal-box {
+    width: 95%;
+  }
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 25px;
+  justify-items: center;
+}
+
+.product-card {
+  width: 250px;
+  padding: 15px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-image {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: 0.2s;
+}
+
+.product-image:hover {
+  transform: scale(1.05);
+}
+
+.product-description {
+  height: 20px;
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-price {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.cart-icon {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.cart-icon:hover {
+  color: lightgreen;
+  transform: scale(1.2);
+}
+
+.cart-icon:active {
+  color: green;
+  transform: scale(0.9);
+}
+
+.skeleton-img {
+  width: 100% !important;
+  height: 140px !important;
+  border-radius: 12px;
+}
+
+.skeleton-line {
+  height: 20px;
+}
+
+.no-items-wrapper {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px;
+}
+
+.no-items-wrapper h1 {
+  color: red;
+}
+
+@media screen and (max-width: 1200px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .products-page {
+    margin-top: 19vh;
+    padding: 20px;
+  }
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .products-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

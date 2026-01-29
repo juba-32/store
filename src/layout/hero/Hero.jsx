@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useMediaQuery, useTheme } from "@mui/material";
+
 export default function Hero() {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -31,38 +32,27 @@ export default function Hero() {
   };
 
   return (
-    <>
-      <div
-        className="hero-section"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url(${"/images/storeBG.avif"})`,
-          backgroundSize: isMobile ? "contain" : "cover",
-          backgroundPosition: isMobile ? "bottom" : "center",
-          backgroundRepeat: "no-repeat",
-          height: isMobile ? "60vh" : "100vh",
-        }}
-      >
-        <div className="hero-content">
-          <AnimatePresence mode="wait">
-            <motion.h1
-              key={texts[index]}
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              className="animated-text"
-            >
-              {texts[index].split("").map((letter, i) => (
-                <motion.span key={i} variants={letterVariants}>
-                  {letter}
-                </motion.span>
-              ))}
-            </motion.h1>
-          </AnimatePresence>
+    <div className={`hero-section ${isMobile ? "mobile" : ""}`}>
+      <div className="hero-content">
+        <AnimatePresence mode="wait">
+          <motion.h1
+            key={texts[index]}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            className="animated-text"
+          >
+            {texts[index].split("").map((letter, i) => (
+              <motion.span key={i} variants={letterVariants}>
+                {letter}
+              </motion.span>
+            ))}
+          </motion.h1>
+        </AnimatePresence>
 
-          <Link to={"/product"}>{t("hero.explore")}</Link>
-        </div>
+        <Link to={"/products"}>{t("hero.explore")}</Link>
       </div>
-    </>
+    </div>
   );
 }

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import "./Bannar.css";
-import Button from "../../reusable component/button/Button";
+import Button from "../../components/button/Button";
 import { useTranslation } from "react-i18next";
 
 
@@ -11,22 +11,22 @@ export default function Bannar() {
     {
       src: "/images/slide-tv-1024.webp",
       caption: t("hero.Home Cinema"),
-      link: "/product?categoryFilter=audio",
+      link: "/products?categoryFilter=tv",
     },
     {
       src: "/images/slide-audio-1024.webp",
       caption: t("hero.Premium Headphones"),
-      link: "/audio",
+      link: "/products?selectCategory=audio",
     },
     {
       src: "/images/slide-mobile.avif",
       caption: t("hero.Next-Gen iPhone"),
-      link: "/mobile",
+      link: "/products?categoryFilter=mobile",
     },
     {
       src: "/images/slide-games-1024.webp",
       caption: t("hero.Crystal Clear Audio"),
-      link: "/gaming",
+      link: "/products?categoryFilter=gaming",
     },
   ];
 
