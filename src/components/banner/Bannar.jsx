@@ -18,23 +18,25 @@ const navigate =  useNavigate()
     {
       src: "/images/slide-tv-1024.webp",
       caption: t("hero.Home Cinema"),
-      link: "/products",
-      value: "mobile"
+      value: "tv"
     },
     {
       src: "/images/slide-audio-1024.webp",
       caption: t("hero.Premium Headphones"),
-      link: "/products",
+      value: "audio"
+
     },
     {
       src: "/images/slide-mobile.avif",
       caption: t("hero.Next-Gen iPhone"),
-      link: "/products",
+      value: "mobile"
+
     },
     {
       src: "/images/slide-games-1024.webp",
       caption: t("hero.Crystal Clear Audio"),
-      link: "/products",
+      value: "gaming"
+
     },
   ];
 
