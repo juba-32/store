@@ -1,16 +1,15 @@
 import "./Button.css";
-import Btn from "@mui/material/Button";
+import Button from "@mui/material/Button";
 import { Link as RouterLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-export default function Button({ link = "/" }) {
+export default function Btn({  onClick }) {
   const { t } = useTranslation();
 
   return (
-    <div>
-      <Btn
+    <div onClick={onClick}>
+      <Button
         component={RouterLink}
-        to={link}
         variant="outlined"
         sx={{
           fontFamily: "sans-seraf",
@@ -33,7 +32,7 @@ export default function Button({ link = "/" }) {
         }}
       >
         {t("hero.shop now")}
-      </Btn>
+      </Button>
     </div>
   );
 }

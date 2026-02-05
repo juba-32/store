@@ -3,13 +3,14 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { useState } from 'react';
-export default function Category({ setCategoryFilter }) {
-  const [category, setCategory] = useState('');
+import { useDispatch, useSelector } from 'react-redux';
+import { setCategory } from '../../redux/cartSlice';
+export default function Category( ) {
+  const category = useSelector((state) => state.cart.category);
+  const dispatch = useDispatch()
   const handleChange = (event) => {
     const value = event.target.value;
-    setCategory(value);         
-    setCategoryFilter(value);    
+    dispatch(setCategory(value));   
   }
   return (
     <Box sx={{ minWidth: 300, width: "300px",mt:"20px" }}>

@@ -4,10 +4,8 @@ import SinglePro from "../../components/product Model/SinglePro";
 import Category from "../../components/filter/Category";
 import Price from "../../components/filter/Price";
 import "./Products.css";
-
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useSelector } from "react-redux";
-
 import Toast from "../../components/toast/Toast";
 import useProducts from "../../hooks/useProducts";
 import useModal from "../../hooks/useModal";
@@ -16,13 +14,13 @@ import useCartActions from "../../hooks/useCartActions";
 
 export default function Products({ url }) {
   const searchQuery = useSelector((state) => state.cart.searchQuery);
+  const category = useSelector((state) => state.cart.category);
 
   const [priceFilter, setPriceFilter] = useState([0, 1000]);
-  const [categoryFilter, setCategoryFilter] = useState("");
 
   const { data, loading } = useProducts(
     url,
-    categoryFilter,
+    category,
     priceFilter,
     searchQuery
   );
@@ -57,7 +55,7 @@ export default function Products({ url }) {
 
       {/* Filters */}
       <div className="products-filters">
-        <Category setCategoryFilter={setCategoryFilter} />
+        <Category />
         <Price priceFilter={priceFilter} setPriceFilter={setPriceFilter} />
       </div>
 

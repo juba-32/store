@@ -1,32 +1,40 @@
 import { motion } from "framer-motion";
 import "./Bannar.css";
-import Button from "../../components/button/Button";
 import { useTranslation } from "react-i18next";
-
+import { useDispatch } from "react-redux";
+import { setCategory } from "../../redux/cartSlice";
+import { useNavigate } from "react-router-dom";
+import Btn from "../../components/button/Button";
 
 export default function Bannar() {
+const navigate =  useNavigate()
+  const dispatch = useDispatch()
+  const bannerClick = (value) => {
+    dispatch(setCategory(value));
+    navigate("/products")   
+  }
   const { t } = useTranslation();
-
   const bannerData = [
     {
       src: "/images/slide-tv-1024.webp",
       caption: t("hero.Home Cinema"),
-      link: "/products?categoryFilter=tv",
+      link: "/products",
+      value: "mobile"
     },
     {
       src: "/images/slide-audio-1024.webp",
       caption: t("hero.Premium Headphones"),
-      link: "/products?selectCategory=audio",
+      link: "/products",
     },
     {
       src: "/images/slide-mobile.avif",
       caption: t("hero.Next-Gen iPhone"),
-      link: "/products?categoryFilter=mobile",
+      link: "/products",
     },
     {
       src: "/images/slide-games-1024.webp",
       caption: t("hero.Crystal Clear Audio"),
-      link: "/products?categoryFilter=gaming",
+      link: "/products",
     },
   ];
 
@@ -57,7 +65,7 @@ export default function Bannar() {
             viewport={{ once: true }}
           >
             <h1>{item.caption}</h1>
-            <Button link={item.link} />
+            <Btn onClick={()=>{bannerClick(item.value)}} />
           </motion.div>
         </motion.div>
       ))}

@@ -4,6 +4,7 @@ const initialState = JSON.parse(localStorage.getItem("cartState")) || {
   totalPrice: 0,
   qty: 0,
   searchQuery: "",
+  category: "",
   darkMode: JSON.parse(localStorage.getItem("cartState"))?.darkMode ?? false,
 };
 const cartSlice = createSlice({
@@ -67,6 +68,9 @@ const cartSlice = createSlice({
 
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
+    },
+    setCategory: (state, action) => {
+      state.category = action.payload;
     },
   },
 });

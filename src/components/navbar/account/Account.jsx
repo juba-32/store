@@ -2,9 +2,7 @@ import { AccountCircle } from "@mui/icons-material";
 import { IconButton, Menu, MenuItem, Tooltip, useTheme } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { getUser, logoutUser } from "../../utils/Helper";
-import { handleMenuClose, handleMenuOpen } from "../../utils/Helper";
-
+import { getUser, logoutUser, handleMenuOpen, handleMenuClose } from "../../../utils/Helper";
 export default function Account({ anchorElAccount, setAnchorElAccount }) {
   const theme = useTheme();
   const { t } = useTranslation();

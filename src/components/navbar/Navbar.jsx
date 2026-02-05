@@ -11,13 +11,13 @@ import {
 } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import Search from "../../components/search/Search";
-import { DropdownSearchInput } from "../../components/filter/SearchDropdown";
-import Account from "../../components/account/Account";
-import Language from "../../components/language/Language";
-import NavCart from "../../components/navCart/NavCart";
+import Search from "../navbar/search/Search";
+import { DropdownSearchInput } from "../filter/SearchDropdown";
+import Account from "../navbar/account/Account";
+import Language from "../navbar/language/Language";
+import NavCart from "./navCart/NavCart";
 import MyDrawer from "../drawer/Drawer";
-import Theme from "../../components/theme/Theme";
+import Theme from "../theme/Theme";
 import { getUser } from "../../utils/Helper";
 
 export default function Navbar({ backendUrl }) {

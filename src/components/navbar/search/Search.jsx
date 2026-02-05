@@ -1,7 +1,7 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, InputBase} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchQuery } from "../../redux/cartSlice";
+import { setSearchQuery } from "../../../redux/cartSlice";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 
