@@ -57,7 +57,6 @@ export default function Register() {
     try {
       setLoading(true);
 
-      // LOGIN
       if (mode === "login") {
         const data = await loginUser({
           email: formData.email,
@@ -65,12 +64,9 @@ export default function Register() {
         });
 
         saveToken(data.token);
-        saveUser(data.user)
+        saveUser(data.user);
         navigate("/");
-      }
-
-      // SIGNUP
-      else {
+      } else {
         const data = await signupUser({
           fullname: formData.fullname,
           email: formData.email,
@@ -78,10 +74,17 @@ export default function Register() {
         });
 
         saveToken(data.token);
-        navigate("/register");
+        saveUser(data.user);
+        navigate("/");
       }
     } catch (err) {
-      setError(err.response?.data?.message || "Something went wrong");
+      if (err.response?.data?.message) {
+        setError(err.response.data.message);
+      } else if (err.request) {
+        setError("Cannot connect to server");
+      } else {
+        setError("Something went wrong");
+      }
     } finally {
       setLoading(false);
     }
@@ -99,9 +102,7 @@ export default function Register() {
     >
       <div className="register-card">
         <h2 className="register-title">
-          {mode === "login"
-            ? t("signup.Welcome Back!")
-            : t("signup.sign up")}
+          {mode === "login" ? t("signup.Welcome Back!") : t("signup.sign up")}
         </h2>
 
         {/* Switch */}
@@ -164,12 +165,17 @@ export default function Register() {
           )}
 
           {/* Submit */}
-          <Button type="submit" fullWidth variant="contained" disabled={loading}>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            disabled={loading}
+          >
             {loading
               ? "Please wait..."
               : mode === "login"
-              ? t("signup.log in")
-              : t("signup.sign up")}
+                ? t("signup.log in")
+                : t("signup.sign up")}
           </Button>
 
           {/* Error */}
