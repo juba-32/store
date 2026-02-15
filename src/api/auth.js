@@ -1,15 +1,14 @@
 import axios from "axios";
 
-//  const API_URL = "http://localhost:8080/api/auth";
- const API_URL = "https://node-api-projects.vercel.app";
+const API_URL = "https://node-api-projects.vercel.app/api/auth";
 
-// Signup request
+// Signup
 export const signupUser = async (userData) => {
   const res = await axios.post(`${API_URL}/signup`, userData);
   return res.data;
 };
 
-// Login request
+// Login
 export const loginUser = async (userData) => {
   const res = await axios.post(`${API_URL}/login`, userData);
   return res.data;
