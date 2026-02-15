@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const API_URL = "http://localhost:8080/api/auth";
-const API_URL = "https://node-api-projects.vercel.app/api/auth";
+//  const API_URL = "http://localhost:8080/api/auth";
+ const API_URL = "https://node-api-projects.vercel.app";
 
 // Signup request
 export const signupUser = async (userData) => {
