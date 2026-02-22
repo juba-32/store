@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Cart from "./cart/Cart";
-import Home from "./pages/Home";
+import Home from "./pages/home/Home";
 import Reg from "./components/register/Register";
 import { darkTheme, lightTheme } from "./components/theme/Theme";
 import { useSelector } from "react-redux";

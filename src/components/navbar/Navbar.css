@@ -8,8 +8,8 @@
 }
 
 .navbar-appbar {
-  background-color: var(--bg)!important;
-  color: var(--text)!important;
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
 }
 
 .navbar-toolbar {
@@ -20,12 +20,12 @@
   gap: 16px;
 }
 
-.navbar-logo-link {
+.navbar-logo-NavLink {
   display: flex;
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  color: var(--text)!important;
+  color: var(--text) !important;
 }
 
 .navbar-logo-img {
@@ -55,13 +55,14 @@
   text-transform: capitalize;
   font-size: 0.9rem;
   font-weight: bold;
-  color: var(--text)!important;
+  color: var(--text) !important;
   transition: ease ease-out 0.2s;
 }
-
-.navbar-nav-button:hover {
+.navbar-nav-button:hover,
+.navbar-nav-button.active {
   transform: scale(1.1);
-  border: 1px solid gray;
+  color: cyan !important;
+  box-shadow: 0 0 5px cyan;
 }
 
 .navbar-search-box {
@@ -75,7 +76,7 @@
   color: var(--text);
 }
 
-.navbar-right-icons h3{
+.navbar-right-icons h3 {
   padding: 5px 10px;
   text-transform: capitalize;
 }

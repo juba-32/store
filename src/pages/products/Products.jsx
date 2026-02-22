@@ -15,25 +15,18 @@ import useCartActions from "../../hooks/useCartActions";
 export default function Products({ url }) {
   const searchQuery = useSelector((state) => state.cart.searchQuery);
   const category = useSelector((state) => state.cart.category);
-
   const [priceFilter, setPriceFilter] = useState([0, 1000]);
-
   const { data, loading } = useProducts(
     url,
     category,
     priceFilter,
-    searchQuery
+    searchQuery,
   );
-    console.log(url)
+  console.log(url);
   const { open, productId, openModal, closeModal } = useModal();
 
-  const {
-    toastOpen,
-    toastMessage,
-    toastSeverity,
-    showToast,
-    closeToast,
-  } = useToast();
+  const { toastOpen, toastMessage, toastSeverity, showToast, closeToast } =
+    useToast();
 
   const { handleAddToCart } = useCartActions(showToast);
 
@@ -53,13 +46,11 @@ export default function Products({ url }) {
         </Box>
       </Modal>
 
-      {/* Filters */}
       <div className="products-filters">
         <Category />
         <Price priceFilter={priceFilter} setPriceFilter={setPriceFilter} />
       </div>
 
-      {/* Products */}
       <div className="products-grid">
         {loading ? (
           Array.from(new Array(12)).map((_, index) => (

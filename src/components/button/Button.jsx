@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import { Link as RouterLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-export default function Btn({  onClick }) {
+export default function Btn({ onClick }) {
   const { t } = useTranslation();
 
   return (
@@ -24,10 +24,11 @@ export default function Btn({  onClick }) {
           letterSpacing: "2px",
           cursor: "pointer",
           transition: "all ease 0.5s",
-          border: "2px solid #000",
 
           "&:hover": {
             transform: "scale(.9)",
+            color: "cyan !important",
+            boxShadow: "0 0 5px cyan",
           },
         }}
       >

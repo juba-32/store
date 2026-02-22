@@ -9,7 +9,7 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink , useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Search from "../navbar/search/Search";
 import { DropdownSearchInput } from "../filter/SearchDropdown";
@@ -49,7 +49,7 @@ export default function Navbar({ backendUrl }) {
       <Box className="navbar-wrapper">
         <AppBar position="fixed" className="navbar-appbar">
           <Toolbar className="navbar-toolbar">
-            <Link to="/" className="navbar-logo-link">
+            <NavLink  to="/" className="navbar-logo-NavLink ">
               <img
                 src="/images/logo.avif"
                 alt="nelly store"
@@ -60,7 +60,7 @@ export default function Navbar({ backendUrl }) {
                   <span className="navbar-logo-highlight">N</span>elly
                 </h1>
               )}
-            </Link>
+            </NavLink >
 
             {!isMobile && (
               <Box className="navbar-nav-search">
@@ -68,7 +68,7 @@ export default function Navbar({ backendUrl }) {
                   {navItems.map(({ label, path }, i) => (
                     <Button
                       key={i}
-                      component={Link}
+                      component={NavLink }
                       to={path}
                       className="navbar-nav-button"
                     >

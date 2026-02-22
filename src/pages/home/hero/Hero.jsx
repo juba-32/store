@@ -22,17 +22,23 @@ export default function Hero() {
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.05 },
+    },
+    exit: { opacity: 0 },
   };
 
   const letterVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-    exit: { opacity: 0, y: -20, transition: { duration: 0.5 } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+    exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
   };
 
   return (
-    <div className={`hero-section ${isMobile ? "mobile" : ""}`}>
+    <section className={`hero-section ${isMobile ? "mobile" : ""}`}>
+      <div className="hero-overlay" />
+
       <div className="hero-content">
         <AnimatePresence mode="wait">
           <motion.h1
@@ -40,19 +46,21 @@ export default function Hero() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            exit="hidden"
+            exit="exit"
             className="animated-text"
           >
             {texts[index].split("").map((letter, i) => (
               <motion.span key={i} variants={letterVariants}>
-                {letter}
+                {letter === " " ? "\u00A0" : letter}
               </motion.span>
             ))}
           </motion.h1>
         </AnimatePresence>
 
-        <Link to={"/products"}>{t("hero.explore")}</Link>
+        <Link to="/products" className="hero-btn">
+          {t("hero.explore")}
+        </Link>
       </div>
-    </div>
+    </section>
   );
 }

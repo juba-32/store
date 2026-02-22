@@ -2,9 +2,9 @@ import { motion } from "framer-motion";
 import "./Bannar.css";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { setCategory } from "../../redux/cartSlice";
+import { setCategory } from "../../../redux/cartSlice";
 import { useNavigate } from "react-router-dom";
-import Btn from "../../components/button/Button";
+import Btn from "../../../components/button/Button";
 
 export default function Bannar() {
 const navigate =  useNavigate()
