@@ -1,7 +1,7 @@
 import "./About.css";
 import { motion } from "framer-motion";
 import { useTheme } from "@mui/material";
-
+import StoreBenefits from "../../components/StoreBenefits/StoreBenefits"
 export default function About() {
   const theme = useTheme();
 
@@ -102,6 +102,7 @@ export default function About() {
           )}
         </motion.div>
       ))}
+      <StoreBenefits/>
     </div>
   );
 }

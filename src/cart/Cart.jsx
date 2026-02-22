@@ -1,6 +1,7 @@
 import "./Cart.css";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { GiShoppingCart } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
 import {
   decrement,
@@ -54,7 +55,7 @@ export default function Cart() {
         </h1>
 
         {cartItems.length === 0 ? (
-          <h1 className="empty-cart">{t("cart.your cart is empty")}</h1>
+          <h1 className="empty-cart"> <GiShoppingCart className="empty-cart-icon"/> {t("cart.your cart is empty")}</h1>
         ) : (
           cartItems.map((pro) => (
             <div className="cart-product" key={pro.id}>

@@ -33,7 +33,6 @@
   font-size: 18px;
   margin-bottom: 15px;
   text-transform: capitalize;
-  color: #b30028;
 }
 .footer-sec{
   display: flex;
@@ -62,7 +61,7 @@
 }
 
 .footer-sec ul li:hover {
-  color: #b30028;
+  color: cyan;
   transform: translateX(5px);
 }
 
@@ -81,7 +80,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #b30028;
+  background: cyan;
   color: #fff;
   transition: all 0.3s ease;
   font-size: 16px;
@@ -89,8 +88,8 @@
 
 .social-links a:hover {
   background: transparent;
-  border: 2px solid #b30028;
-  color: #b30028;
+  border: 2px solid cyan;
+  color: cyan;
   transform: scale(1.1);
 }
 
@@ -104,7 +103,7 @@
 }
 
 .copyright b {
-  color: #b30028;
+  color: cyan;
 }
 
 /* RESPONSIVE */

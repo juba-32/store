@@ -20,7 +20,6 @@ export default function Btn({ onClick }) {
           padding: "5px 15px",
           borderRadius: "10px",
           fontSize: "1.1rem",
-          fontWeight: "bold",
           letterSpacing: "2px",
           cursor: "pointer",
           transition: "all ease 0.5s",

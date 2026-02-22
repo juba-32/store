@@ -16,7 +16,7 @@ const navigate =  useNavigate()
   const { t } = useTranslation();
   const bannerData = [
     {
-      src: "/images/slide-tv-1024.webp",
+      src: "/images/slide-tv.avif",
       caption: t("hero.Home Cinema"),
       value: "tv"
     },
@@ -27,7 +27,7 @@ const navigate =  useNavigate()
 
     },
     {
-      src: "/images/slide-mobile.avif",
+      src: "/images/slide3.avif",
       caption: t("hero.Next-Gen iPhone"),
       value: "mobile"
 

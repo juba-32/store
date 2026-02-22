@@ -10,8 +10,15 @@
   color: red;
   margin-top: 150px;
   display: flex;
+  flex-direction: column;
+  margin: auto;
   justify-content: center;
   text-transform: capitalize;
+}
+
+.empty-cart-icon{
+  font-size: 15rem;
+  color: cyan;
 }
 
 /* HEADER BUTTONS */
