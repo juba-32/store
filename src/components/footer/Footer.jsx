@@ -20,14 +20,12 @@ const Footer = () => {
   return (
     <footer className={`footer ${darkMode ? "dark" : "light"}`}>
       
-      {/* Logo */}
       <div className="footer-logo">
         <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
           <img src="/images/logo.avif" alt="logo" />
         </Link>
       </div>
 
-      {/* Customer Support */}
       <div className="footer-sec">
         <h2>{t("footer.Customer Support")}</h2>
         <ul>
@@ -38,7 +36,6 @@ const Footer = () => {
         </ul>
       </div>
 
-      {/* Quick Links */}
       <div className="footer-sec">
         <h2>{t("footer.Quick Links")}</h2>
         <ul>
@@ -51,7 +48,6 @@ const Footer = () => {
         </ul>
       </div>
 
-      {/* Subscription */}
       <div className="footer-sec">
         <h2>{t("footer.Subscribe")}</h2>
         <p className="footer-desc">
@@ -63,28 +59,25 @@ const Footer = () => {
           <button type="submit">{t("footer.Subscribe")}</button>
         </form>
 
-        {/* App Downloads */}
         <div className="app-download">
-          <a href="#" aria-label="Android App">
+          <a href="cc" aria-label="Android App">
             <FaGooglePlay />
             <span>Android</span>
           </a>
-          <a href="#" aria-label="iOS App">
+          <a href="cc" aria-label="iOS App">
             <FaApple />
             <span>iOS</span>
           </a>
         </div>
       </div>
 
-      {/* Social */}
       <div className="social-links">
-        <a href="#"><FaFacebookF /></a>
-        <a href="#"><TiSocialTwitter /></a>
-        <a href="#"><FaLinkedinIn /></a>
-        <a href="#"><FaYoutube /></a>
+        <a href="cc"><FaFacebookF /></a>
+        <a href="cc"><TiSocialTwitter /></a>
+        <a href="cc"><FaLinkedinIn /></a>
+        <a href="cc"><FaYoutube /></a>
       </div>
 
-      {/* Copyright */}
       <div className="copyright">
         <p>© <b>Ahmed Bendary</b> | All Rights Reserved</p>
       </div>
