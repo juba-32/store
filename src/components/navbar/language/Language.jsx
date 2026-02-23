@@ -16,7 +16,6 @@ export default function Language({ anchorElLang, setAnchorElLang }) {
           <LanguageIcon sx={{ fontSize: "1.3rem" }} />
         </IconButton>
       </Tooltip>
-      {/* Language Dropdown */}
       <Menu
         anchorEl={anchorElLang}
         open={Boolean(anchorElLang)}

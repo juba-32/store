@@ -1,0 +1,49 @@
+.reviews {
+  width: 100%;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.reviews h2 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-bottom: 50px;
+  color: cyan;
+}
+
+.reviews-grid {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+.review-card {
+  padding: 25px;
+  border-radius: 18px;
+  backdrop-filter: blur(14px);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
+}
+
+.comment {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.review-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.stars {
+  color: cyan;
+  font-size: 1.1rem;
+}

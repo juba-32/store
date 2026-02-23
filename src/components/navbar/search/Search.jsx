@@ -1,61 +1,140 @@
-import SearchIcon from "@mui/icons-material/Search";
-import { Box, InputBase} from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { setSearchQuery } from "../../../redux/cartSlice";
-import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
+import {
+  Box,
+  InputBase,
+  Paper,
+  List,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
+  ClickAwayListener,
+  CircularProgress,
+  Typography,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import { useDispatch } from "react-redux";
+import { setSearchQuery } from "../../../redux/cartSlice";
+import axios from "axios";
+import { useTranslation } from "react-i18next";
+import useModal from "../../../hooks/useModal";
+import SinglePro from "../../product Model/SinglePro";
+import "./Search.css";
 
-export default function Search() {
+export default function Search({ mode = "global", backendUrl }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const globalSearch = useSelector((state) => state.cart.searchQuery);
-  const [localQuery, setLocalQuery] = useState(globalSearch);
+  const { open, productId, openModal, closeModal } = useModal();
 
+  const [query, setQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(false);
+
+  /* Debounce */
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(setSearchQuery(localQuery.trim().toLowerCase()));
-    }, 500);
+      setDebouncedQuery(query.trim().toLowerCase());
+    }, 400);
     return () => clearTimeout(timer);
-  }, [localQuery, dispatch]);
+  }, [query]);
 
-  const handleChange = (e) => setLocalQuery(e.target.value);
+  /* Products page */
+  useEffect(() => {
+    if (mode === "products") {
+      dispatch(setSearchQuery(debouncedQuery));
+    }
+  }, [debouncedQuery, mode, dispatch]);
 
-  const SearchInput = (
-    <Box>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          px: 2,
-          py: 0.5,
-          bgcolor: "background.paper",
-        }}
-      >
-        <SearchIcon sx={{ color: "gray" }} />
-        <InputBase
-          sx={{ flex: 1 }}
-          placeholder={t("search.Search Products")}
-          value={localQuery}
-          onChange={handleChange}
-          inputProps={{
-            "aria-label": t("search.Search Products"),
-            maxLength: 50,
-          }}
-        />
-      </Box>
-    </Box>
-  );
+  /* Global search */
+  useEffect(() => {
+    if (mode !== "global" || !debouncedQuery) {
+      setResults([]);
+      setOpenDropdown(false);
+      return;
+    }
+
+    const fetchProducts = async () => {
+      setLoading(true);
+      try {
+        const params = new URLSearchParams({
+          search: debouncedQuery,
+          limit: 6,
+        });
+
+        const res = await axios.get(`${backendUrl}?${params}`);
+        setResults(res.data);
+        setOpenDropdown(true);
+      } catch {
+        setResults([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [debouncedQuery, mode, backendUrl]);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        py: 1,
-        width:"100%"
-      }}
-    >
-      {SearchInput}
-    </Box>
+    <>
+      {productId && (
+        <SinglePro open={open} handleClose={closeModal} productid={productId} />
+      )}
+
+      <ClickAwayListener onClickAway={() => setOpenDropdown(false)}>
+        <Box className="search-wrapper">
+          <Box className="search-input">
+            <SearchIcon className="search-icon" />
+            <InputBase
+              className="search-field"
+              placeholder={t("search.Search Products")}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onFocus={() => debouncedQuery && setOpenDropdown(true)}
+            />
+            {loading && <CircularProgress size={18} />}
+          </Box>
+
+          {mode === "global" && openDropdown && results.length > 0 && (
+            <Paper className="search-dropdown">
+              <List>
+                {results.map((product) => (
+                  <ListItem
+                    key={product._id}
+                    className="search-item"
+                    onClick={() => {
+                      openModal(product._id);
+                      setOpenDropdown(false);
+                    }}
+                  >
+                    <ListItemAvatar>
+                      <Avatar
+                        src={product.image}
+                        variant="rounded"
+                        className="search-avatar"
+                      />
+                    </ListItemAvatar>
+
+                    <ListItemText
+                      primary={
+                        <Typography className="search-title">
+                          {product.title}
+                        </Typography>
+                      }
+                      secondary={
+                        <Typography className="search-price">
+                          ${product.price}
+                        </Typography>
+                      }
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            </Paper>
+          )}
+        </Box>
+      </ClickAwayListener>
+    </>
   );
 }

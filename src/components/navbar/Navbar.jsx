@@ -9,7 +9,7 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import { NavLink , useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Search from "../navbar/search/Search";
 import { DropdownSearchInput } from "../filter/SearchDropdown";
@@ -47,9 +47,9 @@ export default function Navbar({ backendUrl }) {
   return (
     <div className="nav" style={navColors}>
       <Box className="navbar-wrapper">
-        <AppBar position="fixed" className="navbar-appbar">
+        <AppBar position="fixed" className="navbar-appbar" elevation={0}>
           <Toolbar className="navbar-toolbar">
-            <NavLink  to="/" className="navbar-logo-NavLink ">
+            <NavLink to="/" className="navbar-logo-NavLink">
               <img
                 src="/images/logo.avif"
                 alt="nelly store"
@@ -60,7 +60,7 @@ export default function Navbar({ backendUrl }) {
                   <span className="navbar-logo-highlight">N</span>elly
                 </h1>
               )}
-            </NavLink >
+            </NavLink>
 
             {!isMobile && (
               <Box className="navbar-nav-search">
@@ -68,7 +68,7 @@ export default function Navbar({ backendUrl }) {
                   {navItems.map(({ label, path }, i) => (
                     <Button
                       key={i}
-                      component={NavLink }
+                      component={NavLink}
                       to={path}
                       className="navbar-nav-button"
                     >
@@ -78,12 +78,20 @@ export default function Navbar({ backendUrl }) {
                 </Stack>
 
                 <Box className="navbar-search-box">
-                  {isProductsPage ? (
-                    <Search />
-                  ) : (
-                    <DropdownSearchInput backendUrl={backendUrl} />
-                  )}
+                  <Search
+                    mode={isProductsPage ? "products" : "global"}
+                    backendUrl={backendUrl}
+                  />
                 </Box>
+
+                {isMobile && (
+                  <Box className="navbar-mobile-search">
+                    <Search
+                      mode={isProductsPage ? "products" : "global"}
+                      backendUrl={backendUrl}
+                    />
+                  </Box>
+                )}
               </Box>
             )}
 
@@ -115,7 +123,6 @@ export default function Navbar({ backendUrl }) {
             </Box>
           </Toolbar>
 
-          {/* Mobile search */}
           {isMobile && (
             <Box className="navbar-mobile-search">
               {isProductsPage ? (

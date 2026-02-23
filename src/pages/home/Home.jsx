@@ -1,6 +1,8 @@
 import Hero from './hero/Hero'
 import Bannar from './banner/Bannar'
 import ProductSlider from './products slider/ProductSlider'
+import PromoBanner from './prompBanner/PromoBanner'
+import Reviews from './reviews/Reviews'
 
 export default function Home() {
   return (
@@ -8,6 +10,8 @@ export default function Home() {
       <Hero/>
       <ProductSlider/>
       <Bannar />
+      <PromoBanner/>
+      <Reviews/>
     </div>
   )
 }

@@ -24,7 +24,7 @@ function App() {
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
       <div className="App">
-        <Navbar backendUrl="https://amb.up.railway.app/products" />
+        <Navbar backendUrl="https://node-api-projects.vercel.app/products" />
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home  />} />

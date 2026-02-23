@@ -1,6 +1,8 @@
 .nav {
   background: var(--bg);
   color: var(--text);
+  position: relative;
+  z-index: 100;
 }
 
 .navbar-wrapper {
@@ -8,8 +10,11 @@
 }
 
 .navbar-appbar {
-  background-color: var(--bg) !important;
+  background: rgba(255, 255, 255, 0.08) !important; /* glass effect */
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   color: var(--text) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .navbar-toolbar {
@@ -32,15 +37,18 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.25);
 }
 
 .navbar-logo-text {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .navbar-logo-highlight {
-  color: #ff3c5f;
+  color: cyan;
+  font-size: 1.9rem;
 }
 
 .navbar-nav-search {
@@ -54,31 +62,43 @@
 .navbar-nav-button {
   text-transform: capitalize;
   font-size: 0.9rem;
-  font-weight: bold;
+  font-weight: 600;
   color: var(--text) !important;
-  transition: ease ease-out 0.2s;
+  padding: 6px 12px;
+  border-radius: 12px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
+
 .navbar-nav-button:hover,
 .navbar-nav-button.active {
-  transform: scale(1.1);
+  transform: translateY(-2px) scale(1.05);
   color: cyan !important;
-  box-shadow: 0 0 5px cyan;
+  background: rgba(0, 255, 255, 0.08);
+  box-shadow: 0 8px 20px rgba(0, 255, 255, 0.25);
 }
 
 .navbar-search-box {
   min-width: 220px;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  padding: 2px 6px;
 }
 
 .navbar-right-icons {
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: var(--text);
+  gap: 10px;
 }
 
 .navbar-right-icons h3 {
-  padding: 5px 10px;
-  text-transform: capitalize;
+  padding: 6px 12px;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.navbar-right-icons h3:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .navbar-mobile-search {

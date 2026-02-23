@@ -1,38 +1,57 @@
-import "./Button.css";
 import Button from "@mui/material/Button";
 import { Link as RouterLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-export default function Btn({ onClick }) {
+export default function Btn({
+  onClick,
+  to,
+  variant = "primary", // "primary" | "secondary"
+}) {
   const { t } = useTranslation();
 
-  return (
-    <div onClick={onClick}>
-      <Button
-        component={RouterLink}
-        variant="outlined"
-        sx={{
-          fontFamily: "sans-seraf",
-          display: "inline-block",
-          color: "#000",
-          background: "#fff",
-          textDecoration: "none",
-          padding: "5px 15px",
-          borderRadius: "10px",
-          fontSize: "1.1rem",
-          letterSpacing: "2px",
-          cursor: "pointer",
-          transition: "all ease 0.5s",
+  const isPrimary = variant === "primary";
 
-          "&:hover": {
-            transform: "scale(.9)",
-            color: "cyan !important",
-            boxShadow: "0 0 5px cyan",
-          },
-        }}
-      >
-        {t("hero.shop now")}
-      </Button>
-    </div>
+  return (
+    <Button
+      component={to ? RouterLink : "button"}
+      to={to}
+      onClick={onClick}
+      sx={{
+        padding: "12px 40px",
+        borderRadius: "16px",
+        fontWeight: "bold",
+        letterSpacing: "2px",
+        fontSize: "1rem",
+        textTransform: "capitalize",
+        transition: "all 0.3s ease",
+        backdropFilter: "blur(10px)",
+
+        ...(isPrimary
+          ? {
+              background: "cyan",
+              color: "#000",
+              boxShadow: "0 0 20px cyan",
+              border: "none",
+              "&:hover": {
+                transform: "scale(0.95)",
+                boxShadow: "0 0 35px cyan",
+                background: "cyan",
+              },
+            }
+          : {
+              background: "transparent",
+              color: "cyan",
+              border: "1px solid cyan",
+              "&:hover": {
+                transform: "scale(0.95)",
+                background: "cyan",
+                color: "#000",
+                boxShadow: "0 0 25px cyan",
+              },
+            }),
+      }}
+    >
+      {t("hero.shop now")}
+    </Button>
   );
 }

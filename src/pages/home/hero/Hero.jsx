@@ -1,66 +1,50 @@
-import { useState, useEffect } from "react";
-import "./Hero.css";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { useTranslation } from "react-i18next";
-import { useMediaQuery, useTheme } from "@mui/material";
+import "./Hero.css";
 
 export default function Hero() {
-  const { t } = useTranslation();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
-  const texts = [t("hero.Welcome to AM"), t("hero.history of glory")];
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev === 0 ? 1 : 0));
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.05 },
-    },
-    exit: { opacity: 0 },
-  };
-
-  const letterVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-    exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
-  };
-
   return (
-    <section className={`hero-section ${isMobile ? "mobile" : ""}`}>
+    <section className="hero">
       <div className="hero-overlay" />
 
-      <div className="hero-content">
-        <AnimatePresence mode="wait">
-          <motion.h1
-            key={texts[index]}
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="animated-text"
-          >
-            {texts[index].split("").map((letter, i) => (
-              <motion.span key={i} variants={letterVariants}>
-                {letter === " " ? "\u00A0" : letter}
-              </motion.span>
-            ))}
-          </motion.h1>
-        </AnimatePresence>
+      <motion.div
+        className="hero-content"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+      >
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          Upgrade Your <span>Tech Life</span>
+        </motion.h1>
 
-        <Link to="/products" className="hero-btn">
-          {t("hero.explore")}
-        </Link>
-      </div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
+          Discover premium electronics, unbeatable prices, and lightning-fast
+          delivery — all in one place.
+        </motion.p>
+
+        <motion.div
+          className="hero-actions"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+        >
+          <Link to="/products" className="hero-btn primary">
+            Shop Now
+          </Link>
+
+          <Link to="/deals" className="hero-btn secondary">
+            View Deals
+          </Link>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
