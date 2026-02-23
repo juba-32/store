@@ -82,13 +82,13 @@ export default function Theme() {
                   marginTop: "2px",
                 },
                 "& .MuiSwitch-switchBase.Mui-checked": {
-                  color: m.palette.text.primary,
+                  color: "cyan",
                 },
                 "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
                   backgroundColor: m.palette.text.primary,
                 },
                 "& .MuiSwitch-switchBase": {
-                  color: m.palette.text.primary,
+                  color: "cyan",
                 },
                 "& .MuiSwitch-track": {
                   backgroundColor: m.palette.text.primary,

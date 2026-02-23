@@ -32,7 +32,6 @@ export default function Search({ mode = "global", backendUrl }) {
   const [loading, setLoading] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
 
-  /* Debounce */
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedQuery(query.trim().toLowerCase());
@@ -40,14 +39,12 @@ export default function Search({ mode = "global", backendUrl }) {
     return () => clearTimeout(timer);
   }, [query]);
 
-  /* Products page */
   useEffect(() => {
     if (mode === "products") {
       dispatch(setSearchQuery(debouncedQuery));
     }
   }, [debouncedQuery, mode, dispatch]);
 
-  /* Global search */
   useEffect(() => {
     if (mode !== "global" || !debouncedQuery) {
       setResults([]);

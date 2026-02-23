@@ -1,18 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Skeleton, Box, Modal } from "@mui/material";
 import SinglePro from "../../components/product Model/SinglePro";
 import Category from "../../components/filter/Category";
 import Price from "../../components/filter/Price";
 import "./Products.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Toast from "../../components/toast/Toast";
 import useProducts from "../../hooks/useProducts";
 import useModal from "../../hooks/useModal";
 import useToast from "../../hooks/useToast";
 import useCartActions from "../../hooks/useCartActions";
+import { clearCategory } from "../../redux/cartSlice";
 
 export default function Products({ url }) {
+  const dispatch = useDispatch();
   const searchQuery = useSelector((state) => state.cart.searchQuery);
   const category = useSelector((state) => state.cart.category);
   const [priceFilter, setPriceFilter] = useState([0, 1000]);
@@ -29,7 +31,12 @@ export default function Products({ url }) {
     useToast();
 
   const { handleAddToCart } = useCartActions(showToast);
-
+  useEffect(() => {
+    // cleanup runs when you LEAVE the page
+    return () => {
+      dispatch(clearCategory());
+    };
+  }, [dispatch]);
   return (
     <div className="products-page">
       {/* Modal */}

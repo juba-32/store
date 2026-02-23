@@ -38,6 +38,7 @@ export default function ProductSlider() {
 
   return (
     <div className="product-slider">
+      <h2>Best seller</h2>
       <Modal open={open} onClose={closeModal}>
         <Box className="product-modal-box">
           {productId && (

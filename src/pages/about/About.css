@@ -34,12 +34,16 @@
   gap: 15px;
   justify-content: center;
   text-align: center;
+  backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 60px rgba(0, 255, 255, 0.25);
 }
 
 .about-text h1 {
   font-size: 35px;
   text-transform: capitalize;
-  color: var(--text);
+  color: cyan;
 }
 
 .about-text p {

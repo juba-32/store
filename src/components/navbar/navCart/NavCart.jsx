@@ -1,9 +1,8 @@
-import { Badge, IconButton, Tooltip, useTheme } from "@mui/material";
+import { Badge, IconButton, Tooltip } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 export default function NavCart() {
-  const theme = useTheme();
   const qty = useSelector((state) => state.cart.qty);
 
   return (
@@ -12,7 +11,7 @@ export default function NavCart() {
         <Link to="/cart">
           <IconButton
             aria-label="cart"
-            sx={{ color: theme.palette.text.primary }}
+            sx={{ color: "cyan"}}
           >
             <Badge
               badgeContent={qty}

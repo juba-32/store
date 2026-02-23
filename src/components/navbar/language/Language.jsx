@@ -1,9 +1,8 @@
-import { IconButton, Menu, MenuItem, Tooltip, useTheme } from "@mui/material";
+import { IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
 import { handleMenuClose, handleMenuOpen } from "../../../utils/Helper";
 import LanguageIcon from "@mui/icons-material/Language";
 import { useTranslation } from "react-i18next";
 export default function Language({ anchorElLang, setAnchorElLang }) {
-  const theme = useTheme();
     const { i18n } = useTranslation();
   return (
     <div>
@@ -11,7 +10,7 @@ export default function Language({ anchorElLang, setAnchorElLang }) {
         <IconButton
           aria-label="language"
           onClick={(e) => handleMenuOpen(e, setAnchorElLang)}
-          sx={{ color: theme.palette.text.primary }}
+          sx={{ color: "cyan" }}
         >
           <LanguageIcon sx={{ fontSize: "1.3rem" }} />
         </IconButton>

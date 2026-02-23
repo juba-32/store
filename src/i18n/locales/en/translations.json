@@ -54,12 +54,23 @@
     "remove": "remove"
   },
 
+  "contact": {
+    "Get in Touch": "Get in Touch",
+    "We’d love to hear from you":"We’d love to hear from you",
+    "Your Name": "Your Name",
+    "Your Email": "Your Email",
+    "Your Message": "Your Message",
+    "Send Message": "Send Message"
+  },
+
   "footer": {
     "Quick Links": "Quick Links",
     "Customer Support": "Customer Support",
     "About Us": "About Us",
     "Privacy Policy": "Privacy Policy",
     "Terms & Conditions": "Terms & Conditions",
-    "Product Returns": "Product Returns"
+    "Product Returns": "Product Returns",
+    "Subscribe": "Subscribe",
+    "Get updates, offers & news directly to your inbox.": "Get updates, offers & news directly to your inbox"
   }
 }

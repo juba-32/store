@@ -2,6 +2,14 @@
   width: 100%;
   padding: 40px 0;
 }
+
+.product-slider h2{
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-bottom: 50px;
+  color: cyan;
+  text-align: center;
+  text-transform: capitalize;
+}
 .product-title{
   height: 20px;
   overflow: hidden;

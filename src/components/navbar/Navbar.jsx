@@ -11,8 +11,8 @@ import {
 } from "@mui/material";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+
 import Search from "../navbar/search/Search";
-import { DropdownSearchInput } from "../filter/SearchDropdown";
 import Account from "../navbar/account/Account";
 import Language from "../navbar/language/Language";
 import NavCart from "./navCart/NavCart";
@@ -30,6 +30,7 @@ export default function Navbar({ backendUrl }) {
 
   const [anchorElAccount, setAnchorElAccount] = useState(null);
   const [anchorElLang, setAnchorElLang] = useState(null);
+
   const user = getUser();
 
   const navItems = [
@@ -38,7 +39,6 @@ export default function Navbar({ backendUrl }) {
     { label: t("navbar.Contact"), path: "/contact" },
   ];
 
-  // Pass theme colors via CSS variables
   const navColors = {
     "--bg": theme.palette.background.BG,
     "--text": theme.palette.text.primary,
@@ -62,6 +62,7 @@ export default function Navbar({ backendUrl }) {
               )}
             </NavLink>
 
+            {/* DESKTOP CENTER */}
             {!isMobile && (
               <Box className="navbar-nav-search">
                 <Stack spacing={2} direction="row">
@@ -83,22 +84,15 @@ export default function Navbar({ backendUrl }) {
                     backendUrl={backendUrl}
                   />
                 </Box>
-
-                {isMobile && (
-                  <Box className="navbar-mobile-search">
-                    <Search
-                      mode={isProductsPage ? "products" : "global"}
-                      backendUrl={backendUrl}
-                    />
-                  </Box>
-                )}
               </Box>
             )}
 
+            {/* RIGHT ICONS */}
             <Box className="navbar-right-icons">
               {!isMobile && (
                 <>
-                  <h3>{user ? user.fullname : ""}</h3>
+                  {user && <h3>{user.fullname}</h3>}
+
                   <Account
                     anchorElAccount={anchorElAccount}
                     setAnchorElAccount={setAnchorElAccount}
@@ -124,12 +118,11 @@ export default function Navbar({ backendUrl }) {
           </Toolbar>
 
           {isMobile && (
-            <Box className="navbar-mobile-search">
-              {isProductsPage ? (
-                <Search />
-              ) : (
-                <DropdownSearchInput backendUrl={backendUrl} />
-              )}
+            <Box className="navbar-search-box navbar-search-mobile">
+              <Search
+                mode={isProductsPage ? "products" : "global"}
+                backendUrl={backendUrl}
+              />
             </Box>
           )}
         </AppBar>

@@ -53,12 +53,25 @@
     "remove": "حذف"
   },
 
+  "contact": {
+    "Get in Touch": "تواصل معنا",
+    "We’d love to hear from you":" نحب ان نسمع منك",
+    "Your Name": "الاسم",
+    "Your Email": "الايميل",
+    "Your Message": "رسالتك",
+    "Send Message": "ارسل رسالتك"
+  },
+
   "footer": {
     "Quick Links": "روابط سريعة",
     "Customer Support": "خدمة العملاء",
     "About Us": "معلومات عنا",
     "Privacy Policy": "سياسة الخصوصية",
     "Terms & Conditions": "الشروط والأحكام",
-    "Product Returns": "إرجاع المنتجات"
+    "Product Returns": "إرجاع المنتجات",
+    "Subscribe": "اشتراك",
+    "Get updates, offers & news directly to your inbox.": "احصل على التحديثات والعروض والأخبار مباشرة في بريدك الإلكتروني"
+
+
   }
 }

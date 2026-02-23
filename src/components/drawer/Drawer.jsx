@@ -1,3 +1,4 @@
+import "./Drawer.css";
 import {
   Box,
   Drawer,
@@ -28,72 +29,69 @@ export default function MyDrawer({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const handleDrawerToggle = () => {
-    setDrawerOpen(!drawerOpen);
-  };
   const { t } = useTranslation();
+
   const navItems = [
     { label: t("navbar.Products"), path: "/products" },
     { label: t("navbar.About"), path: "/about" },
     { label: t("navbar.Contact"), path: "/contact" },
   ];
+
+
+
   return (
-    <div>
+    <div >
       <Drawer
         anchor="left"
         open={drawerOpen}
-        onClose={handleDrawerToggle}
+        onClose={() => setDrawerOpen(false)}
         PaperProps={{
-          sx: {
-            width: 250,
-          },
+          className: "drawer-paper",
         }}
       >
-        <Box>
-          <Box
-            sx={{ display: "flex", justifyContent: "flex-end", px: 1, pt: 1 }}
-          >
-            <IconButton onClick={handleDrawerToggle}>
-              <CloseIcon />
+        <Box className="drawer-container">
+          <Box className="drawer-close">
+            <IconButton onClick={() => setDrawerOpen(false)}>
+              <CloseIcon sx={{color:"cyan"}} />
             </IconButton>
           </Box>
-          <List
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "10px",
-            }}
-          >
+
+          <List className="drawer-list">
             {navItems.map(({ label, path }, i) => (
-              <ListItem key={i} disablePadding onClick={handleDrawerToggle}>
-                <ListItemButton component={Link} to={path}>
+              <ListItem key={i} disablePadding>
+                <ListItemButton
+                  component={Link}
+                  to={path}
+                  onClick={() => setDrawerOpen(false)}
+                  className="drawer-link"
+                >
                   <ListItemText primary={label} />
                 </ListItemButton>
               </ListItem>
             ))}
-
-            <Box sx={{ display: "flex", gap: "10px" }}>
-              <Account
-                anchorElAccount={anchorElAccount}
-                setAnchorElAccount={setAnchorElAccount}
-              />
-              <Language
-                anchorElLang={anchorElLang}
-                setAnchorElLang={setAnchorElLang}
-              />
-              <Theme />
-              <NavCart />
-            </Box>
           </List>
+
+          <Box className="drawer-actions">
+            <Account
+              anchorElAccount={anchorElAccount}
+              setAnchorElAccount={setAnchorElAccount}
+            />
+            <Language
+              anchorElLang={anchorElLang}
+              setAnchorElLang={setAnchorElLang}
+            />
+            <Theme />
+            <NavCart />
+          </Box>
         </Box>
       </Drawer>
+
       {isMobile && (
         <IconButton
-          onClick={handleDrawerToggle}
-          sx={{ color: theme.palette.text.primary }}
-          aria-label={drawerOpen ? "Close menu" : "Open menu"}
+          onClick={() => setDrawerOpen(true)}
+          className="drawer-menu-btn"
         >
-          {drawerOpen ? <CloseIcon /> : <MenuIcon />}
+          <MenuIcon />
         </IconButton>
       )}
     </div>

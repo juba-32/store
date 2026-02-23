@@ -22,7 +22,7 @@ export default function Account({ anchorElAccount, setAnchorElAccount }) {
         <IconButton
           aria-label="account"
           onClick={(e) => handleMenuOpen(e, setAnchorElAccount)}
-          sx={{ color: theme.palette.text.primary }}
+          sx={{ color: "cyan" }}
         >
           <AccountCircle sx={{ fontSize: "1.3rem" }} />
         </IconButton>

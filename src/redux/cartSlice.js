@@ -72,6 +72,10 @@ const cartSlice = createSlice({
     setCategory: (state, action) => {
       state.category = action.payload;
     },
+
+    clearCategory: (state) => {
+      state.category = "";
+    },
   },
 });
 
@@ -84,5 +88,6 @@ export const {
   setCategory,
   setMode,
   setSearchQuery,
+  clearCategory,
 } = cartSlice.actions;
 export default cartSlice.reducer;

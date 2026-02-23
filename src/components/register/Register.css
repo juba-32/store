@@ -1,44 +1,43 @@
 .register-page {
   min-height: 100vh;
-  background: var(--bg);
-
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 24px;
 
-  padding: 20px;
+  background: var(--bg);
 }
 
 /* Glass Card */
 .register-card {
   width: 380px;
-  padding: 35px;
-  border-radius: 20px;
-
-  /* Glass Effect */
+  padding: 36px;
+  border-radius: 22px;
+  margin-top: 50px;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-
-  border: 1px solid rgba(255, 255, 255, 0.2);
-
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-
+  border: 1px solid rgba(0, 255, 255, 0.35);
+  box-shadow:
+    0 10px 40px rgba(0, 255, 255, 0.15),
+    inset 0 0 20px rgba(0, 255, 255, 0.05);
   color: var(--text);
 }
 
 /* Title */
 .register-title {
   text-align: center;
-  font-size: 1.8rem;
-  margin-bottom: 20px;
+  font-size: 1.9rem;
+  margin-bottom: 22px;
+  color: cyan;
+  text-shadow: 0 0 14px rgba(0, 255, 255, 0.6);
 }
 
 /* Switch */
 .register-switch {
   display: flex !important;
   justify-content: center;
-  margin-bottom: 25px;
+  margin-bottom: 24px;
 }
 
 .register-switch .MuiFormControlLabel-label {
@@ -50,18 +49,70 @@
 .register-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 16px;
+}
+
+/* MUI Inputs – glow on focus */
+.register-form .MuiInputBase-root {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.register-form .MuiInputBase-root.Mui-focused {
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
+}
+
+/* Submit Button */
+.register-submit-btn {
+  margin-top: 10px !important;
+  padding: 12px !important;
+  border-radius: 50px !important;
+  background: transparent !important;
+  color: cyan !important;
+  border: 1px solid cyan !important;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  transition: all 0.35s ease !important;
+}
+
+.register-submit-btn:hover {
+  background: rgba(0, 255, 255, 0.12) !important;
+  box-shadow: 0 0 18px rgba(0, 255, 255, 0.6);
+  transform: translateY(-2px);
 }
 
 /* Error */
 .register-error {
-  margin-top: 15px;
-  padding: 10px;
-  border-radius: 12px;
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 14px;
 
-  background: var(--error);
-  color: var(--errorText);
+  background: rgba(255, 0, 0, 0.15);
+  border: 1px solid rgba(255, 0, 0, 0.4);
+  color: #ffb3b3;
 
   text-align: center;
   font-size: 0.9rem;
+}
+
+/* Mobile */
+
+@media (max-width: 680px) {
+  .register-card {
+    width: 100%;
+    padding: 28px;
+    margin-top: 100px;
+  }
+}
+@media (max-width: 480px) {
+  .register-card {
+    width: 100%;
+    padding: 28px;
+    margin-top: 100px;
+  }
+
+  .register-title {
+    font-size: 1.6rem;
+  }
 }

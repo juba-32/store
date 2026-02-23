@@ -170,6 +170,7 @@ export default function Register() {
             fullWidth
             variant="contained"
             disabled={loading}
+            className="register-submit-btn"
           >
             {loading
               ? "Please wait..."

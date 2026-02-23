@@ -10,11 +10,11 @@
 }
 
 .navbar-appbar {
-  background: rgba(255, 255, 255, 0.08) !important; /* glass effect */
+  background: rgba(255, 255, 255, 0) !important; /* glass effect */
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   color: var(--text) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid cyan;
 }
 
 .navbar-toolbar {
@@ -63,7 +63,7 @@
   text-transform: capitalize;
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--text) !important;
+  color: cyan !important;
   padding: 6px 12px;
   border-radius: 12px;
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
@@ -99,8 +99,4 @@
 
 .navbar-right-icons h3:hover {
   background: rgba(255, 255, 255, 0.1);
-}
-
-.navbar-mobile-search {
-  padding: 0 16px 8px;
 }
