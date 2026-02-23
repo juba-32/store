@@ -33,7 +33,6 @@
   backdrop-filter: blur(16px);
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.2);
-
   box-shadow: 0 0 60px rgba(0, 255, 255, 0.25);
   color: white;
 }
@@ -109,7 +108,9 @@
   .hero {
     min-height: 85vh;
   }
-
+.hero-content{
+  margin-top: 100px;
+}
   .hero-actions {
     gap: 14px;
   }
