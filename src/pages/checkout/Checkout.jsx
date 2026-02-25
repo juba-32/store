@@ -52,7 +52,7 @@ export default function Checkout() {
       items: cartItems.map((item) => ({
         product: item.id,
         title: item.title,
-        price: item.price, // price snapshot
+        price: item.price, 
         qty: item.qty,
       })),
       shippingInfo,
@@ -82,7 +82,6 @@ export default function Checkout() {
   return (
     <div className="checkout-page">
       <div className="checkout-container">
-        {/* LEFT */}
         <div className="checkout-left glass">
           <h2>{t("checkout.shipping info")}</h2>
 
@@ -108,7 +107,6 @@ export default function Checkout() {
           />
         </div>
 
-        {/* RIGHT */}
         <div className="checkout-right glass">
           <h2>{t("checkout.order summary")}</h2>
 

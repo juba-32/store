@@ -50,7 +50,6 @@ export default function Orders() {
 
         {orders.map((order) => (
           <div key={order._id} className="order-card">
-            {/* HEADER */}
             <div className="order-header">
               <span className="order-id">
                 Order #{order._id.slice(-6)}
@@ -60,7 +59,6 @@ export default function Orders() {
               </span>
             </div>
 
-            {/* ITEMS */}
             <div className="order-items">
               {order.items.map((item) => (
                 <div key={item.product} className="order-item">
@@ -70,7 +68,6 @@ export default function Orders() {
               ))}
             </div>
 
-            {/* FOOTER */}
             <div className="order-footer">
               <span>
                 {new Date(order.createdAt).toLocaleDateString()}

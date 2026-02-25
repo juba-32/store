@@ -15,7 +15,6 @@
   box-shadow: 0 0 10px cyan;
 }
 
-/* Glass effect */
 .glass {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(14px);
@@ -40,12 +39,10 @@
   color: inherit;
 }
 
-/* RIGHT */
 .checkout-right h2 {
   margin-bottom: 15px;
 }
 
-/* SUMMARY ITEMS */
 .summary-item {
   display: flex;
   justify-content: space-between;
@@ -85,7 +82,6 @@
   font-weight: bold;
 }
 
-/* SUMMARY TOTAL */
 .summary-line {
   display: flex;
   justify-content: space-between;
@@ -93,7 +89,6 @@
   font-weight: bold;
 }
 
-/* BUTTONS */
 .pay-btn {
   width: 100%;
   padding: 14px;
@@ -126,7 +121,6 @@
   cursor: pointer;
 }
 
-/* RESPONSIVE */
 @media (max-width: 900px) {
   .checkout-container {
     grid-template-columns: 1fr;
