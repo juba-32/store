@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Cart from "./pages/cart/Cart";
 import Home from "./pages/home/Home";
-import Reg from "./pages/register/Register";
+import Register from "./pages/register/Register";
 import { darkTheme, lightTheme } from "./components/theme/Theme";
 import { useSelector } from "react-redux";
 import { ThemeProvider, CssBaseline } from "@mui/material";
@@ -31,7 +31,7 @@ function App() {
           <Route path="/" element={<Home  />} />
           <Route path="/Products" element={<Products url = {"https://node-api-projects.vercel.app/products"} />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/register" element={<Reg />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/checkout" element={<Checkout />} />
