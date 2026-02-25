@@ -1,70 +1,92 @@
-# Getting Started with Create React App
+🛒 Full-Stack eCommerce Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern full-stack eCommerce web application built with React, Node.js, Express, and MongoDB.
+The app includes authentication, product management, cart, orders, and a responsive admin/user interface.
 
-## Available Scripts
+🚀 Live Demo
 
-In the project directory, you can run:
+Frontend: [https://your-frontend.vercel.app](https://nelly-mu.vercel.app/)
 
-### `npm start`
+✨ Features
+👤 Authentication
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+User signup & login
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+JWT-based authentication
 
-### `npm test`
+Protected routes
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Persistent login using localStorage
 
-### `npm run build`
+🛍️ Shopping
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Browse products
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Search & filter by category
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Add/remove products from cart
 
-### `npm run eject`
+Checkout & place orders
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+📦 Orders
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Submit orders from “Proceed to Pay” page
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+View user order history
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Order status:
 
-## Learn More
+Pending
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Processing
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Shipping
 
-### Code Splitting
+Delivered
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Canceled / Returned
 
-### Analyzing the Bundle Size
+🎨 UI / UX
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Fully responsive design
 
-### Making a Progressive Web App
+Dark & Light mode
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Modern glassmorphism UI
 
-### Advanced Configuration
+Smooth animations
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Material UI components
 
-### Deployment
+🧱 Tech Stack
+Frontend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+React
 
-### `npm run build` fails to minify
+React Router
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Axios
+
+Material UI (MUI)
+
+i18next (multi-language support)
+
+Backend
+
+Node.js
+
+Express.js
+
+MongoDB & Mongoose
+
+JWT Authentication
+
+RESTful API
+
+Deployment
+
+Frontend: Vercel
+
+Backend: Vercel
+
+Database: MongoDB Atlas
