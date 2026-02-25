@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import Input from "../../components/input/Input";
 import { signupUser, loginUser } from "../../api/auth";
-import { saveToken, saveUser } from "../../utils/Helper";
+import { saveUser } from "../../utils/Helper";
 
 import "./Register.css";
 
