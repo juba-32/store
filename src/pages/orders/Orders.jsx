@@ -23,7 +23,6 @@ export default function Orders() {
             Authorization: `Bearer ${user.token}`,
           },
         });
-        console.log(res.data)
         setOrders(res.data);
       } catch (err) {
         console.error(err);
