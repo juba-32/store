@@ -72,8 +72,7 @@ export default function Register() {
           password: formData.password,
         });
 
-        saveToken(data.token);
-        saveUser(data.user);
+        saveUser({ token: data.token, ...data.user });
         navigate("/");
       }
     } catch (err) {
