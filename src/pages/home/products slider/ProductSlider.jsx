@@ -6,7 +6,7 @@ import "./ProductSlider.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import useModal from "../../../hooks/useModal";
-import SinglePro from "../../../components/product Model/SinglePro";
+import SinglePro from "../../products/product Model/SinglePro";
 import { Box, Modal } from "@mui/material";
 import useToast from "../../../hooks/useToast";
 import useCartActions from "../../../hooks/useCartActions";

@@ -3,7 +3,7 @@ import { Button, Switch, FormControlLabel, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import Input from "../input/Input";
+import Input from "../../components/input/Input";
 import { signupUser, loginUser } from "../../api/auth";
 import { saveToken, saveUser } from "../../utils/Helper";
 
@@ -63,8 +63,7 @@ export default function Register() {
           password: formData.password,
         });
 
-        saveToken(data.token);
-        saveUser(data.user);
+        saveUser({ token: data.token, ...data.user });
         navigate("/");
       } else {
         const data = await signupUser({

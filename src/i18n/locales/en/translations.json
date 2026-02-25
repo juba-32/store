@@ -56,7 +56,7 @@
 
   "contact": {
     "Get in Touch": "Get in Touch",
-    "We’d love to hear from you":"We’d love to hear from you",
+    "We’d love to hear from you": "We’d love to hear from you",
     "Your Name": "Your Name",
     "Your Email": "Your Email",
     "Your Message": "Your Message",
@@ -72,5 +72,16 @@
     "Product Returns": "Product Returns",
     "Subscribe": "Subscribe",
     "Get updates, offers & news directly to your inbox.": "Get updates, offers & news directly to your inbox"
+  },
+  "checkout": {
+    "shipping info": "shipping info",
+    "full name": "full name",
+    "email": "email",
+    "phone": "phone",
+    "address": "address",
+    "payment method": "payment method",
+    "order summary": "order summary",
+    "place order": "place order",
+    "back to cart": "back to cart"
   }
 }

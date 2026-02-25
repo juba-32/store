@@ -39,10 +39,6 @@ export default function Hero() {
           <Link to="/products" className="hero-btn primary">
             Shop Now
           </Link>
-
-          <Link to="/deals" className="hero-btn secondary">
-            View Deals
-          </Link>
         </motion.div>
       </motion.div>
     </section>

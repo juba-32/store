@@ -55,11 +55,12 @@
 
   "contact": {
     "Get in Touch": "تواصل معنا",
-    "We’d love to hear from you":" نحب ان نسمع منك",
+    "We’d love to hear from you": " نحب ان نسمع منك",
     "Your Name": "الاسم",
     "Your Email": "الايميل",
     "Your Message": "رسالتك",
-    "Send Message": "ارسل رسالتك"
+    "Send Message": "ارسل رسالتك",
+    "address": "العنوان"
   },
 
   "footer": {
@@ -71,7 +72,17 @@
     "Product Returns": "إرجاع المنتجات",
     "Subscribe": "اشتراك",
     "Get updates, offers & news directly to your inbox.": "احصل على التحديثات والعروض والأخبار مباشرة في بريدك الإلكتروني"
+  },
 
-
+  "checkout": {
+    "shipping info": "معلومات الشحن",
+    "full name": "الاسم بالكامل",
+    "email": "الايميل",
+    "phone": "التليفون",
+    "address": "العنوان",
+    "payment method": "طريقه الدفع",
+    "order summary": "ملخص الطلب",
+    "place order": "اكمال الطلب",
+    "back to cart": "العودة إلى العربة"
   }
 }

@@ -32,8 +32,8 @@ export const saveToken = (token) => {
 export const getToken = () => {
   return localStorage.getItem("token");
 };
-export const saveUser = (user) => {
-  localStorage.setItem("user", JSON.stringify(user));
+export const saveUser = (userWithToken) => {
+  localStorage.setItem("user", JSON.stringify(userWithToken));
 };
 
 export const getUser = () => {

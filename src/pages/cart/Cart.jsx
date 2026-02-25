@@ -8,11 +8,11 @@ import {
   increment,
   removeFromCart,
   resetCart,
-} from "../redux/cartSlice";
+} from "../../redux/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@mui/material";
-import { getUser } from "../utils/Helper";
+import { getUser } from "../../utils/Helper";
 const user = getUser();
 
 export default function Cart() {

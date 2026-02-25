@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
-import Cart from "./cart/Cart";
+import Cart from "./pages/cart/Cart";
 import Home from "./pages/home/Home";
-import Reg from "./components/register/Register";
+import Reg from "./pages/register/Register";
 import { darkTheme, lightTheme } from "./components/theme/Theme";
 import { useSelector } from "react-redux";
 import { ThemeProvider, CssBaseline } from "@mui/material";
@@ -13,7 +13,8 @@ import Navbar from "./components/navbar/Navbar";
 import Products from "./pages/products/Products";
 import About from "./pages/about/About";
 import Contact from "./pages/contact/Contact";
-import Checkout from "./pages/Checkout";
+import Checkout from "./pages/checkout/Checkout";
+import Orders from "./pages/orders/Orders";
 function App() {
   const darkMode = useSelector((state) => state.cart.darkMode);
   const { i18n } = useTranslation();
@@ -34,6 +35,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/orders" element={<Orders />} />
         </Routes>
         <Footer />
       </div>

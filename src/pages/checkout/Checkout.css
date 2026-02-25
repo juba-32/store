@@ -1,0 +1,134 @@
+.checkout-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  margin-top: 150px;
+}
+
+.checkout-container {
+  max-width: 1100px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  box-shadow: 0 0 10px cyan;
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 25px;
+  border: 1px solid cyan;
+}
+
+/* LEFT */
+.checkout-left h2 {
+  margin-bottom: 15px;
+  color: cyan;
+}
+
+.checkout-left input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  background: transparent;
+  color: inherit;
+}
+
+/* RIGHT */
+.checkout-right h2 {
+  margin-bottom: 15px;
+}
+
+/* SUMMARY ITEMS */
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  margin-bottom: 12px;
+}
+
+.summary-left {
+  position: relative;
+}
+
+.summary-left img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 255, 255, 0.5);
+}
+
+.qty-badge {
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  background: cyan;
+  color: #000;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 7px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+}
+
+.item-price {
+  font-weight: bold;
+}
+
+/* SUMMARY TOTAL */
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+/* BUTTONS */
+.pay-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  background: cyan;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+
+.pay-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px cyan;
+}
+
+.pay-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.back-btn {
+  width: 100%;
+  margin-top: 10px;
+  background: transparent;
+  border: none;
+  color: cyan;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .checkout-container {
+    grid-template-columns: 1fr;
+  }
+}

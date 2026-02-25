@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Skeleton, Box, Modal } from "@mui/material";
-import SinglePro from "../../components/product Model/SinglePro";
+import SinglePro from "./product Model/SinglePro";
 import Category from "../../components/filter/Category";
 import Price from "../../components/filter/Price";
 import "./Products.css";
@@ -11,7 +11,7 @@ import useProducts from "../../hooks/useProducts";
 import useModal from "../../hooks/useModal";
 import useToast from "../../hooks/useToast";
 import useCartActions from "../../hooks/useCartActions";
-import { clearCategory } from "../../redux/cartSlice";
+import { clearCategory, clearSearch } from "../../redux/cartSlice";
 
 export default function Products({ url }) {
   const dispatch = useDispatch();
@@ -31,9 +31,10 @@ export default function Products({ url }) {
     useToast();
 
   const { handleAddToCart } = useCartActions(showToast);
+  
   useEffect(() => {
-    // cleanup runs when you LEAVE the page
     return () => {
+      dispatch(clearSearch());
       dispatch(clearCategory());
     };
   }, [dispatch]);

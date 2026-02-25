@@ -76,6 +76,10 @@ const cartSlice = createSlice({
     clearCategory: (state) => {
       state.category = "";
     },
+
+    clearSearch: (state) => {
+      state.searchQuery = "";
+    },
   },
 });
 
@@ -89,5 +93,6 @@ export const {
   setMode,
   setSearchQuery,
   clearCategory,
+  clearSearch,
 } = cartSlice.actions;
 export default cartSlice.reducer;

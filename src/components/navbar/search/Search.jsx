@@ -18,12 +18,14 @@ import { setSearchQuery } from "../../../redux/cartSlice";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import useModal from "../../../hooks/useModal";
-import SinglePro from "../../product Model/SinglePro";
+import SinglePro from "../../../pages/products/product Model/SinglePro";
 import "./Search.css";
+import { useLocation } from "react-router-dom";
 
 export default function Search({ mode = "global", backendUrl }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const location = useLocation();
   const { open, productId, openModal, closeModal } = useModal();
 
   const [query, setQuery] = useState("");
@@ -31,6 +33,16 @@ export default function Search({ mode = "global", backendUrl }) {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
+
+
+  useEffect(() => {
+  if (location.pathname.startsWith("/products")) {
+    setQuery("");             
+    setDebouncedQuery("");     
+    setResults([]);
+    setOpenDropdown(false);
+  }
+}, [location.pathname]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
