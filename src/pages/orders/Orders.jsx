@@ -9,8 +9,8 @@ export default function Orders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const user = getUser();
   useEffect(() => {
+    const user = getUser();
     if (!user) {
       navigate("/login");
       return;
