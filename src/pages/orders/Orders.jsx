@@ -5,24 +5,26 @@ import { getUser } from "../../utils/Helper";
 import { useNavigate } from "react-router-dom";
 
 export default function Orders() {
-  const user = getUser();
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const user = getUser();
   useEffect(() => {
     if (!user) {
       navigate("/login");
       return;
     }
-
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("https://node-api-projects.vercel.app/orders/my", {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
+        const res = await axios.get(
+          "https://node-api-projects.vercel.app/orders/my",
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
           },
-        });
+        );
         setOrders(res.data);
       } catch (err) {
         console.error(err);
@@ -30,9 +32,8 @@ export default function Orders() {
         setLoading(false);
       }
     };
-
-    fetchOrders();
-  }, [user, navigate]);
+    fetchOrders()
+  }, [navigate]);
 
   if (loading) {
     return <div className="orders-loading">Loading orders...</div>;
@@ -50,9 +51,7 @@ export default function Orders() {
         {orders.map((order) => (
           <div key={order._id} className="order-card">
             <div className="order-header">
-              <span className="order-id">
-                Order #{order._id.slice(-6)}
-              </span>
+              <span className="order-id">Order #{order._id.slice(-6)}</span>
               <span className={`order-status ${order.status}`}>
                 {order.status}
               </span>
@@ -68,12 +67,8 @@ export default function Orders() {
             </div>
 
             <div className="order-footer">
-              <span>
-                {new Date(order.createdAt).toLocaleDateString()}
-              </span>
-              <span className="order-total">
-                ${order.subtotal.toFixed(2)}
-              </span>
+              <span>{new Date(order.createdAt).toLocaleDateString()}</span>
+              <span className="order-total">${order.subtotal.toFixed(2)}</span>
             </div>
           </div>
         ))}
