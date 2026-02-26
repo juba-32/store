@@ -38,8 +38,8 @@ export default function Account({ anchorElAccount, setAnchorElAccount }) {
             <MenuItem sx={{textTransform:"capitalize"}}>
              {user.fullname}
             </MenuItem>
-            <MenuItem onClick={handleLogout}>{t("logout")}</MenuItem>
             <MenuItem onClick={() => navigate("/orders")}>{t("orders")}</MenuItem>
+            <MenuItem onClick={handleLogout}>{t("logout")}</MenuItem>
           </>
         ) : (
           <MenuItem onClick={() => handleMenuClose(setAnchorElAccount)}>

@@ -13,9 +13,9 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@mui/material";
 import { getUser } from "../../utils/Helper";
-const user = getUser();
 
 export default function Cart() {
+  const user = getUser();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
