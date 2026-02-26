@@ -19,6 +19,7 @@ import NavCart from "./navCart/NavCart";
 import MyDrawer from "../drawer/Drawer";
 import Theme from "../theme/Theme";
 import { getUser } from "../../utils/Helper";
+import { motion } from "framer-motion";
 
 export default function Navbar({ backendUrl }) {
   const location = useLocation();
@@ -57,7 +58,22 @@ export default function Navbar({ backendUrl }) {
               />
               {!isMobile && (
                 <h1 className="navbar-logo-text">
-                  <span className="navbar-logo-highlight">N</span>elly
+                  <motion.span
+                    style={{
+                      color:"cyan",
+                      fontWeight: 700,
+                      display: "inline-block",
+                    }}
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    N
+                  </motion.span>
+                  elly
                 </h1>
               )}
             </NavLink>
