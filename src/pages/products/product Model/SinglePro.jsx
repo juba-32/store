@@ -7,6 +7,7 @@ import {
   Button,
   Skeleton,
   useTheme,
+
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
@@ -189,7 +190,8 @@ export default function SinglePro({
                       >
                         Add to Cart
                       </Button>
-                      <Link to="/cart">
+              
+                      <Link to="/cart" onClick={handleClose}>
                         <Button
                           sx={{
                             backgroundColor: theme.palette.background.btnBGC,
