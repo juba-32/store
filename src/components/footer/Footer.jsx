@@ -39,7 +39,7 @@ export default function Footer() {
           </Link>
           <div className="social-links">
             <a
-              href="#"
+              href="#facebook"
               className="facebook"
               aria-label="Facebook"
             >
@@ -47,7 +47,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="#"
+              href="#twitter"
               className="twitter"
               aria-label="Twitter"
             >
@@ -55,7 +55,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="#"
+              href="#linkedin"
               className="linkedin"
               aria-label="LinkedIn"
             >
@@ -63,7 +63,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="#"
+              href="#youtube"
               className="youtube"
               aria-label="YouTube"
             >
@@ -155,12 +155,12 @@ export default function Footer() {
           </form>
 
           <div className="app-download">
-            <a href="#">
+            <a href="#android">
               <FaGooglePlay />
               <span>Android</span>
             </a>
 
-            <a href="#">
+            <a href="#ios">
               <FaApple />
               <span>iOS</span>
             </a>
