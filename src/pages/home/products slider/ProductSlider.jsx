@@ -22,11 +22,11 @@ export default function ProductSlider() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Fetch only 10 products
         const res = await axios.get(
           "https://node-api-projects.vercel.app/products?limit=10",
         );
         setProducts(res.data);
+        console.log(res.data, "Products fetched successfully");
       } catch (err) {
         console.error("Failed to fetch products:", err);
       }
@@ -34,7 +34,7 @@ export default function ProductSlider() {
     fetchProducts();
   }, []);
 
-  if (!products.length) return null; // optionally show a loader
+  if (!products.length) return null; 
 
   return (
     <div className="product-slider">

@@ -1,5 +1,7 @@
 {
   "navbar": {
+    "logoName": "N",
+    "fullLogoName": "elly Store",
     "Home": "Home",
     "Products": "Products",
     "About": "About",

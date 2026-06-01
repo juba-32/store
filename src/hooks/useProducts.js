@@ -7,11 +7,14 @@ export default function useProducts(
   categoryFilter,
   priceFilter,
   searchQuery,
+  
 ) {
+  
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    
     const fetchProducts = async () => {
       setLoading(true);
 
@@ -25,7 +28,9 @@ export default function useProducts(
         const fullUrl = `${url}?${queryString}`;
         const response = await axios.get(fullUrl);
         console.log(fullUrl, "fullUrl");
+        
         setData(response.data);
+        console.log("Products Response:", response.data);
       } catch (error) {
         console.error("Fetch Error:", error);
         setData([]);

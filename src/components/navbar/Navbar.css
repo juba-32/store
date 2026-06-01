@@ -44,6 +44,7 @@
   font-size: 22px;
   font-weight: 700;
   letter-spacing: 1px;
+  /* direction: rtl; */
 }
 
 .navbar-logo-highlight {

@@ -38,6 +38,7 @@ export default function Navbar({ backendUrl }) {
     { label: t("navbar.Products"), path: "/products" },
     { label: t("navbar.About"), path: "/about" },
     { label: t("navbar.Contact"), path: "/contact" },
+    { label: t("navbar.Profile"), path: "/profile" },
   ];
 
   const navColors = {
@@ -59,21 +60,22 @@ export default function Navbar({ backendUrl }) {
               {!isMobile && (
                 <h1 className="navbar-logo-text">
                   <motion.span
+                    key={t.language} // مهم جدًا عشان يعيد الأنيميشن
                     style={{
-                      color:"cyan",
+                      color: "cyan",
                       fontWeight: 700,
                       display: "inline-block",
                     }}
-                    animate={{ y: [0, -5, 0] }}
+                    animate={{ y: [5, -5, 5]}}
                     transition={{
-                      duration: 2.5,
+                      duration: 2,
                       repeat: Infinity,
                       ease: "easeInOut",
                     }}
                   >
-                    N
+                    {t("navbar.logoName")}
                   </motion.span>
-                  elly
+                    {t("navbar.fullLogoName")}
                 </h1>
               )}
             </NavLink>

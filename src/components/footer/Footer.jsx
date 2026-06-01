@@ -1,12 +1,18 @@
 import "./Footer.css";
 import { IoIosArrowForward } from "react-icons/io";
-import { FaFacebookF, FaLinkedinIn, FaYoutube, FaApple, FaGooglePlay } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaLinkedinIn,
+  FaYoutube,
+  FaApple,
+  FaGooglePlay,
+} from "react-icons/fa";
 import { TiSocialTwitter } from "react-icons/ti";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-const Footer = () => {
+export default function Footer() {
   const darkMode = useSelector((state) => state.cart.darkMode);
   const { t } = useTranslation();
 
@@ -19,70 +25,153 @@ const Footer = () => {
 
   return (
     <footer className={`footer ${darkMode ? "dark" : "light"}`}>
-      
-      <div className="footer-logo">
-        <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-          <img src="/images/logo.avif" alt="logo" />
-        </Link>
-      </div>
+      <div className="footer-content">
+        {/* Brand */}
+        <div className="footer-section brand-section">
+          <Link
+            to="/"
+            className="footer-logo"
+            onClick={() =>
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            }
+          >
+            <img src="/images/logo.avif" alt="N Store Logo" />
+          </Link>
+          <div className="social-links">
+            <a
+              href="#"
+              className="facebook"
+              aria-label="Facebook"
+            >
+              <FaFacebookF />
+            </a>
 
-      <div className="footer-sec">
-        <h2>{t("footer.Customer Support")}</h2>
-        <ul>
-          <li><IoIosArrowForward /><p>{t("footer.About Us")}</p></li>
-          <li><IoIosArrowForward /><p>{t("footer.Privacy Policy")}</p></li>
-          <li><IoIosArrowForward /><p>{t("footer.Terms & Conditions")}</p></li>
-          <li><IoIosArrowForward /><p>{t("footer.Product Returns")}</p></li>
-        </ul>
-      </div>
+            <a
+              href="#"
+              className="twitter"
+              aria-label="Twitter"
+            >
+              <TiSocialTwitter />
+            </a>
 
-      <div className="footer-sec">
-        <h2>{t("footer.Quick Links")}</h2>
-        <ul>
-          {quickLinks.map((link, index) => (
-            <li key={index} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+            <a
+              href="#"
+              className="linkedin"
+              aria-label="LinkedIn"
+            >
+              <FaLinkedinIn />
+            </a>
+
+            <a
+              href="#"
+              className="youtube"
+              aria-label="YouTube"
+            >
+              <FaYoutube />
+            </a>
+          </div>
+        </div>
+
+        {/* Support */}
+        <div className="footer-section">
+          <h3>{t("footer.Customer Support")}</h3>
+
+          <ul>
+            <li>
               <IoIosArrowForward />
-              <Link to={link.path}>{link.label}</Link>
+              <Link to="/about">
+                {t("footer.About Us")}
+              </Link>
             </li>
-          ))}
-        </ul>
-      </div>
 
-      <div className="footer-sec">
-        <h2>{t("footer.Subscribe")}</h2>
-        <p className="footer-desc">
-          {t("footer.Get updates, offers & news directly to your inbox.")}
-        </p>
+            <li>
+              <IoIosArrowForward />
+              <Link to="/">
+                {t("footer.Privacy Policy")}
+              </Link>
+            </li>
 
-        <form className="subscribe-form">
-          <input type="email" placeholder="Enter your email" required />
-          <button type="submit">{t("footer.Subscribe")}</button>
-        </form>
+            <li>
+              <IoIosArrowForward />
+              <Link to="/">
+                {t("footer.Terms & Conditions")}
+              </Link>
+            </li>
 
-        <div className="app-download">
-          <a href="cc" aria-label="Android App">
-            <FaGooglePlay />
-            <span>Android</span>
-          </a>
-          <a href="cc" aria-label="iOS App">
-            <FaApple />
-            <span>iOS</span>
-          </a>
+            <li>
+              <IoIosArrowForward />
+              <Link to="/">
+                {t("footer.Product Returns")}
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Quick Links */}
+        <div className="footer-section">
+          <h3>{t("footer.Quick Links")}</h3>
+
+          <ul>
+            {quickLinks.map((link, index) => (
+              <li key={index}>
+                <IoIosArrowForward />
+
+                <Link
+                  to={link.path}
+                  onClick={() =>
+                    window.scrollTo({
+                      top: 0,
+                      behavior: "smooth",
+                    })
+                  }
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Newsletter */}
+        <div className="footer-section">
+          <h3>{t("footer.Subscribe")}</h3>
+
+          <p className="footer-description">
+            {t(
+              "footer.Get updates, offers & news directly to your inbox."
+            )}
+          </p>
+
+          <form className="subscribe-form">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              required
+            />
+
+            <button type="submit">
+              {t("footer.Subscribe")}
+            </button>
+          </form>
+
+          <div className="app-download">
+            <a href="#">
+              <FaGooglePlay />
+              <span>Android</span>
+            </a>
+
+            <a href="#">
+              <FaApple />
+              <span>iOS</span>
+            </a>
+          </div>
         </div>
       </div>
 
-      <div className="social-links">
-        <a href="cc"><FaFacebookF /></a>
-        <a href="cc"><TiSocialTwitter /></a>
-        <a href="cc"><FaLinkedinIn /></a>
-        <a href="cc"><FaYoutube /></a>
-      </div>
-
       <div className="copyright">
-        <p>© <b>Ahmed Bendary</b> | All Rights Reserved</p>
+        © {new Date().getFullYear()} <b>Ahmed Bendary</b> |
+        All Rights Reserved
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}
