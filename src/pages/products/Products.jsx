@@ -4,7 +4,7 @@ import SinglePro from "./product Model/SinglePro";
 import Category from "../../components/filter/Category";
 import Price from "../../components/filter/Price";
 import "./Products.css";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useDispatch, useSelector } from "react-redux";
 import Toast from "../../components/toast/Toast";
 import useProducts from "../../hooks/useProducts";
@@ -31,7 +31,7 @@ export default function Products({ url }) {
     useToast();
 
   const { handleAddToCart } = useCartActions(showToast);
-  
+
   useEffect(() => {
     return () => {
       dispatch(clearSearch());
@@ -74,23 +74,71 @@ export default function Products({ url }) {
           </div>
         ) : (
           data.map((pro) => (
-            <div className="product-card" key={pro._id}>
-              <img
-                className="product-image"
-                src={pro.image}
-                alt={pro.title}
-                onClick={() => openModal(pro._id)}
-              />
+            <div className="new-product-card" key={pro._id}>
+              {/* حاوية الصورة العلوية مع الجريدينت وأيقونة الفيفورت */}
+              <div className="card-media-wrapper">
+                {/* أيقونة المفضلة الاحترافية */}
+                <div
+                  className="card-fav-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    // الأكشن الخاص بالريدكس للمفضلة هنا
+                    console.log("Toggle Favorite:", pro._id);
+                  }}
+                >
+                  <FavoriteBorderIcon className="fav-icon-ui" />
+                </div>
 
-              <p className="product-description">{pro.title}</p>
+                {/* سلايدر الصور الأربعة عند الهوفر */}
+                <div
+                  className="card-images-slider"
+                  onClick={() => openModal(pro._id)}
+                >
+                  <div className="slider-track">
+                    {pro.images && pro.images.length > 0 ? (
+                      pro.images
+                        .slice(0, 4)
+                        .map((imgUrl, idx) => (
+                          <img
+                            key={idx}
+                            className="slider-single-img"
+                            src={imgUrl}
+                            alt={`${pro.title} - ${idx + 1}`}
+                          />
+                        ))
+                    ) : (
+                      <img
+                        className="slider-single-img"
+                        src={pro.image}
+                        alt={pro.title}
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
 
-              <div className="product-footer">
-                <span className="product-price">${pro.price}</span>
+              {/* تفاصيل المنتج السفلية */}
+              <div className="card-info-content">
+                <h3 className="card-product-title">{pro.title}</h3>
+                <p className="card-product-description">
+                  {pro.description ||
+                    "Crossing hardwood comfort with off-court flair. '80s-inspired construction, bold details."}
+                </p>
 
-                <ShoppingCartIcon
-                  className="cart-icon"
-                  onClick={() => handleAddToCart(pro)}
-                />
+                {/* الفوتر المحتوي على السعر وزر الإضافة للكارت */}
+                <div className="card-action-footer">
+                  <div className="price-box">
+                    <span className="price-label">PRICE</span>
+                    <span className="price-amount">${pro.price}</span>
+                  </div>
+
+                  <button
+                    className="card-add-to-cart-btn"
+                    onClick={() => handleAddToCart(pro)}
+                  >
+                    Add to cart
+                  </button>
+                </div>
               </div>
             </div>
           ))

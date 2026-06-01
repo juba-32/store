@@ -1,17 +1,13 @@
-import { useState, useEffect } from "react";
-import {
-  Modal,
-  Fade,
-  Box,
-  Paper,
-  Button,
-  Skeleton,
-  useTheme,
-
-} from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import "./SinglePro.css";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import { useTheme, CircularProgress } from "@mui/material";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // تعديل: استخدام useNavigate بدلاً من Navigate كـ Component
+import { getUser } from "../../../utils/Helper";
 
 export default function SinglePro({
   open,
@@ -20,8 +16,14 @@ export default function SinglePro({
   handleAddToCart,
 }) {
   const theme = useTheme();
+  const navigate = useNavigate(); // دالة التنقل الصحيحة
+  const user = getUser();
+
   const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [selectedImg, setSelectedImg] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [activeTab, setActiveTab] = useState("DETAILS");
 
   useEffect(() => {
     if (productid) {
@@ -30,189 +32,196 @@ export default function SinglePro({
         .get(`https://node-api-projects.vercel.app/products/${productid}`)
         .then((res) => {
           setProduct(res.data);
+          // تعيين الصورة الأساسية فور وصول البيانات
+          if (res.data?.images && res.data.images.length > 0) {
+            setSelectedImg(res.data.images[0]);
+          } else if (res.data?.image) {
+            setSelectedImg(res.data.image); // حماية في حال كانت الصورة حقل مفرد باسم image
+          }
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Error fetching product details:", err);
+          setLoading(false);
         });
     }
-    setLoading(false);
   }, [productid]);
 
+  // دالة التعامل مع إضافة المنتج الحقيقي لعربة التسوق بالبيانات المختارة
+  const onAddToCartClick = () => {
+    if (handleAddToCart && product) {
+      handleAddToCart({
+        ...product,
+        qty: quantity,
+      });
+    }
+  };
+
+  // 1. حالة التحميل المنظمة لمنع الـ Crashes
+  if (loading) {
+    return (
+      <div className="product-loading-container">
+        <CircularProgress color="success" />
+      </div>
+    );
+  }
+
+  // 2. حماية في حال عدم العثور على المنتج
+  if (!product) {
+    return <div className="product-error-container">Product not found.</div>;
+  }
+
+  // حساب السعر بعد الخصم (إذا كان الخصم كنسبة مئوية أو قيمة مباشرة)
+  // هنا افترضنا أن حقل الـ discount يعبر عن القيمة المخصومة مباشرة بالدولار
+  const finalPrice = product.discount ? product.price - product.discount : product.price;
+
+  // تجهيز مصفوفة الصور للعرض الحقيقي
+  const productImages = product.images && product.images.length > 0 
+    ? product.images 
+    : [product.image]; // تراجع في حال وجود حقل واحد فقط للصورة
+
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      closeAfterTransition
-      slotProps={{ backdrop: { timeout: 400 } }}
+    <div
+      className="single-product-container"
+      style={{
+        "--bg": theme.palette.background.default,
+        "--card-bg": theme.palette.background.paper,
+        "--text": theme.palette.text.primary,
+        "--muted-text": theme.palette.text.secondary,
+        "--border": theme.palette.divider,
+      }}
     >
-      <Fade in={open}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            minHeight: "100vh",
-            p: { xs: 0, md: 2 },
-          }}
-        >
-          <Paper
-            sx={{
-              width: { xs: "100vw", md: "85%" },
-              height: { xs: "100vh", md: "85vh" },
-              borderRadius: { xs: 0, md: 2 },
-              p: { xs: 2, md: 3 },
-              position: "relative",
-              bgcolor: theme.palette.background.paper,
-              color: theme.palette.text.primary,
-              display: "flex",
-              flexDirection: "column",
-              overflow: "hidden",
-            }}
-          >
-            <Button
-              onClick={handleClose}
-              sx={{
-                position: "absolute",
-                top: 10,
-                right: 10,
-                minWidth: 0,
-                width: 40,
-                height: 40,
-                borderRadius: "50%",
-                bgcolor: "error.main",
-                color: "white",
-                zIndex: 10,
-                "&:hover": { bgcolor: "error.dark", scale: 0.9 },
-              }}
-            >
-              <CloseIcon />
-            </Button>
-
-            {loading ? (
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 3,
-                  flexDirection: { xs: "column", md: "row" },
-                  alignItems: "center",
-                  flex: 1,
-                  overflow: "hidden",
-                }}
+      {/* الجزء الأيسر: معرض الصور */}
+      <div className="product-gallery-section">
+        <div className="main-image-box">
+          <img src={selectedImg} alt={product.title} />
+        </div>
+        <div className="thumbnails-wrapper">
+          {productImages.map((imgUrl, index) => (
+            imgUrl && (
+              <div
+                key={index}
+                className={`thumbnail-card ${selectedImg === imgUrl ? "active-thumb" : ""}`}
+                onClick={() => setSelectedImg(imgUrl)}
               >
-                <Skeleton variant="rectangular" width={250} height={250} />
-                <Box sx={{ flex: 1 }}>
-                  <Skeleton variant="text" width="70%" height={40} />
-                  <Skeleton variant="text" width="50%" height={30} />
-                  <Skeleton variant="text" width="80%" height={20} />
-                  <Skeleton variant="rectangular" width="100%" height={100} />
-                  <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
-                    <Skeleton variant="rectangular" width={120} height={40} />
-                    <Skeleton variant="rectangular" width={120} height={40} />
-                  </Box>
-                </Box>
-              </Box>
-            ) : (
-              product && (
-                <Box
-                  sx={{
-                    display: "flex",
-                    gap: 3,
-                    flexDirection: { xs: "column", md: "row" },
-                    alignItems: "center",
-                    flex: 1,
-                    overflow: "hidden",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      flex: 1,
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img
-                      src={product.image}
-                      alt={product.title}
-                      style={{
-                        maxWidth: "100%",
-                        maxHeight: "400px",
-                        objectFit: "contain",
-                      }}
-                    />
-                  </Box>
+                <img src={imgUrl} alt={`thumb-${index}`} />
+              </div>
+            )
+          ))}
+        </div>
+      </div>
 
-                  <Box
-                    sx={{
-                      flex: 1,
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: 2,
-                      overflow: "hidden",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        flex: 1,
-                        overflowY: "auto",
-                        pr: 1,
-                      }}
-                    >
-                      <h3>{product.title}</h3>
-                      <p>
-                        <strong>Brand</strong>: {product.brand}
-                      </p>
-                      <p>
-                        <strong>Model</strong>: {product.model}
-                      </p>
-                      <p>
-                        <strong>Color</strong>: {product.color}
-                      </p>
+      {/* الجزء الأيمن: تفاصيل المنتج والخيارات */}
+      <div className="product-info-section">
+        
+        {/* عرض الـ Category والـ Brand والـ Model كمسار علوي */}
+        <div className="product-breadcrumbs">
+          <span>{product.category}</span>
+          {product.brand && <span> {" > "} {product.brand}</span>}
+          {product.model && <span> {" > "} {product.model}</span>}
+        </div>
 
-                      <h4>About this product</h4>
-                      <p>{product.description}</p>
-                    </Box>
+        <h1 className="product-main-title">{product.title}</h1>
 
-                    <Box
-                      sx={{
-                        display: "flex",
-                        gap: 2,
-                        mt: 2,
-                        flexWrap: "wrap",
-                        justifyContent: { xs: "center", md: "flex-start" },
-                      }}
-                    >
-                      <Button
-                        sx={{
-                          backgroundColor: theme.palette.background.btnBG,
-                          color: theme.palette.text.primary,
-                          px: 3,
-                          "&:hover": { scale: 0.95 },
-                        }}
-                        onClick={() => handleAddToCart(product)}
-                      >
-                        Add to Cart
-                      </Button>
-              
-                      <Link to="/cart" onClick={handleClose}>
-                        <Button
-                          sx={{
-                            backgroundColor: theme.palette.background.btnBGC,
-                            color: theme.palette.text.primary,
-                            px: 3,
-                            transition: "background 0.3s ease-in-out",
+        {/* حالة التوفر في المخزن (inStock) */}
+        <div className="stock-status-badge">
+          {product.inStock ? (
+            <span className="status-in">In Stock</span>
+          ) : (
+            <span className="status-out">Out of Stock</span>
+          )}
+        </div>
 
-                            "&:hover": { scale: 0.95 },
-                          }}
-                        >
-                          Go to Cart
-                        </Button>
-                      </Link>
-                    </Box>
-                  </Box>
-                </Box>
-              )
-            )}
-          </Paper>
-        </Box>
-      </Fade>
-    </Modal>
+        {/* الأسعار الحقيقية وحساب الخصومات (discount) */}
+        <div className="product-price-row">
+          <span className="current-price">${finalPrice.toFixed(2)}</span>
+          {product.discount > 0 && (
+            <span className="old-price">${product.price.toFixed(2)}</span>
+          )}
+          {product.discount > 0 && (
+            <span className="discount-badge-text">Save ${product.discount}</span>
+          )}
+        </div>
+
+        {/* التبويبات المودرن لعرض التفاصيل والوصف الحقيقي */}
+        <div className="product-tabs-header">
+          {["DETAILS", "SPECIFICATIONS"].map((tab) => (
+            <button
+              key={tab}
+              className={`tab-btn ${activeTab === tab ? "tab-active" : ""}`}
+              onClick={() => setActiveTab(tab)}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+
+        {/* محتوى الـ Tabs بناءً على الحقول المتاحة */}
+        <div className="tab-content-body">
+          {activeTab === "DETAILS" && (
+            <div className="details-wrapper">
+              <p>{product.description || "No description available for this product."}</p>
+            </div>
+          )}
+          {activeTab === "SPECIFICATIONS" && (
+            <div className="specs-wrapper">
+              {product.brand && <p><strong>Brand:</strong> {product.brand}</p>}
+              {product.model && <p><strong>Model:</strong> {product.model}</p>}
+              {product.color && <p><strong>Color:</strong> {product.color}</p>}
+            </div>
+          )}
+        </div>
+
+        {/* حقل عرض اللون إذا وُجد كقيمة نصية */}
+        {/* {product.color && (
+          <div className="option-select-group">
+            <span className="option-label">
+              Color: <strong>{product.color}</strong>
+            </span>
+          </div>
+        )} */}
+
+        {/* متحكم الكمية الذكي قبل الشراء */}
+        <div className="option-select-group" style={{ marginTop: "10px" }}>
+          <span className="option-label">Quantity:</span>
+          <div className="quantity-counter-box">
+            <button onClick={() => setQuantity((p) => (p > 1 ? p - 1 : 1))}>
+              <RemoveIcon style={{ fontSize: "16px" }} />
+            </button>
+            <span className="qty-number-display">{quantity}</span>
+            <button onClick={() => setQuantity((p) => p + 1)}>
+              <AddIcon style={{ fontSize: "16px" }} />
+            </button>
+          </div>
+        </div>
+
+        {/* أزرار الشراء والتحكم الإجرائية المحدثة */}
+        <div className="product-actions-footer-row">
+          <button 
+            className="buy-now-action-btn"
+            onClick={() => {
+              onAddToCartClick();
+              user ? navigate("/cart") : navigate("/register");
+            }}
+            disabled={!product.inStock}
+          >
+            Buy now
+          </button>
+
+          <button 
+            className="add-to-cart-action-btn" 
+            onClick={onAddToCartClick}
+            disabled={!product.inStock}
+          >
+            <ShoppingCartIcon className="cart-btn-icon-ui" />
+            Add to cart
+          </button>
+          
+          <button className="fav-circle-action-btn">
+            <FavoriteBorderIcon />
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }

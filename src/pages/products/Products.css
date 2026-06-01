@@ -149,3 +149,191 @@
     grid-template-columns: repeat(1, 1fr);
   }
 }
+/* شبكة المنتجات الاحترافية */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 30px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* الكارد الجديد المستوحى من التصميم المرفق */
+.new-product-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px; /* زوايا دائرية ناعمة مثل الصورة */
+  overflow: hidden;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.new-product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* الجزء العلوي الخاص بالخلفية الملونة والصور */
+.card-media-wrapper {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  /* جريدينت ناعم، يتماشى مع ألوان موقعك المظلمة أو المضيئة */
+  background: linear-gradient(135deg, rgba(30, 196, 71, 0.15) 0%, rgba(0, 0, 0, 0.05) 100%);
+  overflow: hidden;
+}
+
+/* زر الفيفورت الدائري الصغير المودرن */
+.card-fav-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 5;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px); /* تأثير زجاجي شفاف */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text);
+  transition: all 0.2s ease;
+}
+
+.card-fav-btn:hover {
+  background: #fff;
+  color: #ff385c;
+  transform: scale(1.1);
+}
+
+.fav-icon-ui {
+  font-size: 20px !important;
+}
+
+/* شريط الصور الذي يتحرك عند الهوفر */
+.card-images-slider {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.slider-track {
+  display: flex;
+  width: 400%; /* لـ 4 صور جنب بعض */
+  height: 100%;
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.slider-single-img {
+  width: 25%;
+  height: 100%;
+  object-fit: contain; /* عشان الكوتشي أو المنتج يظهر بالكامل زي الصورة */
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+/* الأنيميشن السحري: تمرير الصور عند الهوفر على الكارد بالكامل */
+.new-product-card:hover .slider-track {
+  transform: translateX(-75%); /* يعرض الصورة الرابعة */
+}
+
+/* محتوى تفاصيل الكارد */
+.card-info-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+}
+
+.card-product-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  max-height: 22px; 
+  overflow: hidden;
+}
+
+/* البادجات الصغيرة */
+.card-badges-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.info-badge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted-text);
+  text-transform: uppercase;
+}
+
+/* الوصف الصغير */
+.card-product-description {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted-text);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* يحدد الوصف في 3 سطور كحد أقصى */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* الفوتر ومناطق التحكم بالسعر والشراء */
+.card-action-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto; /* يدفع الفوتر لأسفل الكارد دائماً */
+  padding-top: 10px;
+}
+
+.price-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted-text);
+  letter-spacing: 0.5px;
+}
+
+.price-amount {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* زر إضافة إلى السلة بنفس لون الأزرار الأخضر في الكارت */
+.card-add-to-cart-btn {
+  background: rgb(30, 196, 71);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.card-add-to-cart-btn:hover {
+  background: darkgreen;
+}
+
+.card-add-to-cart-btn:active {
+  transform: scale(0.97);
+}
