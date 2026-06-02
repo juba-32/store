@@ -11,7 +11,7 @@ import useModal from "../../hooks/useModal";
 import useToast from "../../hooks/useToast";
 import useCartActions from "../../hooks/useCartActions";
 import { clearCategory, clearSearch } from "../../redux/cartSlice";
-import ProductCard from "./ProductCard"; // استيراد الكارت الفرعي المطور
+import ProductCard from "./ProductCard";
 
 export default function Products({ url }) {
   const dispatch = useDispatch();
@@ -78,6 +78,7 @@ export default function Products({ url }) {
               pro={pro} 
               openModal={openModal} 
               handleAddToCart={handleAddToCart} 
+              showToast={showToast}
             />
           ))
         )}

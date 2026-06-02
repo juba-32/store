@@ -56,6 +56,12 @@
     "remove": "remove"
   },
 
+  "favorites": {
+    "Wishlist": "Wishlist",
+    "your wishlist is empty": "your wishlist is empty"
+  },
+
+  
   "contact": {
     "Get in Touch": "Get in Touch",
     "We’d love to hear from you": "We’d love to hear from you",

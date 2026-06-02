@@ -1,7 +1,17 @@
 import { useState, useEffect } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useDispatch, useSelector } from "react-redux";
+import { addToFavorites } from "../../redux/cartSlice";
 
-export default function ProductCard({ pro, openModal, handleAddToCart }) {
+// مررنا هنا دالة showToast كـ Prop من الصفحة الأب (Products.jsx)
+export default function ProductCard({ pro, openModal, handleAddToCart, showToast }) {
+  const dispatch = useDispatch();
+  
+  // 1. جلب قائمة المفضلة من الريدكس لفحص حالة المنتج الحالي
+  const favorites = useSelector((state) => state.cart.favorites) || [];
+  const isFavorite = favorites.some((item) => item._id === pro._id);
+
   const productImages = pro.images && pro.images.length > 0 
     ? pro.images.slice(0, 4) 
     : [pro.image];
@@ -11,11 +21,9 @@ export default function ProductCard({ pro, openModal, handleAddToCart }) {
 
   const handleMouseEnter = () => {
     if (productImages.length <= 1) return;
-
     const id = setInterval(() => {
       setCurrentImgIndex((prevIndex) => (prevIndex + 1) % productImages.length);
-    }, 1000);
-
+    }, 2000);
     setIntervalId(id);
   };
 
@@ -33,6 +41,19 @@ export default function ProductCard({ pro, openModal, handleAddToCart }) {
     };
   }, [intervalId]);
 
+  // 2. دالة التحكم بضغط زر المفضلة وإظهار التوست
+  const handleFavClick = (e) => {
+    e.stopPropagation(); // منع فتح المودال عند الضغط على القلب
+    dispatch(addToFavorites(pro));
+    
+    // إظهار التويست بناءً على الحالة الجديدة
+    if (isFavorite) {
+      if (showToast) showToast("Removed from favorites", "info");
+    } else {
+      if (showToast) showToast("Added to favorites successfully!", "success");
+    }
+  };
+
   return (
     <div className="new-product-card">
       <div 
@@ -40,14 +61,16 @@ export default function ProductCard({ pro, openModal, handleAddToCart }) {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
+        {/* 3. زر المفضلة الذكي: يتغير شكله ولونه تلقائياً */}
         <div
-          className="card-fav-btn"
-          onClick={(e) => {
-            e.stopPropagation();
-            console.log("Toggle Favorite:", pro._id);
-          }}
+          className={`card-fav-btn ${isFavorite ? "fav-active" : ""}`}
+          onClick={handleFavClick}
         >
-          <FavoriteBorderIcon className="fav-icon-ui" />
+          {isFavorite ? (
+            <FavoriteIcon className="fav-icon-ui" style={{ color: "#ff385c" }} />
+          ) : (
+            <FavoriteBorderIcon className="fav-icon-ui" />
+          )}
         </div>
 
         <div className="card-images-slider" onClick={() => openModal(pro._id)}>

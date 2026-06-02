@@ -15,10 +15,6 @@ import { useTranslation } from "react-i18next";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
-import Account from "../navbar/account/Account";
-import Language from "../navbar/language/Language";
-import Theme from "../theme/Theme";
-import NavCart from "../navbar/navCart/NavCart";
 
 export default function MyDrawer({
   anchorElLang,
@@ -69,20 +65,7 @@ export default function MyDrawer({
                 </ListItemButton>
               </ListItem>
             ))}
-          </List>
-
-          <Box className="drawer-actions">
-            <Account
-              anchorElAccount={anchorElAccount}
-              setAnchorElAccount={setAnchorElAccount}
-            />
-            <Language
-              anchorElLang={anchorElLang}
-              setAnchorElLang={setAnchorElLang}
-            />
-            <Theme />
-            <NavCart />
-          </Box>
+          </List>          
         </Box>
       </Drawer>
 

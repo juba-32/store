@@ -18,8 +18,8 @@ import Language from "../navbar/language/Language";
 import NavCart from "./navCart/NavCart";
 import MyDrawer from "../drawer/Drawer";
 import Theme from "../theme/Theme";
-import { getUser } from "../../utils/Helper";
 import { motion } from "framer-motion";
+import FavIcon from "./favoriteIcon/FavIcon";
 
 export default function Navbar({ backendUrl }) {
   const location = useLocation();
@@ -32,18 +32,18 @@ export default function Navbar({ backendUrl }) {
   const [anchorElAccount, setAnchorElAccount] = useState(null);
   const [anchorElLang, setAnchorElLang] = useState(null);
 
-  const user = getUser();
 
   const navItems = [
     { label: t("navbar.Products"), path: "/products" },
     { label: t("navbar.About"), path: "/about" },
     { label: t("navbar.Contact"), path: "/contact" },
-    { label: t("navbar.Profile"), path: "/profile" },
   ];
 
   const navColors = {
-    "--bg": theme.palette.background.BG,
+    "--bg": theme.palette.background.default,
+    "--card-bg": theme.palette.background.paper,
     "--text": theme.palette.text.primary,
+    "--border": theme.palette.divider,
   };
 
   return (
@@ -51,6 +51,7 @@ export default function Navbar({ backendUrl }) {
       <Box className="navbar-wrapper">
         <AppBar position="fixed" className="navbar-appbar" elevation={0}>
           <Toolbar className="navbar-toolbar">
+            {/* LEFT: LOGO */}
             <NavLink to="/" className="navbar-logo-NavLink">
               <img
                 src="/images/logo.avif"
@@ -60,13 +61,13 @@ export default function Navbar({ backendUrl }) {
               {!isMobile && (
                 <h1 className="navbar-logo-text">
                   <motion.span
-                    key={t.language} // مهم جدًا عشان يعيد الأنيميشن
+                    key={t.language}
                     style={{
                       color: "cyan",
                       fontWeight: 700,
                       display: "inline-block",
                     }}
-                    animate={{ y: [5, -5, 5]}}
+                    animate={{ y: [3, -3, 3] }}
                     transition={{
                       duration: 2,
                       repeat: Infinity,
@@ -75,15 +76,20 @@ export default function Navbar({ backendUrl }) {
                   >
                     {t("navbar.logoName")}
                   </motion.span>
+                  <span className="full-logo-text">
                     {t("navbar.fullLogoName")}
+                  </span>
                 </h1>
               )}
             </NavLink>
 
-            {/* DESKTOP CENTER */}
             {!isMobile && (
-              <Box className="navbar-nav-search">
-                <Stack spacing={2} direction="row">
+              <Box className="navbar-center-menu">
+                <Stack
+                  spacing={1}
+                  direction="row"
+                  className="navbar-links-stack"
+                >
                   {navItems.map(({ label, path }, i) => (
                     <Button
                       key={i}
@@ -105,12 +111,9 @@ export default function Navbar({ backendUrl }) {
               </Box>
             )}
 
-            {/* RIGHT ICONS */}
             <Box className="navbar-right-icons">
               {!isMobile && (
                 <>
-                  {user && <h3>{user.fullname}</h3>}
-
                   <Account
                     anchorElAccount={anchorElAccount}
                     setAnchorElAccount={setAnchorElAccount}
@@ -121,26 +124,35 @@ export default function Navbar({ backendUrl }) {
                   />
                   <Theme />
                   <NavCart />
+                  <FavIcon />
                 </>
               )}
 
               {isMobile && (
-                <MyDrawer
-                  anchorElLang={anchorElLang}
-                  anchorElAccount={anchorElAccount}
-                  setAnchorElLang={setAnchorElLang}
-                  setAnchorElAccount={setAnchorElAccount}
-                />
+                <>
+                  <Account />
+                  <Theme />
+                  <FavIcon />
+                  <NavCart />
+                  <MyDrawer
+                    anchorElLang={anchorElLang}
+                    anchorElAccount={anchorElAccount}
+                    setAnchorElLang={setAnchorElLang}
+                    setAnchorElAccount={setAnchorElAccount}
+                  />
+                </>
               )}
             </Box>
           </Toolbar>
 
           {isMobile && (
-            <Box className="navbar-search-box navbar-search-mobile">
-              <Search
-                mode={isProductsPage ? "products" : "global"}
-                backendUrl={backendUrl}
-              />
+            <Box className="navbar-search-mobile-wrapper">
+              <Box className="navbar-search-box">
+                <Search
+                  mode={isProductsPage ? "products" : "global"}
+                  backendUrl={backendUrl}
+                />
+              </Box>
             </Box>
           )}
         </AppBar>

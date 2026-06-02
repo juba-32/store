@@ -4,7 +4,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { useTheme, CircularProgress } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { useTheme, CircularProgress, IconButton } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../../utils/Helper";
@@ -96,6 +97,13 @@ export default function SinglePro({
         "--border": theme.palette.divider,
       }}
     >
+      <IconButton
+        className="modal-close-btn"
+        onClick={handleClose}
+        aria-label="close"
+      >
+        <CloseIcon />
+      </IconButton>
       <div className="product-gallery-section">
         <div className="main-image-box">
           <img src={selectedImg} alt={product.title} />

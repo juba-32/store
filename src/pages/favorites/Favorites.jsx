@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@mui/material";
-// قم بعمل import للأكشنز الخاصة بك من الـ slice
 import { removeFromFavorites, addToCart } from "../../redux/cartSlice"; 
 
 export default function Favorites() {
@@ -15,8 +14,6 @@ export default function Favorites() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const theme = useTheme();
-
-  // جلب عناصر المفضلة من الريدكس (تأكد من مطابقة المسار حسب الـ Store عندك)
   const favoriteItems = useSelector((state) => state.cart?.favorites || []);
 
   return (
@@ -71,7 +68,6 @@ export default function Favorites() {
                     </p>
                   )}
 
-                  {/* أزرار التحكم بداخل الكارد */}
                   <div className="fav-card-actions">
                     <button
                       className="add-to-cart-btn"
@@ -87,7 +83,6 @@ export default function Favorites() {
           </div>
         )}
 
-        {/* زر العودة للتسوق في الأسفل إذا كانت القائمة مليئة */}
         {favoriteItems.length > 0 && (
           <div className="fav-footer-btns">
             <button onClick={() => navigate(-1)}>

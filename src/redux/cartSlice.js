@@ -1,12 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-const initialState = JSON.parse(localStorage.getItem("cartState")) || {
+
+
+
+const initialState =  {
   cart: [],
+  favorites: [],
   totalPrice: 0,
   qty: 0,
   searchQuery: "",
   category: "",
-  darkMode: JSON.parse(localStorage.getItem("cartState"))?.darkMode ?? false,
+  darkMode: false,
 };
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -15,9 +20,10 @@ const cartSlice = createSlice({
       state.darkMode = !state.darkMode;
       localStorage.setItem("cartState", JSON.stringify(state));
     },
+    
     addToCart: (state, action) => {
       const newItem = action.payload;
-      const proInCart = state.cart.find((pro) => pro.id === newItem.id);
+      const proInCart = state.cart.find((pro) => pro._id === newItem._id);
 
       if (proInCart) {
         proInCart.qty += 1;
@@ -35,33 +41,60 @@ const cartSlice = createSlice({
     },
 
     removeFromCart: (state, action) => {
-      const deletProduct = state.cart.find((pro) => pro.id === action.payload);
+      const deletProduct = state.cart.find((pro) => pro._id === action.payload);
       if (deletProduct) {
         state.qty -= deletProduct.qty;
         state.totalPrice -= deletProduct.totalPrice;
       }
-      state.cart = state.cart.filter((pro) => pro.id !== action.payload);
+      state.cart = state.cart.filter((pro) => pro._id !== action.payload);
+      localStorage.setItem("cartState", JSON.stringify(state));
+    },
+
+    addToFavorites: (state, action) => {
+      const newItem = action.payload;
+      if (!state.favorites) state.favorites = [];
+
+      const isExist = state.favorites.find((pro) => pro._id === newItem._id);
+
+      if (isExist) {
+        state.favorites = state.favorites.filter((pro) => pro._id !== newItem._id);
+      } else {
+        state.favorites.push(newItem);
+      }
+      localStorage.setItem("cartState", JSON.stringify(state));
+    },
+
+    removeFromFavorites: (state, action) => {
+      const productId = action.payload; 
+      if (state.favorites) {
+        state.favorites = state.favorites.filter((pro) => pro._id !== productId);
+      }
       localStorage.setItem("cartState", JSON.stringify(state));
     },
 
     increment: (state, action) => {
-      const product = state.cart.find((pro) => pro.id === action.payload);
-      product.qty++;
-      product.totalPrice += product.price;
-      state.qty++;
+      const product = state.cart.find((pro) => pro._id === action.payload);
+      if (product) {
+        product.qty++;
+        product.totalPrice += product.price;
+        state.qty++;
+      }
       localStorage.setItem("cartState", JSON.stringify(state));
     },
 
     decrement: (state, action) => {
-      const product = state.cart.find((pro) => pro.id === action.payload);
-      product.qty--;
-      product.totalPrice -= product.price;
-      state.qty--;
+      const product = state.cart.find((pro) => pro._id === action.payload);
+      if (product && product.qty > 1) {
+        product.qty--;
+        product.totalPrice -= product.price;
+        state.qty--;
+      }
       localStorage.setItem("cartState", JSON.stringify(state));
     },
 
-    resetCart: (state, action) => {
+    resetCart: (state) => {
       state.qty = 0;
+      state.totalPrice = 0;
       state.cart = [];
       localStorage.setItem("cartState", JSON.stringify(state));
     },
@@ -69,6 +102,7 @@ const cartSlice = createSlice({
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
     },
+    
     setCategory: (state, action) => {
       state.category = action.payload;
     },
@@ -94,5 +128,8 @@ export const {
   setSearchQuery,
   clearCategory,
   clearSearch,
+  addToFavorites,
+  removeFromFavorites,
 } = cartSlice.actions;
+
 export default cartSlice.reducer;

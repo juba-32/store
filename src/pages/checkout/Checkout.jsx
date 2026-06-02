@@ -29,7 +29,7 @@ export default function Checkout() {
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.qty,
-    0
+    0,
   );
 
   const handlePlaceOrder = async () => {
@@ -50,9 +50,9 @@ export default function Checkout() {
 
     const orderData = {
       items: cartItems.map((item) => ({
-        product: item.id,
+        product: item._id,
         title: item.title,
-        price: item.price, 
+        price: item.price,
         qty: item.qty,
       })),
       shippingInfo,
@@ -62,12 +62,15 @@ export default function Checkout() {
 
     try {
       setLoading(true);
-
-      await axios.post("https://node-api-projects.vercel.app/orders", orderData, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
+      await axios.post(
+        "https://node-api-projects.vercel.app/orders",
+        orderData,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
         },
-      });
+      );
 
       dispatch(resetCart());
       navigate("/orders");
@@ -90,28 +93,16 @@ export default function Checkout() {
             placeholder="Full Name"
             onChange={handleChange}
           />
-          <input
-            name="email"
-            placeholder="Email"
-            onChange={handleChange}
-          />
-          <input
-            name="phone"
-            placeholder="Phone"
-            onChange={handleChange}
-          />
-          <input
-            name="address"
-            placeholder="Address"
-            onChange={handleChange}
-          />
+          <input name="email" placeholder="Email" onChange={handleChange} />
+          <input name="phone" placeholder="Phone" onChange={handleChange} />
+          <input name="address" placeholder="Address" onChange={handleChange} />
         </div>
 
         <div className="checkout-right glass">
           <h2>{t("checkout.order summary")}</h2>
 
           {cartItems.map((item) => (
-            <div key={item.id} className="summary-item">
+            <div key={item._id} className="summary-item">
               <div className="summary-left">
                 <img src={item.image} alt={item.title} />
                 <span className="qty-badge">{item.qty}</span>

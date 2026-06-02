@@ -1,8 +1,6 @@
 .nav {
-  background: var(--bg);
-  color: var(--text);
   position: relative;
-  z-index: 100;
+  z-index: 1100;
 }
 
 .navbar-wrapper {
@@ -10,94 +8,144 @@
 }
 
 .navbar-appbar {
-  background: rgba(255, 255, 255, 0) !important; /* glass effect */
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(var(--bg), 0.75) !important; 
+  background-color: var(--card-bg) !important;
+  background-opacity: 0.75;
+  backdrop-filter: blur(20px) cubic-bezier(0.25, 1, 0.5, 1);
+  -webkit-backdrop-filter: blur(20px);
   color: var(--text) !important;
-  border-bottom: 1px solid cyan;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.3) !important;
+  transition: all 0.3s ease;
 }
 
 .navbar-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 16px;
-  gap: 16px;
+  padding: 8px 24px !important;
+  min-height: 70px !important;
+  gap: 20px;
 }
 
 .navbar-logo-NavLink {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   text-decoration: none;
   color: var(--text) !important;
+  flex-shrink: 0;
 }
 
 .navbar-logo-img {
-  width: 50px;
-  height: 50px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  box-shadow: 0 0 12px rgba(0, 255, 255, 0.25);
+  border: 1.5px solid cyan;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  object-fit: cover;
 }
 
 .navbar-logo-text {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
-  letter-spacing: 1px;
-  /* direction: rtl; */
+  letter-spacing: 0.5px;
+  margin: 0;
+  display: flex;
+  gap: 6px;
 }
 
-.navbar-logo-highlight {
-  color: cyan;
-  font-size: 1.9rem;
+.full-logo-text {
+  color: var(--text);
+  font-weight: 500;
 }
 
-.navbar-nav-search {
+.navbar-center-menu {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
   flex-grow: 1;
-  justify-content: center;
+  justify-content: flex-end; 
+  max-width: 65%;
+}
+
+.navbar-links-stack {
+  display: flex;
+  align-items: center;
 }
 
 .navbar-nav-button {
-  text-transform: capitalize;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: cyan !important;
-  padding: 6px 12px;
-  border-radius: 12px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  text-transform: capitalize !important;
+  font-size: 0.88rem !important;
+  font-weight: 600 !important;
+  color: var(--text) !important;
+  padding: 6px 14px !important;
+  border-radius: 10px !important;
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 
 .navbar-nav-button:hover,
 .navbar-nav-button.active {
-  transform: translateY(-2px) scale(1.05);
+  transform: translateY(-1px);
   color: cyan !important;
-  background: rgba(0, 255, 255, 0.08);
-  box-shadow: 0 8px 20px rgba(0, 255, 255, 0.25);
+  background: rgba(0, 255, 255, 0.08) !important;
 }
 
 .navbar-search-box {
-  min-width: 220px;
-  background: rgba(255, 255, 255, 0.08) !important;
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
-  padding: 2px 6px;
+  flex-grow: 1;
+  max-width: 300px;
+  min-width: 180px;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(var(--text), 0.1);
+  border-radius: 10px;
+  padding: 4px 10px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar-search-box:focus-within {
+  border-color: cyan;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.15);
 }
 
 .navbar-right-icons {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
-.navbar-right-icons h3 {
+.user-welcome-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0;
   padding: 6px 12px;
-  border-radius: 10px;
-  transition: background 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.navbar-right-icons h3:hover {
-  background: rgba(255, 255, 255, 0.1);
+.navbar-search-mobile-wrapper {
+  padding: 10px 16px;
+  background: var(--card-bg);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+.navbar-search-mobile-wrapper .navbar-search-box {
+  max-width: 100%;
+  width: 100%;
+}
+
+@media screen and (max-width: 1100px) {
+  .navbar-logo-text .full-logo-text {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .navbar-toolbar {
+    min-height: 60px !important;
+    padding: 6px 16px !important;
+  }
 }

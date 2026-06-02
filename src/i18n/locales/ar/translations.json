@@ -55,6 +55,11 @@
     "remove": "حذف"
   },
 
+    "favorites": {
+      "Wishlist": "المفضلة",
+      "your wishlist is empty": "قائمة المفضلة فارغة"
+    },
+
   "contact": {
     "Get in Touch": "تواصل معنا",
     "We’d love to hear from you": " نحب ان نسمع منك",
