@@ -16,7 +16,7 @@ export default function SinglePro({
   handleAddToCart,
 }) {
   const theme = useTheme();
-  const navigate = useNavigate(); // دالة التنقل الصحيحة
+  const navigate = useNavigate();
   const user = getUser();
 
   const [product, setProduct] = useState(null);
@@ -32,12 +32,10 @@ export default function SinglePro({
         .get(`https://node-api-projects.vercel.app/products/${productid}`)
         .then((res) => {
           setProduct(res.data);
-          console.log("Fetched product details:", product);
-          // تعيين الصورة الأساسية فور وصول البيانات
           if (res.data?.images && res.data.images.length > 0) {
             setSelectedImg(res.data.images[0]);
           } else if (res.data?.image) {
-            setSelectedImg(res.data.image); // حماية في حال كانت الصورة حقل مفرد باسم image
+            setSelectedImg(res.data.image);
           }
           setLoading(false);
         })
@@ -57,7 +55,6 @@ export default function SinglePro({
     }
   }, [product]);
 
-  // دالة التعامل مع إضافة المنتج الحقيقي لعربة التسوق بالبيانات المختارة
   const onAddToCartClick = () => {
     if (handleAddToCart && product) {
       handleAddToCart({
@@ -67,7 +64,6 @@ export default function SinglePro({
     }
   };
 
-  // 1. حالة التحميل المنظمة لمنع الـ Crashes
   if (loading) {
     return (
       <div className="product-loading-container">
@@ -76,7 +72,6 @@ export default function SinglePro({
     );
   }
 
-  // 2. حماية في حال عدم العثور على المنتج
   if (!product) {
     return <div className="product-error-container">Product not found.</div>;
   }
@@ -85,11 +80,10 @@ export default function SinglePro({
     ? product.price - product.discount
     : product.price;
 
-  // تجهيز مصفوفة الصور للعرض الحقيقي
   const productImages =
     product.images && product.images.length > 0
       ? product.images
-      : [product.image]; // تراجع في حال وجود حقل واحد فقط للصورة
+      : [product.image];
 
   return (
     <div
@@ -102,7 +96,6 @@ export default function SinglePro({
         "--border": theme.palette.divider,
       }}
     >
-      {/* الجزء الأيسر: معرض الصور */}
       <div className="product-gallery-section">
         <div className="main-image-box">
           <img src={selectedImg} alt={product.title} />
@@ -123,20 +116,16 @@ export default function SinglePro({
         </div>
       </div>
 
-      {/* الجزء الأيمن: تفاصيل المنتج والخيارات */}
       <div className="product-info-section">
-        {/* عرض الـ Category والـ Brand والـ Model كمسار علوي */}
         <div className="product-breadcrumbs">
           <span>{product.category}</span>
           {product.brand && (
             <span>
-              {" "}
               {" > "} {product.brand}
             </span>
           )}
           {product.model && (
             <span>
-              {" "}
               {" > "} {product.model}
             </span>
           )}
@@ -144,7 +133,6 @@ export default function SinglePro({
 
         <h1 className="product-main-title">{product.title}</h1>
 
-        {/* حالة التوفر في المخزن (inStock) */}
         <div className="stock-status-badge">
           {product.inStock ? (
             <span className="status-in">In Stock</span>
@@ -153,7 +141,6 @@ export default function SinglePro({
           )}
         </div>
 
-        {/* الأسعار الحقيقية وحساب الخصومات (discount) */}
         <div className="product-price-row">
           <span className="current-price">${finalPrice.toFixed(2)}</span>
           {product.discount > 0 && (
@@ -166,7 +153,6 @@ export default function SinglePro({
           )}
         </div>
 
-        {/* التبويبات المودرن لعرض التفاصيل والوصف الحقيقي */}
         <div className="product-tabs-header">
           {["DETAILS", "SPECIFICATIONS"].map((tab) => (
             <button
@@ -179,7 +165,6 @@ export default function SinglePro({
           ))}
         </div>
 
-        {/* محتوى الـ Tabs بناءً على الحقول المتاحة */}
         <div className="tab-content-body">
           {activeTab === "DETAILS" && (
             <div className="details-wrapper">
@@ -219,7 +204,6 @@ export default function SinglePro({
           </div>
         )} */}
 
-        {/* متحكم الكمية الذكي قبل الشراء */}
         <div className="option-select-group" style={{ marginTop: "10px" }}>
           <span className="option-label">Quantity:</span>
           <div className="quantity-counter-box">
@@ -233,7 +217,6 @@ export default function SinglePro({
           </div>
         </div>
 
-        {/* أزرار الشراء والتحكم الإجرائية المحدثة */}
         <div className="product-actions-footer-row">
           <button
             className="buy-now-action-btn"
