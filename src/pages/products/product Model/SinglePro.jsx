@@ -6,7 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useTheme, CircularProgress } from "@mui/material";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // تعديل: استخدام useNavigate بدلاً من Navigate كـ Component
+import { useNavigate } from "react-router-dom";
 import { getUser } from "../../../utils/Helper";
 
 export default function SinglePro({
@@ -32,6 +32,7 @@ export default function SinglePro({
         .get(`https://node-api-projects.vercel.app/products/${productid}`)
         .then((res) => {
           setProduct(res.data);
+          console.log("Fetched product details:", product);
           // تعيين الصورة الأساسية فور وصول البيانات
           if (res.data?.images && res.data.images.length > 0) {
             setSelectedImg(res.data.images[0]);
@@ -46,6 +47,15 @@ export default function SinglePro({
         });
     }
   }, [productid]);
+  useEffect(() => {
+    if (product) {
+      if (product.images && product.images.length > 0) {
+        setSelectedImg(product.images[0]);
+      } else if (product.image) {
+        setSelectedImg(product.image);
+      }
+    }
+  }, [product]);
 
   // دالة التعامل مع إضافة المنتج الحقيقي لعربة التسوق بالبيانات المختارة
   const onAddToCartClick = () => {
@@ -71,14 +81,15 @@ export default function SinglePro({
     return <div className="product-error-container">Product not found.</div>;
   }
 
-  // حساب السعر بعد الخصم (إذا كان الخصم كنسبة مئوية أو قيمة مباشرة)
-  // هنا افترضنا أن حقل الـ discount يعبر عن القيمة المخصومة مباشرة بالدولار
-  const finalPrice = product.discount ? product.price - product.discount : product.price;
+  const finalPrice = product.discount
+    ? product.price - product.discount
+    : product.price;
 
   // تجهيز مصفوفة الصور للعرض الحقيقي
-  const productImages = product.images && product.images.length > 0 
-    ? product.images 
-    : [product.image]; // تراجع في حال وجود حقل واحد فقط للصورة
+  const productImages =
+    product.images && product.images.length > 0
+      ? product.images
+      : [product.image]; // تراجع في حال وجود حقل واحد فقط للصورة
 
   return (
     <div
@@ -97,28 +108,38 @@ export default function SinglePro({
           <img src={selectedImg} alt={product.title} />
         </div>
         <div className="thumbnails-wrapper">
-          {productImages.map((imgUrl, index) => (
-            imgUrl && (
-              <div
-                key={index}
-                className={`thumbnail-card ${selectedImg === imgUrl ? "active-thumb" : ""}`}
-                onClick={() => setSelectedImg(imgUrl)}
-              >
-                <img src={imgUrl} alt={`thumb-${index}`} />
-              </div>
-            )
-          ))}
+          {productImages.map(
+            (imgUrl, index) =>
+              imgUrl && (
+                <div
+                  key={index}
+                  className={`thumbnail-card ${selectedImg === imgUrl ? "active-thumb" : ""}`}
+                  onClick={() => setSelectedImg(imgUrl)}
+                >
+                  <img src={imgUrl} alt={`thumb-${index}`} />
+                </div>
+              ),
+          )}
         </div>
       </div>
 
       {/* الجزء الأيمن: تفاصيل المنتج والخيارات */}
       <div className="product-info-section">
-        
         {/* عرض الـ Category والـ Brand والـ Model كمسار علوي */}
         <div className="product-breadcrumbs">
           <span>{product.category}</span>
-          {product.brand && <span> {" > "} {product.brand}</span>}
-          {product.model && <span> {" > "} {product.model}</span>}
+          {product.brand && (
+            <span>
+              {" "}
+              {" > "} {product.brand}
+            </span>
+          )}
+          {product.model && (
+            <span>
+              {" "}
+              {" > "} {product.model}
+            </span>
+          )}
         </div>
 
         <h1 className="product-main-title">{product.title}</h1>
@@ -139,7 +160,9 @@ export default function SinglePro({
             <span className="old-price">${product.price.toFixed(2)}</span>
           )}
           {product.discount > 0 && (
-            <span className="discount-badge-text">Save ${product.discount}</span>
+            <span className="discount-badge-text">
+              Save ${product.discount}
+            </span>
           )}
         </div>
 
@@ -160,14 +183,29 @@ export default function SinglePro({
         <div className="tab-content-body">
           {activeTab === "DETAILS" && (
             <div className="details-wrapper">
-              <p>{product.description || "No description available for this product."}</p>
+              <p>
+                {product.description ||
+                  "No description available for this product."}
+              </p>
             </div>
           )}
           {activeTab === "SPECIFICATIONS" && (
             <div className="specs-wrapper">
-              {product.brand && <p><strong>Brand:</strong> {product.brand}</p>}
-              {product.model && <p><strong>Model:</strong> {product.model}</p>}
-              {product.color && <p><strong>Color:</strong> {product.color}</p>}
+              {product.brand && (
+                <p>
+                  <strong>Brand:</strong> {product.brand}
+                </p>
+              )}
+              {product.model && (
+                <p>
+                  <strong>Model:</strong> {product.model}
+                </p>
+              )}
+              {product.color && (
+                <p>
+                  <strong>Color:</strong> {product.color}
+                </p>
+              )}
             </div>
           )}
         </div>
@@ -197,7 +235,7 @@ export default function SinglePro({
 
         {/* أزرار الشراء والتحكم الإجرائية المحدثة */}
         <div className="product-actions-footer-row">
-          <button 
+          <button
             className="buy-now-action-btn"
             onClick={() => {
               onAddToCartClick();
@@ -208,15 +246,15 @@ export default function SinglePro({
             Buy now
           </button>
 
-          <button 
-            className="add-to-cart-action-btn" 
+          <button
+            className="add-to-cart-action-btn"
             onClick={onAddToCartClick}
             disabled={!product.inStock}
           >
             <ShoppingCartIcon className="cart-btn-icon-ui" />
             Add to cart
           </button>
-          
+
           <button className="fav-circle-action-btn">
             <FavoriteBorderIcon />
           </button>

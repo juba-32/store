@@ -11,9 +11,16 @@
   flex-wrap: wrap;
   margin-bottom: 25px;
 }
-.product-price{
-  color: rgb(42, 214, 42);
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 30px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
+
 .product-modal-box {
   position: absolute;
   top: 50%;
@@ -22,148 +29,17 @@
   width: 50%;
   max-height: 90vh;
   overflow-y: auto;
-  background: white;
+  background: var(--bg);
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.4);
 }
 
-@media screen and (max-width: 900px) {
-  .product-modal-box {
-    width: 80%;
-  }
-}
 
-@media screen and (max-width: 500px) {
-  .product-modal-box {
-    width: 95%;
-  }
-}
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 25px;
-  justify-items: center;
-}
-
-.product-card {
-  width: 250px;
-  padding: 15px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.product-card:hover {
-  transform: translateY(-5px);
-}
-
-.product-image {
-  width: 100%;
-  height: 230px;
-  object-fit: contain;
-  border-radius: 12px;
-  transition: 0.2s;
-}
-
-.product-image:hover {
-  transform: scale(1.05);
-}
-
-.product-description {
-  height: 20px;
-  overflow: hidden;
-  font-size: 15px;
-  font-weight: 500;
-  text-align: center;
-}
-
-.product-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.product-price {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.cart-icon {
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.cart-icon:hover {
-  color: lightgreen;
-  transform: scale(1.2);
-}
-
-.cart-icon:active {
-  color: green;
-  transform: scale(0.9);
-}
-
-.skeleton-img {
-  width: 100% !important;
-  height: 140px !important;
-  border-radius: 12px;
-}
-
-.skeleton-line {
-  height: 20px;
-}
-
-.no-items-wrapper {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 50px;
-}
-
-.no-items-wrapper h1 {
-  color: red;
-}
-
-@media screen and (max-width: 1200px) {
-  .products-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media screen and (max-width: 850px) {
-  .products-page {
-    margin-top: 19vh;
-    padding: 20px;
-  }
-  .products-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media screen and (max-width: 550px) {
-  .products-grid {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-/* شبكة المنتجات الاحترافية */
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 30px;
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* الكارد الجديد المستوحى من التصميم المرفق */
 .new-product-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 20px; /* زوايا دائرية ناعمة مثل الصورة */
+  border-radius: 20px;
   overflow: hidden;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.08);
   display: flex;
@@ -176,17 +52,14 @@
   box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.15);
 }
 
-/* الجزء العلوي الخاص بالخلفية الملونة والصور */
 .card-media-wrapper {
   position: relative;
   width: 100%;
   height: 260px;
-  /* جريدينت ناعم، يتماشى مع ألوان موقعك المظلمة أو المضيئة */
   background: linear-gradient(135deg, rgba(30, 196, 71, 0.15) 0%, rgba(0, 0, 0, 0.05) 100%);
   overflow: hidden;
 }
 
-/* زر الفيفورت الدائري الصغير المودرن */
 .card-fav-btn {
   position: absolute;
   top: 15px;
@@ -195,7 +68,7 @@
   width: 36px;
   height: 36px;
   background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(4px); /* تأثير زجاجي شفاف */
+  backdrop-filter: blur(4px);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -215,87 +88,98 @@
   font-size: 20px !important;
 }
 
-/* شريط الصور الذي يتحرك عند الهوفر */
 .card-images-slider {
   width: 100%;
   height: 100%;
   cursor: pointer;
 }
 
-.slider-track {
+.slider-track-modern {
+  width: 100%;
+  height: 100%;
   display: flex;
-  width: 400%; /* لـ 4 صور جنب بعض */
-  height: 100%;
-  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-.slider-single-img {
-  width: 25%;
-  height: 100%;
-  object-fit: contain; /* عشان الكوتشي أو المنتج يظهر بالكامل زي الصورة */
+.slider-single-img.fade-in-animation {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
   padding: 20px;
-  transition: transform 0.3s ease;
+  animation: smoothImageTransition 0.4s ease-in-out forwards;
 }
 
-/* الأنيميشن السحري: تمرير الصور عند الهوفر على الكارد بالكامل */
-.new-product-card:hover .slider-track {
-  transform: translateX(-75%); /* يعرض الصورة الرابعة */
+@keyframes smoothImageTransition {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
 }
 
-/* محتوى تفاصيل الكارد */
+.slider-dots-indicator {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 8px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.slider-dot {
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.slider-dot.active-dot {
+  background: #ffffff;
+  width: 14px;
+  border-radius: 4px;
+}
+
+
 .card-info-content {
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 12px;
   flex-grow: 1;
-  border-top-left-radius: 50px;
-  border-top-right-radius: 50px;
 }
 
 .card-product-title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--text);
   margin: 0;
-  max-height: 22px; 
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* البادجات الصغيرة */
-.card-badges-wrapper {
-  display: flex;
-  gap: 8px;
-}
-
-.info-badge {
-  font-size: 11px;
-  font-weight: 500;
-  padding: 3px 8px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  color: var(--muted-text);
-  text-transform: uppercase;
-}
-
-/* الوصف الصغير */
 .card-product-description {
   font-size: 14px;
   line-height: 1.5;
   color: var(--muted-text);
   margin: 0;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* يحدد الوصف في 3 سطور كحد أقصى */
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  height: 63px;
 }
 
-/* الفوتر ومناطق التحكم بالسعر والشراء */
 .card-action-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: auto; /* يدفع الفوتر لأسفل الكارد دائماً */
+  margin-top: auto;
   padding-top: 10px;
 }
 
@@ -314,18 +198,17 @@
 .price-amount {
   font-size: 20px;
   font-weight: 700;
-  color: var(--text);
+  color: rgb(42, 214, 42);
 }
 
-/* زر إضافة إلى السلة بنفس لون الأزرار الأخضر في الكارت */
 .card-add-to-cart-btn {
   background: rgb(30, 196, 71);
   color: white;
   border: none;
-  padding: 10px 24px;
+  padding: 10px 20px;
   border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.1s ease;
 }
@@ -335,5 +218,59 @@
 }
 
 .card-add-to-cart-btn:active {
-  transform: scale(0.97);
+  transform: scale(0.96);
+}
+
+
+.skeleton-img {
+  width: 100% !important;
+  height: 200px !important;
+  border-radius: 12px;
+}
+
+.skeleton-line {
+  height: 20px;
+  margin-top: 10px;
+}
+
+.no-items-wrapper {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px;
+}
+
+.no-items-wrapper h1 {
+  color: red;
+}
+
+/* ==================== Responsive (Media Queries) ==================== */
+
+@media screen and (max-width: 1200px) {
+  .product-modal-box {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .products-page {
+    margin-top: 16vh; 
+    padding: 10px;
+  }
+  .product-modal-box {
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .products-page {
+    margin-top: 19vh;
+  }
+  .product-modal-box {
+    width: 95%;
+  }
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));  
+    gap: 15px;
+    padding: 5px;
+  }
 }
