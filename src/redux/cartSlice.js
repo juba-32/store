@@ -1,8 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// دالة لجلب البيانات بشكل آمن من الـ LocalStorage وتجنب الـ undefined للحقول الجديدة
+const getSavedState = () => {
+  try {
+    const saved = localStorage.getItem("cartState");
+    if (!saved) return null;
+    const parsed = JSON.parse(saved);
+    
+    // تأكيد وضمان وجود المصفوفات حتى لو الداتا القديمة في المتصفح مفيهاش الحقول دي
+    return {
+      ...parsed,
+      cart: parsed.cart || [],
+      favorites: parsed.favorites || [],
+      searchQuery: parsed.searchQuery || "",
+      category: parsed.category || "",
+    };
+  } catch (error) {
+    return null;
+  }
+};
 
-
-const initialState =  {
+const initialState = getSavedState() || {
   cart: [],
   favorites: [],
   totalPrice: 0,
