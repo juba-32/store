@@ -50,14 +50,11 @@ export default function Checkout() {
 
     const orderData = {
       items: cartItems.map((item) => ({
-        product: item._id,
-        title: item.title,
-        price: item.price,
+        product: item.id || item.product?._id,
         qty: item.qty,
       })),
       shippingInfo,
       paymentMethod: "cod",
-      subtotal,
     };
 
     try {
