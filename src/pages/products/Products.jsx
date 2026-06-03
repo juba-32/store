@@ -18,7 +18,7 @@ export default function Products({ url }) {
   const searchQuery = useSelector((state) => state.cart.searchQuery);
   const category = useSelector((state) => state.cart.category);
   const [priceFilter, setPriceFilter] = useState([0, 1000]);
-  
+
   const { data, loading } = useProducts(
     url,
     category,
@@ -27,7 +27,8 @@ export default function Products({ url }) {
   );
 
   const { open, productId, openModal, closeModal } = useModal();
-  const { toastOpen, toastMessage, toastSeverity, showToast, closeToast } = useToast();
+  const { toastOpen, toastMessage, toastSeverity, showToast, closeToast } =
+    useToast();
   const { handleAddToCart } = useCartActions(showToast);
 
   useEffect(() => {
@@ -46,7 +47,7 @@ export default function Products({ url }) {
             <SinglePro
               open={open}
               handleClose={closeModal}
-              handleAddToCart={handleAddToCart}
+              showToast={showToast}
               productid={productId}
             />
           )}
@@ -73,11 +74,11 @@ export default function Products({ url }) {
           </div>
         ) : (
           data.map((pro) => (
-            <ProductCard 
-              key={pro._id} 
-              pro={pro} 
-              openModal={openModal} 
-              handleAddToCart={handleAddToCart} 
+            <ProductCard
+              key={pro._id}
+              pro={pro}
+              openModal={openModal}
+              handleAddToCart={handleAddToCart}
               showToast={showToast}
             />
           ))

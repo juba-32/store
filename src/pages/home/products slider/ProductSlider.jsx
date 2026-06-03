@@ -1,6 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import "swiper/css";
 import "./ProductSlider.css";
 import { useEffect, useState } from "react";
@@ -9,7 +8,7 @@ import useModal from "../../../hooks/useModal";
 import SinglePro from "../../products/product Model/SinglePro";
 import { Box, Modal } from "@mui/material";
 import useToast from "../../../hooks/useToast";
-import useCartActions from "../../../hooks/useProductActions";
+import ProductCard from "../../../pages/products/ProductCard";
 import Toast from "../../../components/toast/Toast";
 
 export default function ProductSlider() {
@@ -18,7 +17,6 @@ export default function ProductSlider() {
   const { toastOpen, toastMessage, toastSeverity, showToast, closeToast } =
     useToast();
 
-  const { handleAddToCart } = useCartActions(showToast);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -34,7 +32,7 @@ export default function ProductSlider() {
     fetchProducts();
   }, []);
 
-  if (!products.length) return null; 
+  if (!products.length) return null;
 
   return (
     <div className="product-slider">
@@ -45,7 +43,7 @@ export default function ProductSlider() {
             <SinglePro
               open={open}
               handleClose={closeModal}
-              handleAddToCart={handleAddToCart}
+              showToast={showToast}
               productid={productId}
             />
           )}
@@ -72,18 +70,11 @@ export default function ProductSlider() {
       >
         {products.map((product) => (
           <SwiperSlide key={product._id}>
-            <div className="product-slide">
-              <img src={product.image} alt={product.title} onClick={() => openModal(product._id)} />
-              <h4 className="product-title">{product.title}</h4>
-              <div className="productFooter">
-                <span className="product-price">${product.price}</span>
-
-                <ShoppingCartIcon
-                  className="cart-icon"
-                  onClick={() => handleAddToCart(product)}
-                />
-              </div>
-            </div>
+            <ProductCard
+              pro={product}
+              openModal={openModal}
+              showToast={showToast}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
