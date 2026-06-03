@@ -199,18 +199,7 @@ export default function SinglePro({ open, handleClose, productid, showToast }) {
           )}
         </div>
 
-        <div className="option-select-group" style={{ marginTop: "10px" }}>
-          <span className="option-label">Quantity:</span>
-          <div className="quantity-counter-box">
-            <button onClick={() => setQuantity((p) => (p > 1 ? p - 1 : 1))}>
-              <RemoveIcon style={{ fontSize: "16px" }} />
-            </button>
-            <span className="qty-number-display">{quantity}</span>
-            <button onClick={() => setQuantity((p) => p + 1)}>
-              <AddIcon style={{ fontSize: "16px" }} />
-            </button>
-          </div>
-        </div>
+        
 
         <div className="product-actions-footer-row">
           <button
