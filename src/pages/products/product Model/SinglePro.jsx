@@ -3,8 +3,6 @@ import "./SinglePro.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme, CircularProgress, IconButton } from "@mui/material";
 import axios from "axios";
@@ -19,7 +17,6 @@ export default function SinglePro({ open, handleClose, productid, showToast }) {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedImg, setSelectedImg] = useState("");
-  const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("DETAILS");
 
   const { isFavorite, handleFavClick, handleAddToCart } = useProductActions(
@@ -205,7 +202,7 @@ export default function SinglePro({ open, handleClose, productid, showToast }) {
           <button
             className="buy-now-action-btn"
             onClick={() => {
-              handleAddToCart(quantity);
+              handleAddToCart();
               user ? navigate("/cart") : navigate("/register");
             }}
             disabled={!product.inStock}
@@ -215,7 +212,7 @@ export default function SinglePro({ open, handleClose, productid, showToast }) {
 
           <button
             className="add-to-cart-action-btn"
-            onClick={() => handleAddToCart(quantity)}
+            onClick={() => handleAddToCart()}
             disabled={!product.inStock}
           >
             <ShoppingCartIcon className="cart-btn-icon-ui" />

@@ -6,7 +6,6 @@ import axios from "axios";
 import { resetCart } from "../../redux/cartSlice";
 import { getUser } from "../../utils/Helper";
 import { useState } from "react";
-//بفتكرك وانت ناسيني 
 export default function Checkout() {
   const { t } = useTranslation();
   const navigate = useNavigate();
