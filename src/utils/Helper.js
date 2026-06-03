@@ -1,9 +1,17 @@
 export const handleMenuOpen = (event, setter) => {
-  setter(event.currentTarget);
+  if (event && setter && typeof setter === "function") {
+    setter(event.currentTarget);
+  } else {
+    console.warn("handleMenuOpen received an invalid setter function:", setter);
+  }
 };
 
 export const handleMenuClose = (setter) => {
-  setter(null);
+  if (setter && typeof setter === "function") {
+    setter(null);
+  } else {
+    console.warn("handleMenuClose received an invalid setter function:", setter);
+  }
 };
 
 export const queryParams = ({ categoryFilter, priceFilter, searchQuery }) => {

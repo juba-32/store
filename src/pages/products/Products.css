@@ -106,7 +106,7 @@
 .slider-single-img.fade-in-animation {
   max-width: 100%;
   max-height: 100%;
-  object-fit: content;
+  object-fit: contain;
   padding: 20px;
   animation: smoothImageTransition 0.4s ease-in-out forwards;
 }
