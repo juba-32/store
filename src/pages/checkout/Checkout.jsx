@@ -6,6 +6,7 @@ import axios from "axios";
 import { resetCart } from "../../redux/cartSlice";
 import { getUser } from "../../utils/Helper";
 import { useState } from "react";
+
 export default function Checkout() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -28,15 +29,18 @@ export default function Checkout() {
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.qty,
-    0,
+    0
   );
 
   const handlePlaceOrder = async () => {
+    // 1. التحقق من تسجيل دخول المستخدم
     if (!user) {
+      alert("Please login first to place an order");
       navigate("/login");
       return;
     }
 
+    // 2. التحقق من ملء جميع الحقول
     if (
       !shippingInfo.fullname ||
       !shippingInfo.email ||
@@ -47,32 +51,38 @@ export default function Checkout() {
       return;
     }
 
+    // 3. تجهيز بيانات الطلب وتأمين الـ Product ID
     const orderData = {
       items: cartItems.map((item) => ({
-        product: item.id || item.product?._id,
+        product: item._id || item.id || item.product?._id, // تأمين جلب المعرف بأي صيغة
         qty: item.qty,
       })),
       shippingInfo,
-      paymentMethod: "cod",
+      paymentMethod: "cod", // الدفع عند الاستلام كقيمة افتراضية
     };
 
     try {
       setLoading(true);
+
+      // 4. إرسال الطلب للباك إيند
       await axios.post(
         "https://node-api-projects.vercel.app/orders",
         orderData,
         {
           headers: {
-            Authorization: `Bearer ${user.token}`,
+            Authorization: `Bearer ${user.token}`, // إرسال التوكن لفك التشفير وحساب الـ user._id
           },
-        },
+        }
       );
 
+      // 5. في حال النجاح: تفريغ السلة في الفرونت إيند والتوجيه لصفحة الطلبات
       dispatch(resetCart());
-      navigate("/orders");
+      alert("Order placed successfully! 🎉");
+      navigate("/orders"); 
     } catch (err) {
-      console.error(err);
-      alert("Order failed");
+      console.error("Checkout Error Details:", err.response?.data || err);
+      // إظهار رسالة الخطأ القادمة من السيرفر مباشرة لتسهيل التتبع
+      alert(`Order failed: ${err.response?.data?.message || "Something went wrong"}`);
     } finally {
       setLoading(false);
     }
@@ -81,24 +91,42 @@ export default function Checkout() {
   return (
     <div className="checkout-page">
       <div className="checkout-container">
+        {/* حقول معلومات الشحن */}
         <div className="checkout-left glass">
           <h2>{t("checkout.shipping info")}</h2>
 
           <input
             name="fullname"
             placeholder="Full Name"
+            value={shippingInfo.fullname}
             onChange={handleChange}
           />
-          <input name="email" placeholder="Email" onChange={handleChange} />
-          <input name="phone" placeholder="Phone" onChange={handleChange} />
-          <input name="address" placeholder="Address" onChange={handleChange} />
+          <input 
+            name="email" 
+            placeholder="Email" 
+            value={shippingInfo.email}
+            onChange={handleChange} 
+          />
+          <input 
+            name="phone" 
+            placeholder="Phone" 
+            value={shippingInfo.phone}
+            onChange={handleChange} 
+          />
+          <input 
+            name="address" 
+            placeholder="Address" 
+            value={shippingInfo.address}
+            onChange={handleChange} 
+          />
         </div>
 
+        {/* ملخص الطلب */}
         <div className="checkout-right glass">
           <h2>{t("checkout.order summary")}</h2>
 
           {cartItems.map((item) => (
-            <div key={item._id} className="summary-item">
+            <div key={item._id || item.id} className="summary-item">
               <div className="summary-left">
                 <img src={item.image} alt={item.title} />
                 <span className="qty-badge">{item.qty}</span>
@@ -117,7 +145,7 @@ export default function Checkout() {
           <button
             className="pay-btn"
             onClick={handlePlaceOrder}
-            disabled={loading}
+            disabled={loading || cartItems.length === 0}
           >
             {loading ? "Placing Order..." : t("checkout.place order")}
           </button>
