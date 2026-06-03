@@ -211,7 +211,9 @@
 .fav-footer-btns button:hover {
   background: darkgreen;
 }
-
+.fav-card-wrapper .card-fav-btn {
+  display: none !important;
+}
 /* ANIMATIONS */
 @keyframes pulse {
   0% { transform: scale(1); }
