@@ -1,17 +1,10 @@
 import { useState, useEffect } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useDispatch, useSelector } from "react-redux";
-import { addToFavorites } from "../../redux/cartSlice";
+import useProductActions from "../../hooks/useProductActions";
 
-// مررنا هنا دالة showToast كـ Prop من الصفحة الأب (Products.jsx)
-export default function ProductCard({ pro, openModal, handleAddToCart, showToast }) {
-  const dispatch = useDispatch();
-  
-  // 1. جلب قائمة المفضلة من الريدكس لفحص حالة المنتج الحالي
-  const favorites = useSelector((state) => state.cart.favorites) || [];
-  const isFavorite = favorites.some((item) => item._id === pro._id);
-
+export default function ProductCard({ pro, openModal, showToast }) {
+  const { isFavorite, handleFavClick, handleAddToCart } = useProductActions(pro, showToast);
   const productImages = pro.images && pro.images.length > 0 
     ? pro.images.slice(0, 4) 
     : [pro.image];
@@ -41,19 +34,6 @@ export default function ProductCard({ pro, openModal, handleAddToCart, showToast
     };
   }, [intervalId]);
 
-  // 2. دالة التحكم بضغط زر المفضلة وإظهار التوست
-  const handleFavClick = (e) => {
-    e.stopPropagation(); // منع فتح المودال عند الضغط على القلب
-    dispatch(addToFavorites(pro));
-    
-    // إظهار التويست بناءً على الحالة الجديدة
-    if (isFavorite) {
-      if (showToast) showToast("Removed from favorites", "info");
-    } else {
-      if (showToast) showToast("Added to favorites successfully!", "success");
-    }
-  };
-
   return (
     <div className="new-product-card">
       <div 
@@ -61,7 +41,6 @@ export default function ProductCard({ pro, openModal, handleAddToCart, showToast
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {/* 3. زر المفضلة الذكي: يتغير شكله ولونه تلقائياً */}
         <div
           className={`card-fav-btn ${isFavorite ? "fav-active" : ""}`}
           onClick={handleFavClick}
@@ -99,7 +78,7 @@ export default function ProductCard({ pro, openModal, handleAddToCart, showToast
       <div className="card-info-content">
         <h3 className="card-product-title">{pro.title}</h3>
         <p className="card-product-description">
-          {pro.description || "Crossing hardwood comfort with off-court flair. '80s-inspired construction, bold details."}
+          {pro.description || "Crossing hardwood comfort with off-court flair."}
         </p>
 
         <div className="card-action-footer">
@@ -110,7 +89,7 @@ export default function ProductCard({ pro, openModal, handleAddToCart, showToast
 
           <button
             className="card-add-to-cart-btn"
-            onClick={() => handleAddToCart(pro)}
+            onClick={() => handleAddToCart(1)}
           >
             Add to cart
           </button>

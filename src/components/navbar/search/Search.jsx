@@ -11,6 +11,7 @@ import {
   ClickAwayListener,
   CircularProgress,
   Typography,
+  Modal,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch } from "react-redux";
@@ -21,7 +22,6 @@ import useModal from "../../../hooks/useModal";
 import SinglePro from "../../../pages/products/product Model/SinglePro";
 import "./Search.css";
 import { useLocation } from "react-router-dom";
-import useCartActions from "../../../hooks/useCartActions";
 import useToast from "../../../hooks/useToast";
 import Toast from "../../toast/Toast";
 
@@ -38,7 +38,6 @@ export default function Search({ mode = "global", backendUrl }) {
   const [openDropdown, setOpenDropdown] = useState(false);
   const { toastOpen, toastMessage, toastSeverity, showToast, closeToast } =
     useToast();
-  const { handleAddToCart } = useCartActions(showToast);
   useEffect(() => {
     if (location.pathname.startsWith("/products")) {
       setQuery("");
@@ -90,14 +89,19 @@ export default function Search({ mode = "global", backendUrl }) {
   }, [debouncedQuery, mode, backendUrl]);
 
   return (
-    <>
+    <div>
       {productId && (
-        <SinglePro
-          open={open}
-          handleClose={closeModal}
-          productid={productId}
-          handleAddToCart={handleAddToCart}
-        />
+        <Modal open={open} onClose={closeModal}>
+          <Box className="product-modal-box">
+            {productId && (
+              <SinglePro
+                handleClose={closeModal}
+                productid={productId}
+                showToast={showToast}
+              />
+            )}
+          </Box>
+        </Modal>
       )}
 
       <ClickAwayListener onClickAway={() => setOpenDropdown(false)}>
@@ -159,6 +163,6 @@ export default function Search({ mode = "global", backendUrl }) {
         message={toastMessage}
         severity={toastSeverity}
       />
-    </>
+    </div>
   );
 }

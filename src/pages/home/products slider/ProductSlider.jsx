@@ -9,7 +9,7 @@ import useModal from "../../../hooks/useModal";
 import SinglePro from "../../products/product Model/SinglePro";
 import { Box, Modal } from "@mui/material";
 import useToast from "../../../hooks/useToast";
-import useCartActions from "../../../hooks/useCartActions";
+import useCartActions from "../../../hooks/useProductActions";
 import Toast from "../../../components/toast/Toast";
 
 export default function ProductSlider() {

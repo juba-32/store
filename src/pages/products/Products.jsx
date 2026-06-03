@@ -9,7 +9,7 @@ import Toast from "../../components/toast/Toast";
 import useProducts from "../../hooks/useProducts";
 import useModal from "../../hooks/useModal";
 import useToast from "../../hooks/useToast";
-import useCartActions from "../../hooks/useCartActions";
+import useCartActions from "../../hooks/useProductActions";
 import { clearCategory, clearSearch } from "../../redux/cartSlice";
 import ProductCard from "./ProductCard";
 

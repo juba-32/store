@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./SinglePro.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import CloseIcon from "@mui/icons-material/Close";
@@ -9,13 +10,8 @@ import { useTheme, CircularProgress, IconButton } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../../utils/Helper";
-
-export default function SinglePro({
-  open,
-  handleClose,
-  productid,
-  handleAddToCart,
-}) {
+import useProductActions from "../../../hooks/useProductActions";
+export default function SinglePro({ open, handleClose, productid, showToast }) {
   const theme = useTheme();
   const navigate = useNavigate();
   const user = getUser();
@@ -26,6 +22,20 @@ export default function SinglePro({
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("DETAILS");
 
+  const { isFavorite, handleFavClick, handleAddToCart } = useProductActions(
+    product,
+    showToast,
+  );
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [open]);
+
   useEffect(() => {
     if (productid) {
       setLoading(true);
@@ -33,19 +43,14 @@ export default function SinglePro({
         .get(`https://node-api-projects.vercel.app/products/${productid}`)
         .then((res) => {
           setProduct(res.data);
-          if (res.data?.images && res.data.images.length > 0) {
-            setSelectedImg(res.data.images[0]);
-          } else if (res.data?.image) {
-            setSelectedImg(res.data.image);
-          }
           setLoading(false);
         })
         .catch((err) => {
-          console.error("Error fetching product details:", err);
           setLoading(false);
         });
     }
   }, [productid]);
+
   useEffect(() => {
     if (product) {
       if (product.images && product.images.length > 0) {
@@ -55,15 +60,6 @@ export default function SinglePro({
       }
     }
   }, [product]);
-
-  const onAddToCartClick = () => {
-    if (handleAddToCart && product) {
-      handleAddToCart({
-        ...product,
-        qty: quantity,
-      });
-    }
-  };
 
   if (loading) {
     return (
@@ -203,15 +199,6 @@ export default function SinglePro({
           )}
         </div>
 
-        {/* حقل عرض اللون إذا وُجد كقيمة نصية */}
-        {/* {product.color && (
-          <div className="option-select-group">
-            <span className="option-label">
-              Color: <strong>{product.color}</strong>
-            </span>
-          </div>
-        )} */}
-
         <div className="option-select-group" style={{ marginTop: "10px" }}>
           <span className="option-label">Quantity:</span>
           <div className="quantity-counter-box">
@@ -229,7 +216,7 @@ export default function SinglePro({
           <button
             className="buy-now-action-btn"
             onClick={() => {
-              onAddToCartClick();
+              handleAddToCart(quantity);
               user ? navigate("/cart") : navigate("/register");
             }}
             disabled={!product.inStock}
@@ -239,15 +226,22 @@ export default function SinglePro({
 
           <button
             className="add-to-cart-action-btn"
-            onClick={onAddToCartClick}
+            onClick={() => handleAddToCart(quantity)}
             disabled={!product.inStock}
           >
             <ShoppingCartIcon className="cart-btn-icon-ui" />
             Add to cart
           </button>
 
-          <button className="fav-circle-action-btn">
-            <FavoriteBorderIcon />
+          <button
+            className={`fav-circle-action-btn ${isFavorite ? "fav-active" : ""}`}
+            onClick={handleFavClick}
+          >
+            {isFavorite ? (
+              <FavoriteIcon style={{ color: "#ff385c" }} />
+            ) : (
+              <FavoriteBorderIcon />
+            )}
           </button>
         </div>
       </div>

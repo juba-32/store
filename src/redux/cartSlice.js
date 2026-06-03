@@ -7,7 +7,6 @@ const getSavedState = () => {
     if (!saved) return null;
     const parsed = JSON.parse(saved);
     
-    // تأكيد وضمان وجود المصفوفات حتى لو الداتا القديمة في المتصفح مفيهاش الحقول دي
     return {
       ...parsed,
       cart: parsed.cart || [],
