@@ -9,10 +9,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../../utils/Helper";
 import useProductActions from "../../../hooks/useProductActions";
+import { useTranslation } from "react-i18next"; // 💡 استيراد مكتبة الترجمة
+
 export default function SinglePro({ open, handleClose, productid, showToast }) {
   const theme = useTheme();
   const navigate = useNavigate();
   const user = getUser();
+  const { i18n } = useTranslation(); // 💡 لجلب اللغة الحالية
+  const currentLang = i18n.language || "en";
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -79,6 +83,11 @@ export default function SinglePro({ open, handleClose, productid, showToast }) {
       ? product.images
       : [product.image];
 
+  // 💡 استخراج البيانات المترجمة بناءً على اللغة المفعلة
+  const displayTitle = product.title?.[currentLang] || product.title?.["en"] || "";
+  const displayCategory = product.category?.[currentLang] || product.category?.["en"] || "";
+  const displayDescription = product.description?.[currentLang] || product.description?.["en"] || "No description available for this product.";
+
   return (
     <div
       className="single-product-container"
@@ -97,9 +106,10 @@ export default function SinglePro({ open, handleClose, productid, showToast }) {
       >
         <CloseIcon />
       </IconButton>
+      
       <div className="product-gallery-section">
         <div className="main-image-box">
-          <img src={selectedImg} alt={product.title} />
+          <img src={selectedImg} alt={displayTitle} />
         </div>
         <div className="thumbnails-wrapper">
           {productImages.map(
@@ -119,7 +129,8 @@ export default function SinglePro({ open, handleClose, productid, showToast }) {
 
       <div className="product-info-section">
         <div className="product-breadcrumbs">
-          <span>{product.category}</span>
+          {/* 💡 الفئة المترجمة */}
+          <span>{displayCategory}</span>
           {product.brand && (
             <span>
               {" > "} {product.brand}
@@ -132,7 +143,8 @@ export default function SinglePro({ open, handleClose, productid, showToast }) {
           )}
         </div>
 
-        <h1 className="product-main-title">{product.title}</h1>
+        {/* 💡 العنوان المترجم */}
+        <h1 className="product-main-title">{displayTitle}</h1>
 
         <div className="stock-status-badge">
           {product.inStock ? (
@@ -169,10 +181,8 @@ export default function SinglePro({ open, handleClose, productid, showToast }) {
         <div className="tab-content-body">
           {activeTab === "DETAILS" && (
             <div className="details-wrapper">
-              <p>
-                {product.description ||
-                  "No description available for this product."}
-              </p>
+              {/* 💡 الوصف المترجم */}
+              <p>{displayDescription}</p>
             </div>
           )}
           {activeTab === "SPECIFICATIONS" && (
@@ -195,8 +205,6 @@ export default function SinglePro({ open, handleClose, productid, showToast }) {
             </div>
           )}
         </div>
-
-        
 
         <div className="product-actions-footer-row">
           <button

@@ -28,15 +28,43 @@
   },
 
   "hero": {
-    "Welcome to AM": " اهلا بك في  Nelly ",
-    "history of glory": "تاريخ من المجد",
-    "explore": "اكتشف",
+    "title": "حدث أسلوب ",
+    "titleSpan": "حياتك التقنية",
+    "subtitle": "اكتشف إلكترونيات مميزة، وأسعار لا تقبل المنافسة، وتوصيل بسرعه البرق — كل ذلك في مكان واحد.",
+    "cta": "تسوق الآن",
     "Home Cinema": "سينما منزلية",
     "Premium Headphones": "سماعات رأس مميزة",
     "Next-Gen iPhone": "آيفون الجيل التالي",
     "Crystal Clear Audio": "صوت كريستال واضح",
     "shop now": "تسوق الان"
   },
+
+  "sale": {
+    "title": "🔥 تخفيضات لفترة محدودة",
+    "description": "خصم يصل إلى 40% على إلكترونيات مختارة",
+    "button": "تسوق العروض"
+  },
+
+    "product Slider": {
+    "title": "افضل المبيعات"
+  },
+
+
+  "reviews": {
+    "title": "آراء العملاء",
+    "list": [
+      {
+        "comment": "جودة مذهلة وتوصيل سريع جداً"
+      },
+      {
+        "comment": "أفضل الأسعار مقارنة بالمتاجر الأخرى"
+      },
+      {
+        "comment": "الدعم الفني كان متعاوناً للغاية"
+      }
+    ]
+  },
+
 
   "cart": {
     "Shopping cart": "عربه التسوق",
@@ -55,10 +83,10 @@
     "remove": "حذف"
   },
 
-    "favorites": {
-      "Wishlist": "المفضلة",
-      "your wishlist is empty": "قائمة المفضلة فارغة"
-    },
+  "favorites": {
+    "Wishlist": "المفضلة",
+    "your wishlist is empty": "قائمة المفضلة فارغة"
+  },
 
   "contact": {
     "Get in Touch": "تواصل معنا",

@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import "./Hero.css";
+import { useTranslation } from "react-i18next";
 
 export default function Hero() {
+  const { t } = useTranslation();
   return (
     <section className="hero">
       <div className="hero-overlay" />
@@ -18,7 +20,8 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          Upgrade Your <span>Tech Life</span>
+          {t("hero.title")}
+          <span>{t("hero.titleSpan")}</span>{" "}
         </motion.h1>
 
         <motion.p
@@ -26,8 +29,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
         >
-          Discover premium electronics, unbeatable prices, and lightning-fast
-          delivery — all in one place.
+          {t("hero.subtitle")}
         </motion.p>
 
         <motion.div
@@ -37,7 +39,7 @@ export default function Hero() {
           transition={{ delay: 0.6 }}
         >
           <Link to="/products" className="hero-btn primary">
-            Shop Now
+            {t("hero.cta")}{" "}
           </Link>
         </motion.div>
       </motion.div>

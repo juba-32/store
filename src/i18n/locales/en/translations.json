@@ -29,15 +29,44 @@
   },
 
   "hero": {
-    "Welcome to AM": "Welcome to Nelly",
-    "history of glory": " history of glory",
-    "explore": "explore",
+  "title": "Upgrade Your ",
+    "titleSpan": "Tech Life",
+    "subtitle": "Discover premium electronics, unbeatable prices, and lightning-fast delivery — all in one place.",
+    "cta": "Shop Now",
     "Home Cinema": "Home Cinema",
     "Premium Headphones": " Premium Headphones ",
     "Next-Gen iPhone": "Next-Gen iPhone",
     "Crystal Clear Audio": "Crystal Clear Audio",
     "shop now": "shop now"
   },
+
+  
+  "sale": {
+    "title": "🔥 Flash Sale",
+    "description": "Up to 40% OFF on selected electronics",
+    "button": "Shop Deals"
+  },
+
+  "product Slider": {
+    "title": "Best seller"
+  },
+
+
+  "reviews": {
+    "title": "Customer Reviews",
+    "list": [
+      {
+        "comment": "Amazing quality and super fast delivery"
+      },
+      {
+        "comment": "Best prices compared to other stores"
+      },
+      {
+        "comment": "Customer support was very helpful"
+      }
+    ]
+  },
+
 
   "cart": {
     "Shopping cart": "Shopping cart",
@@ -62,6 +91,7 @@
   },
 
   
+
   "contact": {
     "Get in Touch": "Get in Touch",
     "We’d love to hear from you": "We’d love to hear from you",

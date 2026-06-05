@@ -1,11 +1,11 @@
-.promo-banner {
+.sale-banner {
   width: 100%;
   padding: 60px 20px;
   display: flex;
   justify-content: center;
 }
 
-.promo-glass {
+.sale-glass {
   max-width: 1100px;
   width: 100%;
   padding: 40px;
@@ -17,23 +17,23 @@
   text-align: center;
 }
 
-.promo-glass h2 {
+.sale-glass h2 {
   font-size: clamp(1.8rem, 4vw, 2.5rem);
   color: cyan;
   margin-bottom: 10px;
 }
 
-.promo-glass p {
+.sale-glass p {
   font-size: clamp(1rem, 3vw, 1.3rem);
   margin-bottom: 25px;
 }
 
-.promo-glass span {
+.sale-glass span {
   color: cyan;
   font-weight: bold;
 }
 
-.promo-glass button {
+.sale-glass button {
   padding: 14px 50px;
   border-radius: 50px;
   border: 1px solid cyan;
@@ -44,7 +44,7 @@
   transition: all 0.3s ease;
 }
 
-.promo-glass button:hover {
+.sale-glass button:hover {
   background: cyan;
   color: black;
   box-shadow: 0 0 20px cyan;

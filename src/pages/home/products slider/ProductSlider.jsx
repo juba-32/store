@@ -10,8 +10,10 @@ import { Box, Modal } from "@mui/material";
 import useToast from "../../../hooks/useToast";
 import ProductCard from "../../../pages/products/ProductCard";
 import Toast from "../../../components/toast/Toast";
+import { useTranslation } from "react-i18next";
 
 export default function ProductSlider() {
+  const { t } = useTranslation();
   const [products, setProducts] = useState([]);
   const { open, productId, openModal, closeModal } = useModal();
   const { toastOpen, toastMessage, toastSeverity, showToast, closeToast } =
@@ -36,7 +38,7 @@ export default function ProductSlider() {
 
   return (
     <div className="product-slider">
-      <h2>Best seller</h2>
+      <h2>{t("product Slider.title")}</h2>
       <Modal open={open} onClose={closeModal}>
         <Box className="product-modal-box">
           {productId && (

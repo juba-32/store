@@ -2,8 +2,12 @@ import { useState, useEffect } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import useProductActions from "../../hooks/useProductActions";
+import { useTranslation } from "react-i18next"; // 💡 استيراد مكتبة الترجمة
 
 export default function ProductCard({ pro, openModal, showToast }) {
+  const { i18n } = useTranslation(); // 💡 لجلب اللغة الحالية (ar أو en)
+  const currentLang = i18n.language || "en";
+
   const { isFavorite, handleFavClick, handleAddToCart } = useProductActions(pro, showToast);
   const productImages = pro.images && pro.images.length > 0 
     ? pro.images.slice(0, 4) 
@@ -34,6 +38,10 @@ export default function ProductCard({ pro, openModal, showToast }) {
     };
   }, [intervalId]);
 
+  // 💡 استخراج النصوص بناءً على اللغة الحالية مع وجود نص احتياطي منعا للكراش
+  const displayTitle = pro.title?.[currentLang] || pro.title?.["en"] || "";
+  const displayDescription = pro.description?.[currentLang] || pro.description?.["en"] || "Crossing hardwood comfort with off-court flair.";
+
   return (
     <div className="new-product-card">
       <div 
@@ -58,7 +66,7 @@ export default function ProductCard({ pro, openModal, showToast }) {
               className="slider-single-img fade-in-animation"
               key={currentImgIndex}
               src={productImages[currentImgIndex]}
-              alt={`${pro.title} - ${currentImgIndex + 1}`}
+              alt={`${displayTitle} - ${currentImgIndex + 1}`}
             />
           </div>
         </div>
@@ -76,10 +84,9 @@ export default function ProductCard({ pro, openModal, showToast }) {
       </div>
 
       <div className="card-info-content">
-        <h3 className="card-product-title">{pro.title}</h3>
-        <p className="card-product-description">
-          {pro.description || "Crossing hardwood comfort with off-court flair."}
-        </p>
+        {/* 💡 عرض العنوان والوصف المترجم */}
+        <h3 className="card-product-title">{displayTitle}</h3>
+        <p className="card-product-description">{displayDescription}</p>
 
         <div className="card-action-footer">
           <div className="price-box">
