@@ -29,7 +29,7 @@
   },
 
   "hero": {
-  "title": "Upgrade Your ",
+    "title": "Upgrade Your ",
     "titleSpan": "Tech Life",
     "subtitle": "Discover premium electronics, unbeatable prices, and lightning-fast delivery — all in one place.",
     "cta": "Shop Now",
@@ -40,7 +40,6 @@
     "shop now": "shop now"
   },
 
-  
   "sale": {
     "title": "🔥 Flash Sale",
     "description": "Up to 40% OFF on selected electronics",
@@ -50,7 +49,6 @@
   "product Slider": {
     "title": "Best seller"
   },
-
 
   "reviews": {
     "title": "Customer Reviews",
@@ -66,7 +64,6 @@
       }
     ]
   },
-
 
   "cart": {
     "Shopping cart": "Shopping cart",
@@ -89,8 +86,6 @@
     "Wishlist": "Wishlist",
     "your wishlist is empty": "your wishlist is empty"
   },
-
-  
 
   "contact": {
     "Get in Touch": "Get in Touch",
@@ -121,5 +116,17 @@
     "order summary": "order summary",
     "place order": "place order",
     "back to cart": "back to cart"
+  },
+
+  "Category": {
+    "category_label": "Category",
+    "all_categories": "All",
+    "cat_tv": "TV",
+    "cat_mobile": "Mobile",
+    "cat_audio": "Audio",
+    "cat_gaming": "Gaming"
+  },
+  "Price": {
+    "price_filter_label": "Price"
   }
 }

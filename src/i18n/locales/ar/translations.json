@@ -45,10 +45,9 @@
     "button": "تسوق العروض"
   },
 
-    "product Slider": {
+  "product Slider": {
     "title": "افضل المبيعات"
   },
-
 
   "reviews": {
     "title": "آراء العملاء",
@@ -64,7 +63,6 @@
       }
     ]
   },
-
 
   "cart": {
     "Shopping cart": "عربه التسوق",
@@ -119,5 +117,16 @@
     "order summary": "ملخص الطلب",
     "place order": "اكمال الطلب",
     "back to cart": "العودة إلى العربة"
+  },
+  "Category": {
+    "category_label": "الفئة",
+    "all_categories": "الكل",
+    "cat_tv": "تلفزيونات",
+    "cat_mobile": "موبايلات",
+    "cat_audio": "صوتيات",
+    "cat_gaming": "ألعاب وجيمنج"
+  },
+  "Price": {
+    "price_filter_label": "السعر"
   }
 }
