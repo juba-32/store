@@ -16,11 +16,11 @@ import { getUser } from "../../utils/Helper";
 
 export default function Cart() {
   const user = getUser();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || "en";
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const theme = useTheme();
-
   const cartItems = useSelector((state) => state.cart?.cart);
   const qty = useSelector((state) => state.cart.qty);
 
@@ -34,7 +34,6 @@ export default function Cart() {
   });
 
   const subtotal = total - discount;
-
   return (
     <div
       className="cart-page"
@@ -55,28 +54,29 @@ export default function Cart() {
         </h1>
 
         {cartItems.length === 0 ? (
-          <h1 className="empty-cart"> <GiShoppingCart className="empty-cart-icon"/> {t("cart.your cart is empty")}</h1>
+          <h1 className="empty-cart">
+            <GiShoppingCart className="empty-cart-icon" />{" "}
+            {t("cart.your cart is empty")}
+          </h1>
         ) : (
           cartItems.map((pro) => (
             <div className="cart-product" key={pro.id}>
               <div className="cart-img">
-                <img src={pro.image} alt={pro.title} />
+                <img
+                  src={pro.image}
+                  alt={pro.title?.[currentLang] || pro.title?.en || ""}
+                />
               </div>
-
               <div className="cart-details">
-                <h5>{pro.title}</h5>
-
+                <h5>{pro.title?.[currentLang] || pro.title?.en || ""}</h5>
                 <p>
                   <strong>{t("cart.color")}</strong> : {pro.color}
                 </p>
-
                 <p>
                   <strong>{t("cart.Price")}</strong> : ${pro.price}
                 </p>
-
                 <div className="qty">
                   <b>{t("cart.Qty")} :</b>
-
                   <button
                     onClick={() => {
                       if (pro.qty > 1) {
@@ -95,7 +95,6 @@ export default function Cart() {
                     <AddIcon />
                   </button>
                 </div>
-
                 <button
                   className="delete-btn"
                   onClick={() => dispatch(removeFromCart(pro.id))}

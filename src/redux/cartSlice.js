@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// دالة لجلب البيانات بشكل آمن من الـ LocalStorage وتجنب الـ undefined للحقول الجديدة
 const getSavedState = () => {
   try {
     const saved = localStorage.getItem("cartState");

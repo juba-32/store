@@ -24,14 +24,11 @@ import FavIcon from "./favoriteIcon/FavIcon";
 export default function Navbar({ backendUrl }) {
   const location = useLocation();
   const isProductsPage = location.pathname.startsWith("/product");
-
   const { t } = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
   const [anchorElAccount, setAnchorElAccount] = useState(null);
   const [anchorElLang, setAnchorElLang] = useState(null);
-
 
   const navItems = [
     { label: t("navbar.Products"), path: "/products" },
@@ -51,7 +48,6 @@ export default function Navbar({ backendUrl }) {
       <Box className="navbar-wrapper">
         <AppBar position="fixed" className="navbar-appbar" elevation={0}>
           <Toolbar className="navbar-toolbar">
-            {/* LEFT: LOGO */}
             <NavLink to="/" className="navbar-logo-NavLink">
               <img
                 src="/images/logo.avif"
@@ -130,7 +126,14 @@ export default function Navbar({ backendUrl }) {
 
               {isMobile && (
                 <>
-                  <Account />
+                  <Account
+                    anchorElAccount={anchorElAccount}
+                    setAnchorElAccount={setAnchorElAccount}
+                  />
+                  <Language
+                    anchorElLang={anchorElLang}
+                    setAnchorElLang={setAnchorElLang}
+                  />
                   <Theme />
                   <FavIcon />
                   <NavCart />

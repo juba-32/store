@@ -15,14 +15,12 @@ export default function SinglePro({ open, handleClose, productid, showToast }) {
   const theme = useTheme();
   const navigate = useNavigate();
   const user = getUser();
-  const { i18n } = useTranslation(); // 💡 لجلب اللغة الحالية
+  const { i18n } = useTranslation();
   const currentLang = i18n.language || "en";
-
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedImg, setSelectedImg] = useState("");
   const [activeTab, setActiveTab] = useState("DETAILS");
-
   const { isFavorite, handleFavClick, handleAddToCart } = useProductActions(
     product,
     showToast,
@@ -83,10 +81,14 @@ export default function SinglePro({ open, handleClose, productid, showToast }) {
       ? product.images
       : [product.image];
 
-  // 💡 استخراج البيانات المترجمة بناءً على اللغة المفعلة
-  const displayTitle = product.title?.[currentLang] || product.title?.["en"] || "";
-  const displayCategory = product.category?.[currentLang] || product.category?.["en"] || "";
-  const displayDescription = product.description?.[currentLang] || product.description?.["en"] || "No description available for this product.";
+  const displayTitle =
+    product.title?.[currentLang] || product.title?.["en"] || "";
+  const displayCategory =
+    product.category?.[currentLang] || product.category?.["en"] || "";
+  const displayDescription =
+    product.description?.[currentLang] ||
+    product.description?.["en"] ||
+    "No description available for this product.";
 
   return (
     <div
@@ -106,7 +108,7 @@ export default function SinglePro({ open, handleClose, productid, showToast }) {
       >
         <CloseIcon />
       </IconButton>
-      
+
       <div className="product-gallery-section">
         <div className="main-image-box">
           <img src={selectedImg} alt={displayTitle} />
