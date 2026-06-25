@@ -1,9 +1,23 @@
 import { useState, useEffect } from "react";
-import { Box, InputBase, Paper, List, ListItem, ListItemAvatar, Avatar, ListItemText, ClickAwayListener, CircularProgress } from "@mui/material";
+import {
+  Box,
+  InputBase,
+  Paper,
+  List,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
+  ClickAwayListener,
+  CircularProgress,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 export function DropdownSearchInput({ backendUrl }) {
+  const { t, i18n } = useTranslation();
+
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState(query);
@@ -45,12 +59,26 @@ export function DropdownSearchInput({ backendUrl }) {
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
-      <Box sx={{ position: "relative", width: { xs: "100%", sm: "100%", md: "100%", lg: 300 } }}>
-        <Box sx={{ display: "flex", alignItems: "center", px: 2, py: 0.5, bgcolor: "background.paper", borderRadius: 1 }}>
-          <SearchIcon sx={{color:"gray"}}/>
+      <Box
+        sx={{
+          position: "relative",
+          width: { xs: "100%", sm: "100%", md: "100%", lg: 300 },
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            px: 2,
+            py: 0.5,
+            bgcolor: "background.paper",
+            borderRadius: 1,
+          }}
+        >
+          <SearchIcon sx={{ color: "gray" }} />
           <InputBase
             fullWidth
-            placeholder="Search products..."
+            placeholder={t("search.Search Products")}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => debouncedQuery && setOpenDropdown(true)}
@@ -58,14 +86,39 @@ export function DropdownSearchInput({ backendUrl }) {
           {loading && <CircularProgress size={20} sx={{ ml: 1 }} />}
         </Box>
         {openDropdown && results.length > 0 && (
-          <Paper sx={{ position: "absolute", top: "100%", left: 0, right: 0, mt: 1, zIndex: 10, maxHeight: 300, overflowY: "auto", boxShadow: 3 }}>
+          <Paper
+            sx={{
+              position: "absolute",
+              top: "100%",
+              left: 0,
+              right: 0,
+              mt: 1,
+              zIndex: 10,
+              maxHeight: 300,
+              overflowY: "auto",
+              boxShadow: 3,
+            }}
+          >
             <List>
               {results.map((product) => (
-                <ListItem key={product._id} button onClick={() => navigate(`/products/${product._id}`)}>
+                <ListItem
+                  key={product._id}
+                  button
+                  onClick={() => navigate(`/products/${product._id}`)}
+                >
                   <ListItemAvatar>
-                    <Avatar src={product.image} variant="square" sx={{ width: 50, height: 50 }} />
+                    <Avatar
+                      src={product.image}
+                      variant="square"
+                      sx={{ width: 50, height: 50 }}
+                    />
                   </ListItemAvatar>
-                  <ListItemText primary={product.title} secondary={`$${product.price}`} />
+                  <ListItemText
+                    primary={
+                      product.title?.[i18n.language] || product.title?.en || ""
+                    }
+                    secondary={`$${product.price}`}
+                  />
                 </ListItem>
               ))}
             </List>

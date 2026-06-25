@@ -26,7 +26,7 @@ import useToast from "../../../hooks/useToast";
 import Toast from "../../toast/Toast";
 
 export default function Search({ mode = "global", backendUrl }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const location = useLocation();
   const { open, productId, openModal, closeModal } = useModal();
@@ -141,7 +141,7 @@ export default function Search({ mode = "global", backendUrl }) {
                     <ListItemText
                       primary={
                         <Typography className="search-title">
-                          {product.title}
+                          {product.title?.[i18n.language] || product.title?.en}
                         </Typography>
                       }
                       secondary={
