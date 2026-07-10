@@ -2,13 +2,16 @@
 
 A modern full-stack eCommerce web application built with React, Node.js, Express, and MongoDB.
 The app includes authentication, product management, cart, orders, and a responsive admin/user interface.
+## 📸 Preview
 
-🚀 Live Demo
+<p align="center">
+  <img src="https://a-bendary.vercel.app/assets/nelly-DPIdoXMc.webp" alt="Nelly store Preview" width="100%">
+</p>
+🚀 Live Demo https://nelly-mu.vercel.app/
 
-Frontend: https://nelly-mu.vercel.app/
+##✨ Features
 
-✨ Features
-👤 Authentication
+Authentication
 
 User signup & login
 
