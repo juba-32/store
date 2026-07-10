@@ -5,7 +5,7 @@ The app includes authentication, product management, cart, orders, and a respons
 
 🚀 Live Demo
 
-Frontend: [https://your-frontend.vercel.app](https://nelly-mu.vercel.app/)
+Frontend: https://nelly-mu.vercel.app/
 
 ✨ Features
 👤 Authentication
