@@ -96,7 +96,7 @@ export default function ProductCard({ pro, openModal, showToast }) {
             className="card-add-to-cart-btn"
             onClick={() => handleAddToCart(1)}
           >
-            Add to cart
+            +
           </button>
         </div>
       </div>
